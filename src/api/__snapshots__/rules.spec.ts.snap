@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rules should find all Dog stuff 1`] = `
+Array [
+  ArchSubject {
+    "name": "DogService",
+  },
+  ArchSubject {
+    "name": "DogController",
+  },
+  ArchSubject {
+    "name": "DogModel",
+  },
+]
+`;
+
+exports[`Rules should find all Dog things by prefix 1`] = `
+Array [
+  ArchSubject {
+    "name": "DogService",
+  },
+  ArchSubject {
+    "name": "DogController",
+  },
+  ArchSubject {
+    "name": "DogModel",
+  },
+]
+`;
+
+exports[`Rules should find all Services by suffix 1`] = `
+Array [
+  ArchSubject {
+    "name": "DogService",
+  },
+]
+`;
+
+exports[`Rules should find all controllers 1`] = `
+Array [
+  ArchSubject {
+    "name": "DogController",
+  },
+  ArchSubject {
+    "name": "CatController",
+  },
+]
+`;
+
+exports[`Rules should not find all Dog things by suffix 1`] = `Array []`;
+
+exports[`Rules should not find all Services by prefix 1`] = `Array []`;
