@@ -65,28 +65,28 @@ describe('Rules', () => {
   it('should find all Services by suffix', () => {
     const pipe = TSArch.defineThat()
       .allSubjects()
-      .withNameSuffix('Service') //TODO this is the wrong result
+      .withNameSuffix('Service')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should find all Dog things by prefix', () => {
     const pipe = TSArch.defineThat()
       .allSubjects()
-      .withNamePrefix('Dog') //TODO this is the wrong result
+      .withNamePrefix('Dog')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should not find all Dog things by suffix', () => {
     const pipe = TSArch.defineThat()
       .allSubjects()
-      .withNameSuffix('Dog') //TODO this is the wrong result
+      .withNameSuffix('Dog')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should not find all Services by prefix', () => {
     const pipe = TSArch.defineThat()
       .allSubjects()
-      .withNamePrefix('Service') //TODO this is the wrong result
+      .withNamePrefix('Service')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 })
