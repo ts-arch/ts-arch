@@ -1,21 +1,30 @@
 import { TSArch } from './core/TSArch'
-import { ArchSubject } from './core/abstract/ArchSubject'
+import { FileSubject } from './core/subject/FileSubject'
 describe('Rules', () => {
   let subjects
 
   beforeEach(() => {
     subjects = [
-      new ArchSubject('DogService'),
-      new ArchSubject('DogController'),
-      new ArchSubject('DogModel'),
-      new ArchSubject('CatController'),
-      new ArchSubject('CatFactory')
+      new FileSubject('DogService', 'C://project/src/service'),
+      new FileSubject('DogController', 'C://project/src/controller'),
+      new FileSubject('DogModel', 'C://project/src/model'),
+      new FileSubject('CatController', 'C://project/src/controller'),
+      new FileSubject('CatFactory', 'C://project/src/factory')
     ]
+  })
+
+  it('all files should have no subjects is false', () => {
+    const rule = TSArch.defineThat()
+      .files()
+      .should()
+      .not()
+      .haveSubjects()
+    expect(rule.check(subjects)).toBeFalsy()
   })
 
   it('all subjects should have no subjects is false', () => {
     const rule = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .should()
       .not()
       .haveSubjects()
@@ -24,7 +33,7 @@ describe('Rules', () => {
 
   it('all subjects should have subjects is true', () => {
     const rule = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .should()
       .haveSubjects()
     expect(rule.check(subjects)).toBeTruthy()
@@ -32,7 +41,7 @@ describe('Rules', () => {
 
   it('all subjects with name matching x should have subjects is false', () => {
     const rule = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNameMatching(/x/)
       .should()
       .haveSubjects()
@@ -41,7 +50,7 @@ describe('Rules', () => {
 
   it('all subjects with name matching .* should have subjects is true', () => {
     const rule = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNameMatching(/.*/)
       .should()
       .haveSubjects()
@@ -50,43 +59,50 @@ describe('Rules', () => {
 
   it('should find all controllers', () => {
     const pipe = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNameMatching(/Controller/)
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should find all Dog stuff', () => {
     const pipe = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNameMatching(/Dog/)
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should find all Services by suffix', () => {
     const pipe = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNameSuffix('Service')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should find all Dog things by prefix', () => {
     const pipe = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNamePrefix('Dog')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should not find all Dog things by suffix', () => {
     const pipe = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNameSuffix('Dog')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 
   it('should not find all Services by prefix', () => {
     const pipe = TSArch.defineThat()
-      .allSubjects()
+      .all()
       .withNamePrefix('Service')
+    expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
+  })
+
+  it('should find all Services by file suffix', () => {
+    const pipe = TSArch.defineThat()
+      .files()
+      .withNameSuffix('Service')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
 })

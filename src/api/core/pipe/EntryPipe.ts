@@ -8,7 +8,11 @@ export class EntryPipe extends ArchRulePipe {
     super(null)
   }
 
-  public allSubjects(): AllSubjectsPipe {
+  public all(): AllSubjectsPipe {
+    return new AllSubjectsPipe()
+  }
+
+  public files(): AllSubjectsPipe {
     return new AllSubjectsPipe()
   }
 }
