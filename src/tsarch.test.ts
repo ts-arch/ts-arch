@@ -1,4 +1,4 @@
-import DummyClass from '../src/tsarch'
+import DummyClass from './tsarch'
 
 /**
  * Dummy test
