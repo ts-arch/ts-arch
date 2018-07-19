@@ -1,3 +1,4 @@
+import ArchRule from './archRule'
 export default class ShouldMediator<T> {
   private subjects: T[]
 
@@ -9,7 +10,11 @@ export default class ShouldMediator<T> {
     return this.subjects
   }
 
-  public beEmpty(): boolean {
-    return this.subjects.length === 0
+  //public beEmpty(): boolean {
+  //  return this.subjects.length === 0
+  //}
+
+  public beEmpty(): ArchRule {
+    return new ArchRule()
   }
 }

@@ -1,15 +1,11 @@
-import ArchClass from './archClass'
 import ShouldMediator from './shouldMediator'
+import ArchRule from './archRule'
 
-export default class ArchRuleClasses {
-  private classes: ArchClass[]
-
-  constructor(toInclude: ArchClass[] = []) {
-    this.classes = toInclude
-  }
-
-  public getClasses(): ArchClass[] {
-    return this.classes
+export default class ArchRuleClasses extends ArchRule {
+  constructor(previousTransferFn: ArchRuleTransferFunction) {
+    const previousFn = this.getTransferFn
+    const fn = () => {}
+    this.setTransferFn()
   }
 
   public withNameMatching(regex: RegExp) {

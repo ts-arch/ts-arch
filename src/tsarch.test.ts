@@ -1,14 +1,24 @@
-import DummyClass from './tsarch'
+interface TransferFunctionData {
+  subjects: string[]
+}
 
-/**
- * Dummy test
- */
+interface TransferFunction {
+  (data: TransferFunctionData): TransferFunctionData
+}
+
 describe('Dummy test', () => {
-  it('works if true is truthy', () => {
-    expect(true).toBeTruthy()
-  })
+  it('playground', () => {
+    let fn: TransferFunction = (data: TransferFunctionData) => data
 
-  it('DummyClass is instantiable', () => {
-    expect(new DummyClass()).toBeInstanceOf(DummyClass)
+    let input: TransferFunctionData = {
+      subjects: ['a', 'aaaaa', 'bbb', 'asdasd']
+    }
+
+    let filter: TransferFunction = (data: TransferFunctionData) => {
+      data.subjects = data.subjects.filter(s => s.length > 3)
+      return data
+    }
+
+    console.log(filter(fn(input)))
   })
 })

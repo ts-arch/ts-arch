@@ -1,7 +1,6 @@
-import ArchClasses from './archRuleClasses'
-import ArchClass from './archClass'
+import ArchRuleClasses from './archRuleClasses'
 export default class ArchRuleDefinition {
-  public static classes(toInclude: ArchClass[] = []) {
-    return new ArchClasses(toInclude)
+  public static classes() {
+    return new ArchRuleClasses()
   }
 }
