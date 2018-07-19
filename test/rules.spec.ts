@@ -1,5 +1,5 @@
-import { TSArch } from './core/TSArch'
-import { FileSubject } from './core/subject/FileSubject'
+import { FileSubject } from '../src/api/core/subject/FileSubject'
+import { TSArch } from '../src/tsarch'
 describe('Rules', () => {
   let subjects
 
