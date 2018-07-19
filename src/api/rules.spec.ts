@@ -29,4 +29,22 @@ describe('Rules', () => {
       .haveSubjects()
     expect(rule.check(subjects)).toBeTruthy()
   })
+
+  it('all subjects with name matching x should have subjects is false', () => {
+    const rule = TSArch.defineThat()
+      .allSubjects()
+      .withNameMatching(/x/)
+      .should()
+      .haveSubjects()
+    expect(rule.check(subjects)).toBeFalsy()
+  })
+
+  it('all subjects with name matching .* should have subjects is true', () => {
+    const rule = TSArch.defineThat()
+      .allSubjects()
+      .withNameMatching(/.*/)
+      .should()
+      .haveSubjects()
+    expect(rule.check(subjects)).toBeTruthy()
+  })
 })
