@@ -13,6 +13,7 @@ export class AllFilesPipe extends ArchRulePipe {
   }
 
   public filterSubjects(subjects: ArchSubject[]): ArchSubject[] {
+    // TODO subjects is not an array when using project console.log(super.filterSubjects(subjects[0]));
     return super.filterSubjects(subjects).filter(s => s instanceof FileSubject)
   }
 
