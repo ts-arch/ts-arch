@@ -9,10 +9,6 @@ export class AllSubjectsPipe extends ArchRulePipe {
     super(null)
   }
 
-  public filterSubjects(subjects: ArchSubject[]): ArchSubject[] {
-    return subjects
-  }
-
   public should(): ShouldPipe {
     return new ShouldPipe(this)
   }

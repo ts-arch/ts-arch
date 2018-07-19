@@ -7,7 +7,7 @@ export class HaveSubjectsRule extends ArchRule {
     super(input)
   }
 
-  public check(subjects: ArchSubject[]): boolean {
+  public checkCondition(subjects: ArchSubject[]): boolean {
     return this.input.filterSubjects(subjects).length > 0
   }
 }

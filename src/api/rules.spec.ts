@@ -17,7 +17,8 @@ describe('Rules', () => {
     const rule = TSArch.defineThat()
       .allSubjects()
       .should()
-      .haveNoSubjects()
+      .not()
+      .haveSubjects()
     expect(rule.check(subjects)).toBeFalsy()
   })
 
