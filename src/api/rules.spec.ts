@@ -105,4 +105,11 @@ describe('Rules', () => {
       .withNameSuffix('Service')
     expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
   })
+
+  it('should find all Services by matching path', () => {
+    const pipe = TSArch.defineThat()
+      .files()
+      .withPathMatching('.*service.*')
+    expect(pipe.filterSubjects(subjects)).toMatchSnapshot()
+  })
 })

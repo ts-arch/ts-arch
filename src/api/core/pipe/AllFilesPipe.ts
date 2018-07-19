@@ -5,6 +5,7 @@ import { HaveNoSubjectsRule } from '../rule/HaveNoSubjectsRule'
 import { ShouldPipe } from './ShouldPipe'
 import { SubjectsNameFilterPipe } from './SubjectsNameFilterPipe'
 import { FileSubject } from '../subject/FileSubject'
+import { FilePathFilterPipe } from './FilePathFilterPipe'
 
 export class AllFilesPipe extends ArchRulePipe {
   constructor() {
@@ -13,6 +14,10 @@ export class AllFilesPipe extends ArchRulePipe {
 
   public filterSubjects(subjects: ArchSubject[]): ArchSubject[] {
     return super.filterSubjects(subjects).filter(s => s instanceof FileSubject)
+  }
+
+  public withPathMatching(regex: RegExp): FilePathFilterPipe {
+    return new FilePathFilterPipe(this, regex)
   }
 
   public withNameMatching(regex: RegExp): SubjectsNameFilterPipe {

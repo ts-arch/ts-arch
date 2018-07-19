@@ -43,6 +43,15 @@ Array [
 ]
 `;
 
+exports[`Rules should find all Services by matching path 1`] = `
+Array [
+  FileSubject {
+    "name": "DogService",
+    "path": "C://project/src/service",
+  },
+]
+`;
+
 exports[`Rules should find all Services by suffix 1`] = `
 Array [
   FileSubject {
