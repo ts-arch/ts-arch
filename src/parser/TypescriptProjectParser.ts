@@ -1,4 +1,5 @@
-import { File, TypescriptParser } from 'typescript-parser'
+import { File } from 'typescript-parser'
+import { TypescriptParser } from 'typescript-parser/TypescriptParser'
 import { default as G } from 'glob'
 import { ArchProject } from '../api/core/ArchProject'
 import { FileSubject } from '../api/core/subject/FileSubject'

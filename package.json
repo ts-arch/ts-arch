@@ -95,7 +95,7 @@
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
     "rollup": "^0.59.2",
-    "rollup-plugin-commonjs": "^9.0.0",
+    "rollup-plugin-commonjs": "https://github.com/mrpatpat/rollup-plugin-commonjs.git",
     "rollup-plugin-json": "^3.0.0",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
