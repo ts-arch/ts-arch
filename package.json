@@ -12,7 +12,7 @@
   "author": "mrpatpat <adrian.endrich@googlemail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mrpatpat/ts-arch.git"
   },
   "license": "MIT",
   "engines": {
