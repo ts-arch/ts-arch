@@ -3,6 +3,8 @@ branches:
   only:
     - master
     - /^greenkeeper/.*$/
+install:
+  - npm install
 cache:
   yarn: true
   directories:
