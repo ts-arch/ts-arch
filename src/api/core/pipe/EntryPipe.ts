@@ -3,7 +3,6 @@ import { ArchRulePipe } from '../abstract/ArchRulePipe'
 import { AllSubjectsPipe } from './AllSubjectsPipe'
 import { AllFilesPipe } from './AllFilesPipe'
 
-//TODO it is propably better to differntiate between sources and pipes since sources have no previous pipe and the modifier is fix
 export class EntryPipe extends ArchRulePipe {
   constructor() {
     super(null)
