@@ -1,5 +1,5 @@
 import { TSArch } from '../src/tsarch'
-import '../src/jest-ts-arch/TsArchMatchers'
+import '../src/jest/ArchMatchers'
 
 describe('Parser', () => {
   it('all files in pipes folder of this project should be named ...Pipe.ts', async () => {
