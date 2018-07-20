@@ -21,6 +21,7 @@
   "scripts": {
     "lint": "tslint -t codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
+    "prepush": "npm run test:prod && npm run build",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
     "test": "jest",
@@ -28,6 +29,7 @@
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "commit": "git-cz",
+    "commitmsg": "validate-commit-msg",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
