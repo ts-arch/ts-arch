@@ -1,4 +1,3 @@
-import { ArchSubject } from './ArchSubject'
 import { ArchRulePipe } from '../abstract/ArchRulePipe'
 import { AllSubjectsPipe } from './AllSubjectsPipe'
 import { AllFilesPipe } from './AllFilesPipe'

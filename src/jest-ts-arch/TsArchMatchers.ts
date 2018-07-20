@@ -28,4 +28,4 @@ expect.extend({
       }
     }
   }
-})
+} as any)

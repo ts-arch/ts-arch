@@ -3,7 +3,7 @@ import { ArchRulePipe } from './ArchRulePipe'
 import { ArchProject } from '../ArchProject'
 
 export abstract class ArchRule {
-  constructor(private input: ArchRulePipe) {}
+  constructor(public input: ArchRulePipe) {}
 
   abstract checkCondition(subjects: ArchSubject[]): boolean
 

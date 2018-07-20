@@ -1,6 +1,6 @@
-import { ArchSubject } from './ArchSubject'
 import { ArchRule } from '../abstract/ArchRule'
 import { ArchRulePipe } from '../abstract/ArchRulePipe'
+import { ArchSubject } from '../abstract/ArchSubject'
 
 export class MatchNameRule extends ArchRule {
   constructor(input: ArchRulePipe, private regex: RegExp) {

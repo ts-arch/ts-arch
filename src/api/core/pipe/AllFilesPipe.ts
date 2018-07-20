@@ -1,11 +1,10 @@
-import { ArchSubject } from './ArchSubject'
 import { ArchRulePipe } from '../abstract/ArchRulePipe'
 import { ArchRule } from '../abstract/ArchRule'
-import { HaveNoSubjectsRule } from '../rule/HaveNoSubjectsRule'
 import { ShouldPipe } from './ShouldPipe'
 import { SubjectsNameFilterPipe } from './SubjectsNameFilterPipe'
 import { FileSubject } from '../subject/FileSubject'
 import { FilePathFilterPipe } from './FilePathFilterPipe'
+import { ArchSubject } from '../abstract/ArchSubject'
 
 export class AllFilesPipe extends ArchRulePipe {
   constructor() {

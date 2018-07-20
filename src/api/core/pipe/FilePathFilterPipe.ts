@@ -1,8 +1,7 @@
-import { ArchSubject } from './ArchSubject'
 import { ArchRulePipe } from '../abstract/ArchRulePipe'
-import { HaveNoSubjectsRule } from '../rule/HaveNoSubjectsRule'
 import { ShouldPipe } from './ShouldPipe'
 import { FileSubject } from '../subject/FileSubject'
+import { ArchSubject } from '../abstract/ArchSubject'
 
 export class FilePathFilterPipe extends ArchRulePipe {
   constructor(input: ArchRulePipe, private regex: RegExp) {
@@ -12,8 +11,8 @@ export class FilePathFilterPipe extends ArchRulePipe {
   public filterSubjects(subjects: ArchSubject[]): ArchSubject[] {
     return super
       .filterSubjects(subjects)
-      .filter(s => s instanceof FileSubject) // this should not be necessary but let us stay safe TODO maybe make Pipes generic for different subject types
-      .filter(s => s.getPath().match(this.regex))
+      .filter(s => s instanceof FileSubject)
+      .filter(s => (s as FileSubject).getPath().match(this.regex))
   }
 
   public should(): ShouldPipe {

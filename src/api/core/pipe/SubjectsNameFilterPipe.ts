@@ -1,7 +1,6 @@
-import { ArchSubject } from './ArchSubject'
 import { ArchRulePipe } from '../abstract/ArchRulePipe'
-import { HaveNoSubjectsRule } from '../rule/HaveNoSubjectsRule'
 import { ShouldPipe } from './ShouldPipe'
+import { ArchSubject } from '../abstract/ArchSubject'
 
 export class SubjectsNameFilterPipe extends ArchRulePipe {
   constructor(input: ArchRulePipe, private regex: RegExp) {

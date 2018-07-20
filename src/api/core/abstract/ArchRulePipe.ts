@@ -1,7 +1,7 @@
 import { ArchSubject } from './ArchSubject'
 
 export abstract class ArchRulePipe {
-  constructor(private input: ArchRulePipe) {}
+  constructor(private input: ArchRulePipe | null) {}
 
   public filterSubjects(subjects: ArchSubject[]): ArchSubject[] {
     return this.input ? this.input.filterSubjects(subjects) : subjects
