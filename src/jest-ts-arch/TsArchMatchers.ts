@@ -2,15 +2,15 @@ import { ArchProject } from '../api/core/ArchProject'
 import { ArchRule } from '../api/core/abstract/ArchRule'
 
 expect.extend({
-  toMatchArchRule(project: ArchProject, ruleToMatch: ArchRule) {
-    if (project == null) {
+  toMatchArchRule(project: ArchProject | null, ruleToMatch: ArchRule | null) {
+    if (project === null) {
       return {
         pass: false,
         message: () => 'expected project as input'
       }
     }
 
-    if (ruleToMatch == null) {
+    if (ruleToMatch === null) {
       return {
         pass: false,
         message: () => 'expected rule to match against'
