@@ -1,6 +1,6 @@
 {
   "name": "tsarch",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "",
   "keywords": [],
   "main": "dist/tsarch.umd.js",
@@ -31,7 +31,8 @@
     "commit": "git-cz",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "travis-deploy-once": "travis-deploy-once"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [
@@ -99,7 +100,7 @@
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
     "rollup-plugin-typescript2": "^0.11.1",
-    "semantic-release": "^15.0.0",
+    "semantic-release": "^15.8.1",
     "ts-jest": "^22.0.0",
     "ts-node": "^6.0.0",
     "tslint": "^5.8.0",
@@ -108,6 +109,7 @@
     "typedoc": "^0.11.0",
     "typescript": "^2.6.2",
     "typescript-parser": "^2.5.0",
-    "validate-commit-msg": "^2.12.2"
+    "validate-commit-msg": "^2.12.2",
+    "travis-deploy-once": "^5.0.1"
   }
 }
