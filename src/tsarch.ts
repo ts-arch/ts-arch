@@ -8,8 +8,7 @@ export class TSArch {
   }
 
   static async parseTypescriptProject(path: string): Promise<ArchProject> {
-    const parser = new TypescriptProjectParser()
-    const project = await parser.parse(path)
+    const project = await TypescriptProjectParser.parse(path)
     return project
   }
 }

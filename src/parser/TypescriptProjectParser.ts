@@ -4,9 +4,9 @@ import { ArchProject } from '../api/core/ArchProject'
 import { FileSubject } from '../api/core/subject/FileSubject'
 
 export class TypescriptProjectParser {
-  public async parse(rootPath: string): Promise<ArchProject> {
+  public static async parse(rootPath: string): Promise<ArchProject> {
     const parser = new TypescriptParser()
-    const fileNames = await this.getFileNames(rootPath + '/**/*.ts')
+    const fileNames = await TypescriptProjectParser.getFileNames(rootPath + '/**/*.ts')
     const parsed: File[] = await parser.parseFiles(fileNames, 'ROOT')
     const project = new ArchProject()
     parsed.forEach(file => {
@@ -16,7 +16,7 @@ export class TypescriptProjectParser {
     return project
   }
 
-  public async getFileNames(globPattern: string): Promise<string[]> {
+  public static async getFileNames(globPattern: string): Promise<string[]> {
     return new Promise((resolve, reject) => {
       Glob(globPattern, (err, files: string[]) => {
         if (err) {
