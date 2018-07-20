@@ -1,5 +1,5 @@
 {
-  "name": "tsarch",
+  "name": "ts-arch",
   "version": "0.0.0-development",
   "description": "",
   "keywords": [],
@@ -12,7 +12,7 @@
   "author": "mrpatpat <adrian.endrich@googlemail.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mrpatpat/ts-arch"
   },
   "license": "MIT",
   "engines": {
