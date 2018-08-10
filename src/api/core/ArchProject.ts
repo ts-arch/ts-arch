@@ -14,4 +14,8 @@ export class ArchProject {
   public sayHello() {
     console.log('hello')
   }
+
+  public sayBye() {
+    console.log('bye')
+  }
 }
