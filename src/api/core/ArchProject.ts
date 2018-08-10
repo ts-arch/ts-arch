@@ -10,4 +10,8 @@ export class ArchProject {
   public getSubjects(): ArchSubject[] {
     return this.subjects
   }
+
+  public sayHello() {
+    console.log('hello')
+  }
 }
