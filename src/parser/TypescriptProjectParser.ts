@@ -1,6 +1,5 @@
 import { File } from "typescript-parser"
 import { TypescriptParser } from "typescript-parser/TypescriptParser"
-import * as G from "glob"
 import { ArchProject } from "../api/core/ArchProject"
 import { FileSubject } from "../api/core/subject/FileSubject"
 
@@ -19,7 +18,8 @@ export class TypescriptProjectParser {
 
 	public static async getFileNames(globPattern: string): Promise<string[]> {
 		return new Promise<string[]>((resolve, reject) => {
-			G(globPattern, (err, files: string[]) => {
+			const glob = require("glob")
+			glob(globPattern, (err, files: string[]) => {
 				if (err) {
 					reject(err)
 					return
