@@ -1,7 +1,7 @@
 import { File } from "typescript-parser"
 import { TypescriptParser } from "typescript-parser/TypescriptParser"
 import { ArchProject } from "../api/core/ArchProject"
-import { FileSubject } from "../api/core/subject/FileSubject"
+import { FileSubjectFactory } from "../api/core/subject/FileSubjectFactory"
 
 export class TypescriptProjectParser {
 	public static async parse(rootPath: string): Promise<ArchProject> {
@@ -10,7 +10,7 @@ export class TypescriptProjectParser {
 		const parsed: File[] = await parser.parseFiles(fileNames, "ROOT")
 		const project = new ArchProject()
 		parsed.forEach(file => {
-			const fileSubject = new FileSubject(file.parsedPath.base, file.parsedPath.dir)
+			const fileSubject = FileSubjectFactory.buildFromFile(file)
 			project.addSubject(fileSubject)
 		})
 		return project

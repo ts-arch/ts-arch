@@ -1,16 +1,11 @@
-import { FileSubject } from "../src/api/core/subject/FileSubject"
 import { TSArch } from "../src/tsarch"
-describe("Rules", () => {
+import { generateAnimalSubjectsMock } from "./generators"
+
+describe("Basic Rules", () => {
 	let subjects
 
 	beforeEach(() => {
-		subjects = [
-			new FileSubject("DogService", "C://project/src/service"),
-			new FileSubject("DogController", "C://project/src/controller"),
-			new FileSubject("DogModel", "C://project/src/model"),
-			new FileSubject("CatController", "C://project/src/controller"),
-			new FileSubject("CatFactory", "C://project/src/factory")
-		]
+		subjects = generateAnimalSubjectsMock()
 	})
 
 	it("all files should have no subjects is false", () => {

@@ -1,79 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Rules should find all Dog stuff 1`] = `
+exports[`Basic Rules should find all Dog stuff 1`] = `
 Array [
   FileSubject {
+    "dir": "C://project/src/service",
     "name": "DogService",
-    "path": "C://project/src/service",
   },
   FileSubject {
+    "dir": "C://project/src/controller",
     "name": "DogController",
-    "path": "C://project/src/controller",
   },
   FileSubject {
+    "dir": "C://project/src/model",
     "name": "DogModel",
-    "path": "C://project/src/model",
   },
 ]
 `;
 
-exports[`Rules should find all Dog things by prefix 1`] = `
+exports[`Basic Rules should find all Dog things by prefix 1`] = `
 Array [
   FileSubject {
+    "dir": "C://project/src/service",
     "name": "DogService",
-    "path": "C://project/src/service",
   },
   FileSubject {
+    "dir": "C://project/src/controller",
     "name": "DogController",
-    "path": "C://project/src/controller",
   },
   FileSubject {
+    "dir": "C://project/src/model",
     "name": "DogModel",
-    "path": "C://project/src/model",
   },
 ]
 `;
 
-exports[`Rules should find all Services by file suffix 1`] = `
+exports[`Basic Rules should find all Services by file suffix 1`] = `
 Array [
   FileSubject {
+    "dir": "C://project/src/service",
     "name": "DogService",
-    "path": "C://project/src/service",
   },
 ]
 `;
 
-exports[`Rules should find all Services by matching path 1`] = `
+exports[`Basic Rules should find all Services by matching path 1`] = `
 Array [
   FileSubject {
+    "dir": "C://project/src/service",
     "name": "DogService",
-    "path": "C://project/src/service",
   },
 ]
 `;
 
-exports[`Rules should find all Services by suffix 1`] = `
+exports[`Basic Rules should find all Services by suffix 1`] = `
 Array [
   FileSubject {
+    "dir": "C://project/src/service",
     "name": "DogService",
-    "path": "C://project/src/service",
   },
 ]
 `;
 
-exports[`Rules should find all controllers 1`] = `
+exports[`Basic Rules should find all controllers 1`] = `
 Array [
   FileSubject {
+    "dir": "C://project/src/controller",
     "name": "DogController",
-    "path": "C://project/src/controller",
   },
   FileSubject {
+    "dir": "C://project/src/controller",
     "name": "CatController",
-    "path": "C://project/src/controller",
   },
 ]
 `;
 
-exports[`Rules should not find all Dog things by suffix 1`] = `Array []`;
+exports[`Basic Rules should not find all Dog things by suffix 1`] = `Array []`;
 
-exports[`Rules should not find all Services by prefix 1`] = `Array []`;
+exports[`Basic Rules should not find all Services by prefix 1`] = `Array []`;

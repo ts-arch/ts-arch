@@ -1,6 +1,6 @@
 import { ArchRulePipe } from "../abstract/ArchRulePipe"
 import { HaveSubjectsRule } from "./HaveSubjectsRule"
-import { FileSubject } from "../subject/FileSubject"
+import { generateFileSubjectMock } from "../../../../test/generators"
 
 describe("'have subjects rule'", () => {
 	let input
@@ -21,7 +21,10 @@ describe("'have subjects rule'", () => {
 
 	it("should be true when given subjects", () => {
 		expect(
-			rule.checkCondition([new FileSubject("a", "a"), new FileSubject("a", "a")])
+			rule.checkCondition([
+				generateFileSubjectMock("a", "a"),
+				generateFileSubjectMock("a", "a")
+			])
 		).toBeTruthy()
 	})
 })
