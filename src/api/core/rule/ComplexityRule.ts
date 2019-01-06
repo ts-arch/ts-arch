@@ -1,9 +1,9 @@
 import { ArchRule } from "../abstract/ArchRule"
 import { ArchRulePipe } from "../abstract/ArchRulePipe"
 import { ArchSubject } from "../abstract/ArchSubject"
-import * as ts from "typescript"
-import * as fs from "fs"
 import { FileSubject } from "../subject/FileSubject"
+import { readFileSync } from "fs"
+import { createSourceFile, ScriptTarget, Node, SyntaxKind } from "typescript"
 
 export class ComplexityRule extends ArchRule {
 	constructor(input: ArchRulePipe, private value: number) {
@@ -28,23 +28,23 @@ export class ComplexityRule extends ArchRule {
 	// TODO move official typescript parser to Project parser and kick package typescript-parser
 	// TODO another option is to use lazy loading like now and then use a cache for already loaded ast's
 	public getMcc(subject: FileSubject): number {
-		const sourceFile = ts.createSourceFile(
+		const sourceFile = createSourceFile(
 			subject.getName(),
-			fs.readFileSync(subject.getPath() + "/" + subject.getName()).toString(),
-			ts.ScriptTarget.ESNext,
+			readFileSync(subject.getPath() + "/" + subject.getName()).toString(),
+			ScriptTarget.ESNext,
 			false
 		)
 		return this.analyze(sourceFile)
 	}
 
-	private analyze(node: ts.Node) {
+	private analyze(node: Node) {
 		let mcc = 0
 		switch (node.kind) {
-			case ts.SyntaxKind.CaseClause:
-			case ts.SyntaxKind.DefaultClause:
-			case ts.SyntaxKind.IfStatement:
-			case ts.SyntaxKind.VariableDeclaration:
-			case ts.SyntaxKind.CallExpression:
+			case SyntaxKind.CaseClause:
+			case SyntaxKind.DefaultClause:
+			case SyntaxKind.IfStatement:
+			case SyntaxKind.VariableDeclaration:
+			case SyntaxKind.CallExpression:
 				mcc++
 				break
 		}
