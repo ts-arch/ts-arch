@@ -12,7 +12,7 @@ describe("Complexity Rules", () => {
 		const rule = TSArch.defineThat()
 			.files()
 			.should()
-			.haveComplexityLowerThan(50)
+			.haveComplexityLowerThan(60)
 
 		expect(project).toMatchArchRule(rule)
 	})
