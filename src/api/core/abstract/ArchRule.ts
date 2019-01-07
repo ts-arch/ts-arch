@@ -1,19 +1,27 @@
-import { ArchSubject } from './ArchSubject'
-import { ArchRulePipe } from './ArchRulePipe'
-import { ArchProject } from '../ArchProject'
+import { ArchSubject } from "./ArchSubject"
+import { ArchRulePipe } from "./ArchRulePipe"
+import { ArchProject } from "../ArchProject"
+import { ArchResult } from "../ArchResult"
 
 export abstract class ArchRule {
-  constructor(public input: ArchRulePipe) {}
+	private result: ArchResult
 
-  abstract checkCondition(subjects: ArchSubject[]): boolean
+	constructor(public input: ArchRulePipe) {
+		this.result = new ArchResult()
+	}
 
-  public check(subjects: ArchSubject[]): boolean {
-    return this.input.hasNotModifier()
-      ? !this.checkCondition(subjects)
-      : this.checkCondition(subjects)
-  }
+	abstract buildResult(subjects: ArchSubject[], hasNotModifier: boolean): ArchResult
 
-  public checkProject(project: ArchProject): boolean {
-    return this.check(project.getSubjects())
-  }
+	public check(subjects: ArchSubject[]): boolean {
+		this.result = this.buildResult(subjects, this.input.hasNotModifier())
+		return this.result.hasRulePassed()
+	}
+
+	public checkProject(project: ArchProject): boolean {
+		return this.check(project.getSubjects())
+	}
+
+	public getResult(): ArchResult {
+		return this.result
+	}
 }

@@ -32,4 +32,21 @@ describe("complexity rule", () => {
 		const subject = new FileSubject("A.ts", __dirname + "/complexitySamples")
 		expect(rule.check([subject])).toBe(false)
 	})
+
+	it("should generate correct results for not negated rule when given A.ts and B.ts", async () => {
+		rule = new ComplexityRule(input, 5)
+		const a = new FileSubject("A.ts", __dirname + "/complexitySamples")
+		const b = new FileSubject("B.ts", __dirname + "/complexitySamples")
+		expect(rule.check([a, b])).toBe(false)
+		expect(rule.getResult()).toMatchSnapshot()
+	})
+
+	it("should generate correct results for negated rule when given A.ts and B.ts", async () => {
+		rule = new ComplexityRule(input, 5)
+		input.hasNotModifier = () => true
+		const a = new FileSubject("A.ts", __dirname + "/complexitySamples")
+		const b = new FileSubject("B.ts", __dirname + "/complexitySamples")
+		expect(rule.check([a, b])).toBe(false)
+		expect(rule.getResult()).toMatchSnapshot()
+	})
 })

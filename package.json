@@ -20,6 +20,7 @@
   },
   "scripts": {
     "lint": "tslint -t codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
+    "clean": "rimraf dist",
     "prebuild": "rimraf dist",
     "prepush": "npm run test:prod && npm run build",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",

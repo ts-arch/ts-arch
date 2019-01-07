@@ -4,25 +4,28 @@ import { ArchSubject } from "../abstract/ArchSubject"
 import { FileSubject } from "../subject/FileSubject"
 import { readFileSync } from "fs"
 import { createSourceFile, ScriptTarget, Node, SyntaxKind } from "typescript"
+import { ArchResult } from "../ArchResult"
 
 export class ComplexityRule extends ArchRule {
 	constructor(input: ArchRulePipe, private value: number) {
 		super(input)
 	}
 
-	public checkCondition(subjects: ArchSubject[]): boolean {
+	public buildResult(subjects: ArchSubject[], hasNotModifier: boolean): ArchResult {
 		// TODO how can we manifest types in our pipelines
-		let passed = true
+		const result = new ArchResult()
 		subjects
 			.filter(s => s instanceof FileSubject)
 			.map(s => s as FileSubject)
 			.forEach(s => {
 				const mcc = this.getMcc(s)
 				if (mcc >= this.value) {
-					passed = false
+					result.addEntry(s, hasNotModifier, `${s.getName()} has MCC of ${mcc}.`)
+				} else {
+					result.addEntry(s, !hasNotModifier, `${s.getName()} has MCC of ${mcc}.`)
 				}
 			})
-		return passed // TODO return error objects
+		return result
 	}
 
 	// TODO move official typescript parser to Project parser and kick package typescript-parser

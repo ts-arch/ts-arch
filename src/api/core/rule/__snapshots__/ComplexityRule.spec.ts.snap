@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`complexity rule should generate correct results for negated rule when given A.ts and B.ts 1`] = `
+ArchResult {
+  "hasForceFailed": false,
+  "hasForcePassed": false,
+  "results": Array [
+    Object {
+      "info": "A.ts has MCC of 13.",
+      "pass": true,
+      "subject": FileSubject {
+        "dir": "C:\\\\Users\\\\AdrianE\\\\Desktop\\\\ts-arch\\\\src\\\\api\\\\core\\\\rule/complexitySamples",
+        "name": "A.ts",
+      },
+    },
+    Object {
+      "info": "B.ts has MCC of 2.",
+      "pass": false,
+      "subject": FileSubject {
+        "dir": "C:\\\\Users\\\\AdrianE\\\\Desktop\\\\ts-arch\\\\src\\\\api\\\\core\\\\rule/complexitySamples",
+        "name": "B.ts",
+      },
+    },
+  ],
+}
+`;
+
+exports[`complexity rule should generate correct results for not negated rule when given A.ts and B.ts 1`] = `
+ArchResult {
+  "hasForceFailed": false,
+  "hasForcePassed": false,
+  "results": Array [
+    Object {
+      "info": "A.ts has MCC of 13.",
+      "pass": false,
+      "subject": FileSubject {
+        "dir": "C:\\\\Users\\\\AdrianE\\\\Desktop\\\\ts-arch\\\\src\\\\api\\\\core\\\\rule/complexitySamples",
+        "name": "A.ts",
+      },
+    },
+    Object {
+      "info": "B.ts has MCC of 2.",
+      "pass": true,
+      "subject": FileSubject {
+        "dir": "C:\\\\Users\\\\AdrianE\\\\Desktop\\\\ts-arch\\\\src\\\\api\\\\core\\\\rule/complexitySamples",
+        "name": "B.ts",
+      },
+    },
+  ],
+}
+`;
