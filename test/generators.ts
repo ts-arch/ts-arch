@@ -1,22 +1,20 @@
 import { FileSubjectFactory } from "../src/api/core/subject/FileSubjectFactory"
+import { SourceFile } from "typescript"
 
-export const generatefileMock = (base, dir) =>
-	jest.fn<File>(() => {
+export const generatefileMock = fileName =>
+	jest.fn<SourceFile>(() => {
 		return {
-			parsedPath: {
-				base: base,
-				dir: dir
-			}
+			fileName: fileName
 		}
 	})()
 
-export const generateFileSubjectMock = (base, dir) =>
-	FileSubjectFactory.buildFromFile(generatefileMock(base, dir))
+export const generateFileSubjectMock = fileName =>
+	FileSubjectFactory.buildFromSourceFile(generatefileMock(fileName))
 
 export const generateAnimalSubjectsMock = () => [
-	generateFileSubjectMock("DogService", "C://project/src/service"),
-	generateFileSubjectMock("DogController", "C://project/src/controller"),
-	generateFileSubjectMock("DogModel", "C://project/src/model"),
-	generateFileSubjectMock("CatController", "C://project/src/controller"),
-	generateFileSubjectMock("CatFactory", "C://project/src/factory")
+	generateFileSubjectMock("C://project/src/service/DogService"),
+	generateFileSubjectMock("C://project/src/controller/DogController"),
+	generateFileSubjectMock("C://project/src/model/DogModel"),
+	generateFileSubjectMock("C://project/src/controller/CatController"),
+	generateFileSubjectMock("C://project/src/factory/CatFactory")
 ]

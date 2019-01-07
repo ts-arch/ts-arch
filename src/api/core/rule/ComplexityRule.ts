@@ -27,16 +27,8 @@ export class ComplexityRule extends ArchRule {
 		return result
 	}
 
-	// TODO move official typescript parser to Project parser and kick package typescript-parser
-	// TODO another option is to use lazy loading like now and then use a cache for already loaded ast's
 	public getMcc(subject: FileSubject): number {
-		const sourceFile = createSourceFile(
-			subject.getName(),
-			readFileSync(subject.getPath() + "/" + subject.getName()).toString(),
-			ScriptTarget.ESNext,
-			false
-		)
-		return this.analyze(sourceFile)
+		return this.analyze(subject.getSourceFile())
 	}
 
 	private analyze(node: Node) {

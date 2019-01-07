@@ -1,18 +1,24 @@
-import { File } from "typescript-parser"
-import { TypescriptParser } from "typescript-parser/TypescriptParser"
 import { ArchProject } from "../api/core/ArchProject"
 import { FileSubjectFactory } from "../api/core/subject/FileSubjectFactory"
+import { createProgram, ScriptTarget } from "typescript"
 
 export class TypescriptProjectParser {
 	public static async parse(rootPath: string): Promise<ArchProject> {
-		const parser = new TypescriptParser()
 		const fileNames = await TypescriptProjectParser.getFileNames(rootPath + "/**/*.ts")
-		const parsed: File[] = await parser.parseFiles(fileNames, "ROOT")
 		const project = new ArchProject()
-		parsed.forEach(file => {
-			const fileSubject = FileSubjectFactory.buildFromFile(file)
-			project.addSubject(fileSubject)
+
+		let program = createProgram(fileNames, {
+			target: ScriptTarget.ESNext
 		})
+
+		program.getSourceFiles().forEach(s => {
+			// TODO make this configurable ?
+			if (!s.fileName.endsWith(".d.ts") && !s.fileName.includes("node_modules")) {
+				const fileSubject = FileSubjectFactory.buildFromSourceFile(s)
+				project.addSubject(fileSubject)
+			}
+		})
+
 		return project
 	}
 

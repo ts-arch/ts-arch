@@ -21,9 +21,9 @@ describe("'have subjects rule'", () => {
 	})
 
 	it("should be true when given subjects", () => {
-		expect(
-			rule.check([generateFileSubjectMock("a", "a"), generateFileSubjectMock("a", "a")])
-		).toBe(true)
+		expect(rule.check([generateFileSubjectMock("a/a"), generateFileSubjectMock("a/a")])).toBe(
+			true
+		)
 	})
 
 	it("should be true when given no subjects and not modifier", () => {
@@ -33,8 +33,8 @@ describe("'have subjects rule'", () => {
 
 	it("should be false when given subjects and not modifier", () => {
 		input.hasNotModifier = () => true
-		expect(
-			rule.check([generateFileSubjectMock("a", "a"), generateFileSubjectMock("a", "a")])
-		).toBe(false)
+		expect(rule.check([generateFileSubjectMock("a/a"), generateFileSubjectMock("a/a")])).toBe(
+			false
+		)
 	})
 })

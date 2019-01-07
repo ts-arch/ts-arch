@@ -1,6 +1,5 @@
 import { ArchRulePipe } from "../abstract/ArchRulePipe"
 import { SubjectsNameFilterPipe } from "./SubjectsNameFilterPipe"
-import { FileSubject } from "../subject/FileSubject"
 import { generateFileSubjectMock } from "../../../../test/generators"
 describe("SubjectsNameFilterPipe", () => {
 	let input
@@ -22,9 +21,9 @@ describe("SubjectsNameFilterPipe", () => {
 	it("should filter given subjects correctly", () => {
 		expect(
 			pipe.filterSubjects([
-				generateFileSubjectMock("hello world", "a"),
-				generateFileSubjectMock("hi world", "a")
+				generateFileSubjectMock("a/hello world"),
+				generateFileSubjectMock("a/hi world")
 			])
-		).toEqual([generateFileSubjectMock("hello world", "a")])
+		).toEqual([generateFileSubjectMock("a/hello world")])
 	})
 })

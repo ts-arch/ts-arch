@@ -24,7 +24,7 @@ export default {
 		{ file: pkg.module, format: "es", sourcemap: true }
 	],
 	// Indicate here external modules you don't wanna include in your bundle (i.e.: 'lodash')
-	external: ["fs"],
+	external: ["fs", "path"],
 	watch: {
 		include: "src/**"
 	},
@@ -39,8 +39,7 @@ export default {
 				// left-hand side can be an absolute path, a path
 				// relative to the current directory, or the name
 				// of a module in node_modules
-				"typescript-parser": ["TypeScriptParser"],
-				"typescript": ["createSourceFile", "ScriptTarget", "SyntaxKind"],
+				"typescript": ["createSourceFile", "createProgram", "ScriptTarget", "SyntaxKind"],
 			}
 		}),
 		// shim node builtins

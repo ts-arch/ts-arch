@@ -5,14 +5,23 @@ Array [
   FileSubject {
     "dir": "C://project/src/service",
     "name": "DogService",
+    "sourceFile": Object {
+      "fileName": "C://project/src/service/DogService",
+    },
   },
   FileSubject {
     "dir": "C://project/src/controller",
     "name": "DogController",
+    "sourceFile": Object {
+      "fileName": "C://project/src/controller/DogController",
+    },
   },
   FileSubject {
     "dir": "C://project/src/model",
     "name": "DogModel",
+    "sourceFile": Object {
+      "fileName": "C://project/src/model/DogModel",
+    },
   },
 ]
 `;
@@ -22,14 +31,23 @@ Array [
   FileSubject {
     "dir": "C://project/src/service",
     "name": "DogService",
+    "sourceFile": Object {
+      "fileName": "C://project/src/service/DogService",
+    },
   },
   FileSubject {
     "dir": "C://project/src/controller",
     "name": "DogController",
+    "sourceFile": Object {
+      "fileName": "C://project/src/controller/DogController",
+    },
   },
   FileSubject {
     "dir": "C://project/src/model",
     "name": "DogModel",
+    "sourceFile": Object {
+      "fileName": "C://project/src/model/DogModel",
+    },
   },
 ]
 `;
@@ -39,6 +57,9 @@ Array [
   FileSubject {
     "dir": "C://project/src/service",
     "name": "DogService",
+    "sourceFile": Object {
+      "fileName": "C://project/src/service/DogService",
+    },
   },
 ]
 `;
@@ -48,6 +69,9 @@ Array [
   FileSubject {
     "dir": "C://project/src/service",
     "name": "DogService",
+    "sourceFile": Object {
+      "fileName": "C://project/src/service/DogService",
+    },
   },
 ]
 `;
@@ -57,6 +81,9 @@ Array [
   FileSubject {
     "dir": "C://project/src/service",
     "name": "DogService",
+    "sourceFile": Object {
+      "fileName": "C://project/src/service/DogService",
+    },
   },
 ]
 `;
@@ -66,10 +93,16 @@ Array [
   FileSubject {
     "dir": "C://project/src/controller",
     "name": "DogController",
+    "sourceFile": Object {
+      "fileName": "C://project/src/controller/DogController",
+    },
   },
   FileSubject {
     "dir": "C://project/src/controller",
     "name": "CatController",
+    "sourceFile": Object {
+      "fileName": "C://project/src/controller/CatController",
+    },
   },
 ]
 `;
