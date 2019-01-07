@@ -30,6 +30,9 @@ export class AllFilesPipe extends ArchRulePipe {
 		return new SubjectsNameFilterPipe(this, new RegExp(".+." + suffix + "($|\\n)"))
 	}
 
+	public withoutNameMatching(regex: RegExp): SubjectsNameFilterPipe {
+		return new SubjectsNameFilterPipe(this, regex, true)
+	}
 	public should(): ShouldPipe {
 		return new ShouldPipe(this)
 	}

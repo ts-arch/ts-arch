@@ -1,8 +1,20 @@
 import { ArchProject } from "../api/core/ArchProject"
 import { ArchRule } from "../api/core/abstract/ArchRule"
+import { ArchResult } from "../api/core/ArchResult"
 
-function buildJestResult(pass: boolean, msg: string): { pass: boolean; message: () => string } {
-	return { pass: pass, message: () => msg }
+function buildJestResult(
+	pass: boolean,
+	msg: string,
+	details?: ArchResult
+): { pass: boolean; message: () => string } {
+	let info = msg
+	if (details && !pass) {
+		info += "\nDetails:\n"
+		details
+			.getEntries()
+			.forEach(e => (info += `${e.pass} | ${e.subject.getName()} -> ${e.info}\n`))
+	}
+	return { pass: pass, message: () => info }
 }
 
 export function toMatchArchRuleLogic(
@@ -17,9 +29,9 @@ export function toMatchArchRuleLogic(
 	} else {
 		const result = ruleToMatch.checkProject(project)
 		if (jestCtx.isNot) {
-			return buildJestResult(!result, "expected to not pass rule")
+			return buildJestResult(!result, "expected to not pass rule", ruleToMatch.getResult())
 		} else {
-			return buildJestResult(result, "expected to pass rule")
+			return buildJestResult(result, "expected to pass rule", ruleToMatch.getResult())
 		}
 	}
 }

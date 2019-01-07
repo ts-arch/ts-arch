@@ -13,7 +13,10 @@ export abstract class ArchRule {
 	abstract buildResult(subjects: ArchSubject[], hasNotModifier: boolean): ArchResult
 
 	public check(subjects: ArchSubject[]): boolean {
-		this.result = this.buildResult(subjects, this.input.hasNotModifier())
+		this.result = this.buildResult(
+			this.input.filterSubjects(subjects),
+			this.input.hasNotModifier()
+		)
 		return this.result.hasRulePassed()
 	}
 

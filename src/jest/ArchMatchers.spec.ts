@@ -1,6 +1,7 @@
 import { toMatchArchRuleLogic } from "./ArchMatchers"
 import { ArchProject } from "../api/core/ArchProject"
 import { ArchRule } from "../api/core/abstract/ArchRule"
+import { ArchResult } from "../api/core/ArchResult"
 
 describe("Jest ArchMatcher", () => {
 	it("should extend jest's expect", () => {
@@ -19,7 +20,8 @@ describe("Jest ArchMatcher", () => {
 		function buildArchRule(passing: boolean): ArchRule {
 			return jest.fn<ArchRule>(() => {
 				return {
-					checkProject: () => passing
+					checkProject: () => passing,
+					getResult: () => new ArchResult()
 				}
 			})()
 		}
