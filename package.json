@@ -115,7 +115,6 @@
     "tslint-config-standard": "^7.1.0",
     "typedoc": "^0.14.0",
     "typescript": "^3.2.2",
-    "typescript-parser": "^2.6.1",
     "validate-commit-msg": "^2.12.2"
   }
 }

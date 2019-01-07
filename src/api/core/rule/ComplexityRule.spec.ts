@@ -39,7 +39,10 @@ describe("complexity rule", () => {
 		const a = FileSubjectFactory.buildFromPath(__dirname + "/complexitySamples/A.ts")
 		const b = FileSubjectFactory.buildFromPath(__dirname + "/complexitySamples/B.ts")
 		expect(rule.check([a, b])).toBe(false)
-		expect(rule.getResult()).toMatchSnapshot()
+		expect(rule.getResult().hasRulePassed()).toBe(false)
+		expect(rule.getResult().getEntries().length).toBe(2)
+		expect(rule.getResult().getEntries()[0].pass).toBe(false)
+		expect(rule.getResult().getEntries()[1].pass).toBe(true)
 	})
 
 	it("should generate correct results for negated rule when given A.ts and B.ts", async () => {
@@ -48,6 +51,9 @@ describe("complexity rule", () => {
 		const a = FileSubjectFactory.buildFromPath(__dirname + "/complexitySamples/A.ts")
 		const b = FileSubjectFactory.buildFromPath(__dirname + "/complexitySamples/B.ts")
 		expect(rule.check([a, b])).toBe(false)
-		expect(rule.getResult()).toMatchSnapshot()
+		expect(rule.getResult().hasRulePassed()).toBe(false)
+		expect(rule.getResult().getEntries().length).toBe(2)
+		expect(rule.getResult().getEntries()[0].pass).toBe(true)
+		expect(rule.getResult().getEntries()[1].pass).toBe(false)
 	})
 })
