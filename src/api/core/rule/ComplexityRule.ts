@@ -12,7 +12,6 @@ export class ComplexityRule extends ArchRule {
 	}
 
 	public buildResult(subjects: ArchSubject[], hasNotModifier: boolean): ArchResult {
-		// TODO how can we manifest types in our pipelines
 		const result = new ArchResult()
 		subjects
 			.filter(s => s instanceof FileSubject)
