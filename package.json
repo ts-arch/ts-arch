@@ -55,7 +55,7 @@
   "jest": {
     "testURL": "http://localhost/",
     "transform": {
-      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+      ".(ts|tsx)": "ts-jest"
     },
     "testRegex": "(/(test|src)/.*\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": [

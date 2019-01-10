@@ -1,14 +1,15 @@
-import { EntryPipe } from './api/core/pipe/EntryPipe'
-import { TypescriptProjectParser } from './parser/TypescriptProjectParser'
-import { ArchProject } from './api/core/ArchProject'
+import { RuleBuilder } from "./core/builder/RuleBuilder"
+import { SubjectFilterStarter } from "./core/lang/SubjectFilterStarter"
+import { Project } from "./core/Project"
+import { ProjectParser } from "./core/parser/ProjectParser"
 
 export class TSArch {
-  static defineThat(): EntryPipe {
-    return new EntryPipe()
-  }
+	static defineThat(): SubjectFilterStarter {
+		return RuleBuilder.defineThat()
+	}
 
-  static async parseTypescriptProject(path: string): Promise<ArchProject> {
-    const project = await TypescriptProjectParser.parse(path)
-    return project
-  }
+	static async parseTypescriptProject(path: string): Promise<Project> {
+		const project = await ProjectParser.parse(path)
+		return project
+	}
 }

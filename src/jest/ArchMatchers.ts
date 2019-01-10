@@ -1,17 +1,18 @@
-import { ArchProject } from "../api/core/ArchProject"
-import { ArchRule } from "../api/core/abstract/ArchRule"
-import { ArchResult } from "../api/core/ArchResult"
+import { Result } from "../core/Result"
+import { Project } from "../core/Project"
+import { Checkable } from "../core/checks/Checkable"
 
 function buildJestResult(
 	pass: boolean,
 	msg: string,
-	details?: ArchResult
+	details?: Result
 ): { pass: boolean; message: () => string } {
 	let info = msg
 	if (details && !pass) {
 		info += "\nDetails:\n"
 		details
 			.getEntries()
+			.filter(e => !e.pass)
 			.forEach(e => (info += `${e.pass} | ${e.subject.getName()} -> ${e.info}\n`))
 	}
 	return { pass: pass, message: () => info }
@@ -19,19 +20,19 @@ function buildJestResult(
 
 export function toMatchArchRuleLogic(
 	jestCtx: { isNot: boolean },
-	project?: ArchProject,
-	ruleToMatch?: ArchRule
+	project?: Project,
+	ruleToMatch?: Checkable
 ): { pass: boolean; message?: () => string } {
 	if (!project) {
 		return buildJestResult(false, "expected project as input")
 	} else if (!ruleToMatch) {
 		return buildJestResult(false, "expected rule to match against")
 	} else {
-		const result = ruleToMatch.checkProject(project)
+		const result: Result = project.check(ruleToMatch)
 		if (jestCtx.isNot) {
-			return buildJestResult(!result, "expected to not pass rule", ruleToMatch.getResult())
+			return buildJestResult(!result.hasRulePassed(), "expected to not pass rule", result)
 		} else {
-			return buildJestResult(result, "expected to pass rule", ruleToMatch.getResult())
+			return buildJestResult(result.hasRulePassed(), "expected to pass rule", result)
 		}
 	}
 }
@@ -43,13 +44,13 @@ declare global {
 	namespace jest {
 		// tslint:disable-next-line:interface-name
 		interface Matchers<R> {
-			toMatchArchRule(ruleToMatch: ArchRule): R
+			toPass(ruleToMatch: Checkable): R
 		}
 	}
 }
 
 expect.extend({
-	toMatchArchRule(project?: ArchProject, ruleToMatch?: ArchRule) {
+	toPass(project?: Project, ruleToMatch?: Checkable) {
 		return toMatchArchRuleLogic(this, project, ruleToMatch)
 	}
 } as any)

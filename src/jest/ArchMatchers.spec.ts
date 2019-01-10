@@ -1,35 +1,42 @@
 import { toMatchArchRuleLogic } from "./ArchMatchers"
-import { ArchProject } from "../api/core/ArchProject"
-import { ArchRule } from "../api/core/abstract/ArchRule"
-import { ArchResult } from "../api/core/ArchResult"
+import { Rule } from "../core/Rule"
+import { Project } from "../core/Project"
+import { Result } from "../core/Result"
 
 describe("Jest ArchMatcher", () => {
 	it("should extend jest's expect", () => {
-		expect(expect(null).toMatchArchRule).toBeDefined()
+		expect(expect(null).toPass).toBeDefined()
 	})
 
 	describe("Jest ArchMatcher Logic", () => {
-		let project: ArchProject
-		let rule: ArchRule
+		let project: Project
+		let rule: Rule
 		let jestCtx: { isNot: boolean }
 
 		function buildJestContext(negated: boolean): { isNot: boolean } {
 			return { isNot: negated }
 		}
 
-		function buildArchRule(passing: boolean): ArchRule {
-			return jest.fn<ArchRule>(() => {
+		function buildArchRule(passing: boolean): Rule {
+			return jest.fn<Rule>(() => {
 				return {
-					checkProject: () => passing,
-					getResult: () => new ArchResult()
+					check: () => {
+						const result = new Result()
+						passing ? result.forcePass() : result.forceFail()
+						return result
+					}
 				}
 			})()
 		}
 
 		beforeEach(() => {
 			jestCtx = buildJestContext(false)
-			project = jest.fn<ArchProject>(() => {
-				return {}
+			project = jest.fn<Project>(() => {
+				return {
+					check: (ruleToMatch: any) => {
+						return ruleToMatch.check()
+					}
+				}
 			})()
 			rule = buildArchRule(true)
 		})

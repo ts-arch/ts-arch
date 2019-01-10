@@ -2,6 +2,7 @@ import { TSArch } from "../src/tsarch"
 import "../src/jest/ArchMatchers"
 
 describe("Parser", async () => {
+	// TODO this rule is not used anymore
 	it("all files in pipes folder of this project should be named ...Pipe.ts or ... Pipe.spec.ts", async () => {
 		const project = await TSArch.parseTypescriptProject("./src")
 
@@ -10,7 +11,8 @@ describe("Parser", async () => {
 			.withPathMatching(/.*pipe.*/)
 			.should()
 			.matchName(/.+.Pipe(\.spec)?\.ts($|\n)/)
+			.build()
 
-		expect(project).toMatchArchRule(rule)
+		expect(project).toPass(rule)
 	})
 })

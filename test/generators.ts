@@ -1,5 +1,5 @@
-import { FileSubjectFactory } from "../src/api/core/subject/FileSubjectFactory"
 import { SourceFile } from "typescript"
+import { FileFactory } from "../src/core/noun/FileFactory"
 
 export const generatefileMock = fileName =>
 	jest.fn<SourceFile>(() => {
@@ -9,7 +9,7 @@ export const generatefileMock = fileName =>
 	})()
 
 export const generateFileSubjectMock = fileName =>
-	FileSubjectFactory.buildFromSourceFile(generatefileMock(fileName))
+	FileFactory.buildFromSourceFile(generatefileMock(fileName))
 
 export const generateAnimalSubjectsMock = () => [
 	generateFileSubjectMock("C://project/src/service/DogService"),
