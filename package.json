@@ -25,8 +25,8 @@
     "prepush": "npm run test:prod && npm run build",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
     "start": "rollup -c rollup.config.ts -w",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --no-cache",
+    "test:watch": "jest --watch --no-cache",
     "test:clear": "jest --clearCache",
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
     "deploy-docs": "ts-node tools/gh-pages-publish",
@@ -83,7 +83,7 @@
     "singleQuote": false
   },
   "devDependencies": {
-    "@types/jest": "^22.0.0",
+    "@types/jest": "^23.0.0",
     "@types/node": "^10.5.2",
     "colors": "^1.1.2",
     "commitizen": "^2.9.6",
@@ -91,7 +91,7 @@
     "cz-conventional-changelog": "^2.0.0",
     "glob": "^7.1.2",
     "husky": "^0.14.3",
-    "jest": "^22.0.2",
+    "jest": "^23.0.0",
     "lint-staged": "^7.2.0",
     "lodash.camelcase": "^4.3.0",
     "prettier": "^1.13.7",

@@ -1,6 +1,6 @@
 import { File } from "./noun/File"
 import { Result } from "./Result"
-import { Checkable } from "./checks/Checkable"
+import { Checkable } from "./lang/Checkable"
 
 export class Project {
 	constructor(private files: File[] = []) {}

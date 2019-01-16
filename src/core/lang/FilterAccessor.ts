@@ -7,4 +7,5 @@ export interface FilterAccessor<R> {
 	withoutNameSuffix(suffix: string): R
 	withoutNameMatching(regex: RegExp): R
 	withPathMatching(regex: RegExp): R
+	withoutPathMatching(regex: RegExp): R
 }

@@ -2,7 +2,7 @@ import { Filter } from "./filter/Filter"
 import { Result } from "./Result"
 import { CheckStrategy } from "./checks/CheckStrategy"
 import { Noun } from "./noun/Noun"
-import { Checkable } from "./checks/Checkable"
+import { Checkable } from "./lang/Checkable"
 
 export class Rule implements Checkable {
 	constructor(

@@ -1,6 +1,6 @@
 import { Result } from "../core/Result"
 import { Project } from "../core/Project"
-import { Checkable } from "../core/checks/Checkable"
+import { Checkable } from "../core/lang/Checkable"
 
 function buildJestResult(
 	pass: boolean,

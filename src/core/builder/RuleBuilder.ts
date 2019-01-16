@@ -5,17 +5,18 @@ import { SubjectFilterStarter } from "../lang/SubjectFilterStarter"
 import { SubjectFilterAccessor } from "../lang/SubjectFilterAccessor"
 import { ObjectFilterAccessor } from "../lang/ObjectFilterAccessor"
 import { ObjectFilterStarter } from "../lang/ObjectFilterStarter"
-import { Buildable } from "./Buildable"
+import { Buildable } from "../lang/Buildable"
 import { RuleAccessor } from "../lang/RuleAccessor"
-import { Checkable } from "../checks/Checkable"
+import { Checkable } from "../lang/Checkable"
 import { WithNameMatchingFilter } from "../filter/WithNameMatchingFilter"
-import { WithPathMatchingFilter } from "../filter/WithPathMatching"
+import { WithPathMatchingFilter } from "../filter/WithPathMatchingFilter"
 import { FilterAccessor } from "../lang/FilterAccessor"
 import { HaveComplexityLowerThanStrategy } from "../checks/HaveComplexityLowerThanStrategy"
 import { CheckStrategy } from "../checks/CheckStrategy"
 import { HaveSubjectsStrategy } from "../checks/HaveSubjectsStrategy"
 import { MatchNameStrategy } from "../checks/MatchNameStrategy"
 import { Rule } from "../Rule"
+import { DependOnStrategy } from "../checks/dependency/DependOnStrategy"
 
 export class RuleBuilder
 	implements
@@ -112,7 +113,17 @@ export class RuleBuilder
 	public withPathMatching(regex: RegExp): SubjectFilterAccessor & ObjectFilterAccessor {
 		this.currentlyBuildingFilter = new WithPathMatchingFilter(
 			this.currentlyBuildingFilter,
-			regex
+			regex,
+			false
+		)
+		return this
+	}
+
+	public withoutPathMatching(regex: RegExp): SubjectFilterAccessor & ObjectFilterAccessor {
+		this.currentlyBuildingFilter = new WithPathMatchingFilter(
+			this.currentlyBuildingFilter,
+			regex,
+			true
 		)
 		return this
 	}
@@ -153,9 +164,9 @@ export class RuleBuilder
 	}
 
 	public dependOn(): ObjectFilterStarter {
+		this.finalizeSubjectFilter()
 		this.currentlyBuildingFilter = this.objectFilter
-		this.currentCheckStrategy = undefined // TODO
-		throw new Error("Method not implemented.")
+		this.currentCheckStrategy = new DependOnStrategy()
 		return this
 	}
 }
