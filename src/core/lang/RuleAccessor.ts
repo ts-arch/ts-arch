@@ -1,5 +1,5 @@
 import { ObjectFilterStarter } from "./ObjectFilterStarter"
-import { Buildable } from "../builder/Buildable"
+import { Buildable } from "../lang/Buildable"
 export interface RuleAccessor {
 	haveComplexityLowerThan(value: number): Buildable
 	haveSubjects(): Buildable
