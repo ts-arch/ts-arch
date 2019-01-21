@@ -1,5 +1,5 @@
-import { Noun } from "../noun/Noun"
-import { Filter } from "./Filter"
+import { Noun } from "../../noun/Noun"
+import { Filter } from "../Filter"
 
 export class WithNameMatchingFilter implements Filter {
 	constructor(

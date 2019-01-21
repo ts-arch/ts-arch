@@ -1,6 +1,6 @@
-import { Filter } from "./Filter"
-import { Noun } from "../noun/Noun"
-import { File } from "../noun/File"
+import { Filter } from "../Filter"
+import { Noun } from "../../noun/Noun"
+import { File } from "../../noun/File"
 
 export class FilesFilter implements Filter {
 	constructor(private input: Filter) {}

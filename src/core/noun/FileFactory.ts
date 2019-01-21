@@ -4,6 +4,7 @@ import * as path from "path"
 import { readFileSync } from "fs"
 export class FileFactory {
 	public static buildFromPath(location: string): File {
+		let normalizedLocation = path.normalize(location)
 		let sf = createSourceFile(location, readFileSync(location).toString(), ScriptTarget.ESNext)
 		const name = path.basename(sf.fileName)
 		const dir = path.dirname(sf.fileName)

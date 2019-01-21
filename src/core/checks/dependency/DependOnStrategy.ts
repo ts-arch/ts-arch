@@ -2,36 +2,50 @@ import { SyntaxKind, ImportDeclaration } from "typescript"
 import { CheckStrategy } from "../CheckStrategy"
 import { Noun } from "../../noun/Noun"
 import { File } from "../../noun/File"
-import { Result } from "../../Result"
+import { Result, ResultEntry } from "../../Result"
 import * as path from "path"
-
 export class DependOnStrategy implements CheckStrategy {
 	execute(isNegated: boolean, subjects: Noun[], objects: Noun[]): Result {
 		const result = new Result()
-		const fileObjects = objects.filter(x => x instanceof File).map(x => x as File)
-		const fileSubjects = subjects.filter(x => x instanceof File).map(x => x as File)
+		const fileObjects = File.getFrom(objects)
+		const fileSubjects = File.getFrom(subjects)
 
 		fileSubjects.forEach(s => {
 			const dependencies = this.getDependenciesOfSubject(s, fileObjects)
-
 			if (dependencies.length > 0) {
 				dependencies.forEach(d => {
-					result.addEntry({
-						subject: s,
-						object: d,
-						info: `has dependency on object`,
-						pass: !isNegated
-					})
+					result.addEntry(this.buildHasDependenciesResult(s, d, isNegated))
 				})
 			} else {
-				result.addEntry({
-					subject: s,
-					info: `has no dependencies on objects`,
-					pass: isNegated
-				})
+				result.addEntry(this.buildHasNoDependenciesResult(s, isNegated))
 			}
 		})
 		return result
+	}
+
+	private buildHasNoDependenciesResult(s: File, isNegated: boolean): ResultEntry {
+		return {
+			subject: s,
+			info: this.buildHasNoDependencyString(),
+			pass: isNegated
+		}
+	}
+
+	private buildHasDependenciesResult(s: File, d: File, isNegated: boolean): ResultEntry {
+		return {
+			subject: s,
+			object: d,
+			info: this.buildHasDependencyString(),
+			pass: !isNegated
+		}
+	}
+
+	private buildHasNoDependencyString(): string {
+		return `has no dependencies on objects`
+	}
+
+	private buildHasDependencyString(): string {
+		return `has dependency on object`
 	}
 
 	public getDependenciesOfSubject(subject: File, objects: File[]): File[] {

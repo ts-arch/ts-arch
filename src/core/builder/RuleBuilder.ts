@@ -1,6 +1,6 @@
 import { Filter } from "../filter/Filter"
 import { EmptyFilter } from "../filter/EmptyFilter"
-import { FilesFilter } from "../filter/FilesFilter"
+import { FilesFilter } from "../filter/typing/FilesFilter"
 import { SubjectFilterStarter } from "../lang/SubjectFilterStarter"
 import { SubjectFilterAccessor } from "../lang/SubjectFilterAccessor"
 import { ObjectFilterAccessor } from "../lang/ObjectFilterAccessor"
@@ -8,13 +8,13 @@ import { ObjectFilterStarter } from "../lang/ObjectFilterStarter"
 import { Buildable } from "../lang/Buildable"
 import { RuleAccessor } from "../lang/RuleAccessor"
 import { Checkable } from "../lang/Checkable"
-import { WithNameMatchingFilter } from "../filter/WithNameMatchingFilter"
-import { WithPathMatchingFilter } from "../filter/WithPathMatchingFilter"
+import { WithNameMatchingFilter } from "../filter/naming/WithNameMatchingFilter"
+import { WithPathMatchingFilter } from "../filter/naming/WithPathMatchingFilter"
 import { FilterAccessor } from "../lang/FilterAccessor"
-import { HaveComplexityLowerThanStrategy } from "../checks/HaveComplexityLowerThanStrategy"
+import { HaveComplexityLowerThanStrategy } from "../checks/complexity/HaveComplexityLowerThanStrategy"
 import { CheckStrategy } from "../checks/CheckStrategy"
-import { HaveSubjectsStrategy } from "../checks/HaveSubjectsStrategy"
-import { MatchNameStrategy } from "../checks/MatchNameStrategy"
+import { HaveSubjectsStrategy } from "../checks/count/HaveSubjectsStrategy"
+import { MatchNameStrategy } from "../checks/naming/MatchNameStrategy"
 import { Rule } from "../Rule"
 import { DependOnStrategy } from "../checks/dependency/DependOnStrategy"
 
@@ -22,7 +22,7 @@ export class RuleBuilder
 	implements
 		SubjectFilterStarter,
 		ObjectFilterStarter,
-		FilterAccessor<ObjectFilterAccessor & SubjectFilterAccessor>, // TODO check if this works correctly. before there were both accessors separatly
+		FilterAccessor<ObjectFilterAccessor & SubjectFilterAccessor>,
 		RuleAccessor,
 		Buildable {
 	public static defineThat(): SubjectFilterStarter {

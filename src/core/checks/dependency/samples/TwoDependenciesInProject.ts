@@ -1,5 +1,5 @@
 import { DependOnStrategy } from "../DependOnStrategy"
-import { HaveComplexityLowerThanStrategy } from "../../HaveComplexityLowerThanStrategy"
+import { HaveComplexityLowerThanStrategy } from "../../complexity/HaveComplexityLowerThanStrategy"
 
 export class TwoDependenciesInProject {
 	private a: number

@@ -13,4 +13,8 @@ export class File extends Noun {
 	public getSourceFile(): SourceFile {
 		return this.sourceFile
 	}
+
+	public static getFrom(nouns: Noun[]): File[] {
+		return nouns.filter(x => x instanceof File).map(x => x as File)
+	}
 }

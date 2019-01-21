@@ -8,8 +8,9 @@ describe("dependency rule", () => {
 		rule = new DependOnStrategy()
 		const subject = FileFactory.buildFromPath(__dirname + "/samples/NoDependencies.ts")
 		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		// FIXME allow ../something instead of /../something path.normalize ?
-		const o2 = FileFactory.buildFromPath(__dirname + "/../HaveComplexityLowerThanStrategy.ts")
+		const o2 = FileFactory.buildFromPath(
+			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
+		)
 		expect(rule.getDependenciesOfSubject(subject, [o1, o2]).length).toBe(0)
 	})
 
@@ -19,7 +20,9 @@ describe("dependency rule", () => {
 			__dirname + "/samples/TwoDependenciesInProject.ts"
 		)
 		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		const o2 = FileFactory.buildFromPath(__dirname + "/../HaveComplexityLowerThanStrategy.ts")
+		const o2 = FileFactory.buildFromPath(
+			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
+		)
 		expect(rule.getDependenciesOfSubject(subject, [o1, o2]).length).toBe(2)
 	})
 
@@ -29,7 +32,9 @@ describe("dependency rule", () => {
 			__dirname + "/samples/TwoDependenciesInProject.ts"
 		)
 		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		const o2 = FileFactory.buildFromPath(__dirname + "/../HaveComplexityLowerThanStrategy.ts")
+		const o2 = FileFactory.buildFromPath(
+			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
+		)
 		const result = rule.execute(false, [subject], [o1, o2])
 		expect(result.hasRulePassed()).toBe(true)
 		expect(result.getEntries().length).toBe(2)
@@ -41,7 +46,9 @@ describe("dependency rule", () => {
 			__dirname + "/samples/TwoDependenciesInProject.ts"
 		)
 		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		const o2 = FileFactory.buildFromPath(__dirname + "/../HaveComplexityLowerThanStrategy.ts")
+		const o2 = FileFactory.buildFromPath(
+			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
+		)
 		const result = rule.execute(true, [subject], [o1, o2])
 		expect(result.hasRulePassed()).toBe(false)
 		expect(result.getEntries().length).toBe(2)

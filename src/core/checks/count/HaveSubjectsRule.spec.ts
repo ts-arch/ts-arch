@@ -1,4 +1,4 @@
-import { generateFileSubjectMock } from "../../../test/generators"
+import { generateFileSubjectMock } from "../../../../test/generators"
 import { HaveSubjectsStrategy } from "./HaveSubjectsStrategy"
 
 describe("'have subjects rule'", () => {

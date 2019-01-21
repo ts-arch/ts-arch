@@ -1,6 +1,6 @@
-import { Noun } from "../noun/Noun"
-import { Filter } from "./Filter"
-import { File } from "../noun/File"
+import { Noun } from "../../noun/Noun"
+import { Filter } from "../Filter"
+import { File } from "../../noun/File"
 
 export class WithPathMatchingFilter implements Filter {
 	constructor(private inputFilter: Filter, private regex: RegExp, private invert: boolean) {}
@@ -9,10 +9,11 @@ export class WithPathMatchingFilter implements Filter {
 		return this.inputFilter
 			.filter(nouns)
 			.filter(s => s instanceof File)
-			.filter(s =>
-				this.invert
-					? !(s as File).getPath().match(this.regex)
-					: (s as File).getPath().match(this.regex)
+			.filter(
+				s =>
+					this.invert
+						? !(s as File).getPath().match(this.regex)
+						: (s as File).getPath().match(this.regex)
 			)
 	}
 }

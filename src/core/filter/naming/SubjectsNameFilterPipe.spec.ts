@@ -1,5 +1,5 @@
-import { generateFileSubjectMock } from "../../../test/generators"
-import { EmptyFilter } from "./EmptyFilter"
+import { generateFileSubjectMock } from "../../../../test/generators"
+import { EmptyFilter } from "../EmptyFilter"
 import { WithNameMatchingFilter } from "./WithNameMatchingFilter"
 describe("SubjectsNameFilterPipe", () => {
 	let input

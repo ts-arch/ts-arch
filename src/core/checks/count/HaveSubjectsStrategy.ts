@@ -1,6 +1,6 @@
-import { CheckStrategy } from "./CheckStrategy"
-import { Noun } from "../noun/Noun"
-import { Result } from "../Result"
+import { CheckStrategy } from "../CheckStrategy"
+import { Noun } from "../../noun/Noun"
+import { Result } from "../../Result"
 
 export class HaveSubjectsStrategy implements CheckStrategy {
 	execute(isNegated: boolean, subjects: Noun[]): Result {
