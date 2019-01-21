@@ -2,74 +2,67 @@ import { DependOnStrategy } from "./DependOnStrategy"
 import { FileFactory } from "../../noun/FileFactory"
 
 describe("dependency rule", () => {
-	let rule: DependOnStrategy
+	const noDependenciesFile = FileFactory.buildFromPath(__dirname + "/samples/NoDependencies.ts")
+	const dependOnStrategyFile = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
+	const twoDependenciesFile = FileFactory.buildFromPath(
+		__dirname + "/samples/TwoDependenciesInProject.ts"
+	)
+	const haveComplexityLowerThanStrategyFile = FileFactory.buildFromPath(
+		__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
+	)
 
 	it("NoDependencies.ts should have no dependencies", async () => {
-		rule = new DependOnStrategy()
-		const subject = FileFactory.buildFromPath(__dirname + "/samples/NoDependencies.ts")
-		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		const o2 = FileFactory.buildFromPath(
-			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
-		)
-		expect(rule.getDependenciesOfSubject(subject, [o1, o2]).length).toBe(0)
+		const rule = new DependOnStrategy()
+		expect(
+			rule.getDependenciesOfSubject(noDependenciesFile, [
+				dependOnStrategyFile,
+				haveComplexityLowerThanStrategyFile
+			]).length
+		).toBe(0)
 	})
 
 	it("TwoDependenciesInProject.ts should have two dependencies", async () => {
-		rule = new DependOnStrategy()
-		const subject = FileFactory.buildFromPath(
-			__dirname + "/samples/TwoDependenciesInProject.ts"
-		)
-		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		const o2 = FileFactory.buildFromPath(
-			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
-		)
-		expect(rule.getDependenciesOfSubject(subject, [o1, o2]).length).toBe(2)
+		const rule = new DependOnStrategy()
+		expect(
+			rule.getDependenciesOfSubject(twoDependenciesFile, [
+				dependOnStrategyFile,
+				haveComplexityLowerThanStrategyFile
+			]).length
+		).toBe(2)
 	})
 
 	it("TwoDependenciesInProject.ts should depend on given objects DependOnStrategy.ts and ../HaveComplexityLowerThanStrategy.ts", async () => {
-		rule = new DependOnStrategy()
-		const subject = FileFactory.buildFromPath(
-			__dirname + "/samples/TwoDependenciesInProject.ts"
+		const rule = new DependOnStrategy()
+		const result = rule.execute(
+			false,
+			[twoDependenciesFile],
+			[dependOnStrategyFile, haveComplexityLowerThanStrategyFile]
 		)
-		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		const o2 = FileFactory.buildFromPath(
-			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
-		)
-		const result = rule.execute(false, [subject], [o1, o2])
 		expect(result.hasRulePassed()).toBe(true)
 		expect(result.getEntries().length).toBe(2)
 	})
 
 	it("TwoDependenciesInProject.ts should not depend on0 given objects DependOnStrategy.ts and ../HaveComplexityLowerThanStrategy.ts", async () => {
-		rule = new DependOnStrategy()
-		const subject = FileFactory.buildFromPath(
-			__dirname + "/samples/TwoDependenciesInProject.ts"
+		const rule = new DependOnStrategy()
+		const result = rule.execute(
+			true,
+			[twoDependenciesFile],
+			[dependOnStrategyFile, haveComplexityLowerThanStrategyFile]
 		)
-		const o1 = FileFactory.buildFromPath(__dirname + "/DependOnStrategy.ts")
-		const o2 = FileFactory.buildFromPath(
-			__dirname + "/../complexity/HaveComplexityLowerThanStrategy.ts"
-		)
-		const result = rule.execute(true, [subject], [o1, o2])
 		expect(result.hasRulePassed()).toBe(false)
 		expect(result.getEntries().length).toBe(2)
 	})
 
 	it("TwoDependenciesInProject.ts has dependencies which are not part of the object", async () => {
-		rule = new DependOnStrategy()
-		const subject = FileFactory.buildFromPath(
-			__dirname + "/samples/TwoDependenciesInProject.ts"
-		)
-		const result = rule.execute(false, [subject], [])
+		const rule = new DependOnStrategy()
+		const result = rule.execute(false, [twoDependenciesFile], [])
 		expect(result.hasRulePassed()).toBe(false)
 		expect(result.getEntries().length).toBe(1)
 	})
 
 	it("TwoDependenciesInProject.ts has dependencies which are not part of the object, negated", async () => {
-		rule = new DependOnStrategy()
-		const subject = FileFactory.buildFromPath(
-			__dirname + "/samples/TwoDependenciesInProject.ts"
-		)
-		const result = rule.execute(true, [subject], [])
+		const rule = new DependOnStrategy()
+		const result = rule.execute(true, [twoDependenciesFile], [])
 		expect(result.hasRulePassed()).toBe(true)
 		expect(result.getEntries().length).toBe(1)
 	})
