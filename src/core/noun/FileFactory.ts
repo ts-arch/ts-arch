@@ -5,7 +5,11 @@ import { readFileSync } from "fs"
 export class FileFactory {
 	public static buildFromPath(location: string): File {
 		let normalizedLocation = path.normalize(location)
-		let sf = createSourceFile(location, readFileSync(location).toString(), ScriptTarget.ESNext)
+		let sf = createSourceFile(
+			normalizedLocation,
+			readFileSync(normalizedLocation).toString(),
+			ScriptTarget.ESNext
+		)
 		const name = path.basename(sf.fileName)
 		const dir = path.dirname(sf.fileName)
 		return new File(name, dir, sf)
