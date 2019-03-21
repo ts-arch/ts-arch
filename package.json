@@ -3,9 +3,8 @@
   "version": "0.0.0-development",
   "description": "",
   "keywords": [],
-  "main": "dist/lib/src/index.js",
-  "types": "dist/lib/src/index.d.ts",
-  "module": "dist/lib/src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -22,9 +21,8 @@
     "lint": "tslint -t codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
     "clean": "rimraf dist",
     "prebuild": "rimraf dist",
-    "prepush": "npm run test:prod && npm run build",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "start": "rollup -c rollup.config.ts -w",
+    "prepush": "npm run test:prod && npm run lint && npm run build && npm run clean",
+    "build": "tsc --module commonjs && typedoc --out docs --target es6 --theme minimal --mode file src",
     "test": "jest --no-cache",
     "test:watch": "jest --watch --no-cache",
     "test:clear": "jest --clearCache",
@@ -34,14 +32,7 @@
     "commitmsg": "validate-commit-msg",
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "precommit": "lint-staged",
     "travis-deploy-once": "travis-deploy-once"
-  },
-  "lint-staged": {
-    "{src,test}/**/*.ts": [
-      "prettier --write",
-      "git add"
-    ]
   },
   "config": {
     "commitizen": {
