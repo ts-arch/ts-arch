@@ -18,6 +18,7 @@ import { MatchNameStrategy } from "../checks/naming/MatchNameStrategy"
 import { Rule } from "../Rule"
 import { DependOnStrategy } from "../checks/dependency/DependOnStrategy"
 import { CycleFreeStrategy } from "../checks/cycles/CycleFreeStrategy"
+import { IgnoreConfig } from "../../..";
 
 export class RuleBuilder
 	implements
@@ -26,15 +27,13 @@ export class RuleBuilder
 		FilterAccessor<ObjectFilterAccessor & SubjectFilterAccessor>,
 		RuleAccessor,
 		Buildable {
-	public static defineThat(): SubjectFilterStarter {
-		return new RuleBuilder()
-	}
-
 	private subjectFilter: Filter = new EmptyFilter()
 	private objectFilter: Filter = new EmptyFilter()
 	private isNegated = false
 	private currentlyBuildingFilter: Filter = this.subjectFilter
 	private currentCheckStrategy?: CheckStrategy
+
+	constructor(private ignore: IgnoreConfig) {}
 
 	public build(): Checkable {
 		if (this.currentCheckStrategy) {
@@ -173,7 +172,7 @@ export class RuleBuilder
 	public dependOn(): ObjectFilterStarter {
 		this.finalizeSubjectFilter()
 		this.currentlyBuildingFilter = this.objectFilter
-		this.currentCheckStrategy = new DependOnStrategy()
+		this.currentCheckStrategy = new DependOnStrategy(this.ignore)
 		return this
 	}
 }

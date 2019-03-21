@@ -3,13 +3,30 @@ import { SubjectFilterStarter } from "./lang/SubjectFilterStarter"
 import { Project } from "./Project"
 import { ProjectParser } from "./parser/ProjectParser"
 
+export interface TSArchConfig {
+	ignore: IgnoreConfig
+}
+
+export interface IgnoreConfig {
+	declarations: boolean
+	nodeModules: boolean
+	js: boolean
+}
 export class TSArch {
+	public static config: TSArchConfig = {
+		ignore: {
+			declarations: true,
+			nodeModules: true,
+			js: false
+		}
+	}
+
 	static defineThat(): SubjectFilterStarter {
-		return RuleBuilder.defineThat()
+		return new RuleBuilder(TSArch.config.ignore)
 	}
 
 	static async parseTypescriptProject(path: string): Promise<Project> {
-		const project = await ProjectParser.parse(path)
+		const project = await ProjectParser.parse(path, TSArch.config.ignore)
 		return project
 	}
 }

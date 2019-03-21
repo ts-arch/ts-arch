@@ -1,10 +1,15 @@
 import { createProgram, ScriptTarget } from "typescript"
 import { FileFactory } from "../noun/FileFactory"
 import { Project } from "../Project"
+import { IgnoreConfig } from "../TSArch";
 
 export class ProjectParser {
-	public static async parse(rootPath: string): Promise<Project> {
-		const fileNames = await ProjectParser.getFileNames(rootPath + "/**/*.ts")
+	public static async parse(
+		rootPath: string,
+		config: IgnoreConfig
+	): Promise<Project> {
+		const glob = config.js ? "/**/*.ts" : "/**/*.(js|ts)"
+		const fileNames = await ProjectParser.getFileNames(rootPath + glob)
 		const project = new Project()
 
 		let program = createProgram(fileNames, {
@@ -12,8 +17,10 @@ export class ProjectParser {
 		})
 
 		program.getSourceFiles().forEach(s => {
-			// TODO make this configurable ?
-			if (!s.fileName.endsWith(".d.ts") && !s.fileName.includes("node_modules")) {
+			if (
+				(config.declarations ? !s.fileName.endsWith(".d.ts") : true) &&
+				(config.nodeModules ? !s.fileName.includes("node_modules") : true)
+			) {
 				const file = FileFactory.buildFromSourceFile(s)
 				project.addFile(file)
 			}

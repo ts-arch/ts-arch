@@ -1,17 +1,16 @@
-import "../src/jest/ArchMatchers"
-import { ProjectParser } from "../src/core/parser/ProjectParser"
+import {TSArch} from ".."
 import { RuleBuilder } from "../src/core/builder/RuleBuilder"
 
 describe("Project Architecture Rules", () => {
 	let project
 
 	beforeAll(async () => {
-		project = await ProjectParser.parse(__dirname + "/../src/")
+		project = await TSArch.parseTypescriptProject(__dirname + "/../src/")
 	})
 
 	describe("naming", () => {
 		it("source files in /filter should have Filter Suffix", () => {
-			const rule = RuleBuilder.defineThat()
+			const rule = TSArch.defineThat()
 				.files()
 				.withPathMatching(/filter/)
 				.withoutNameMatching(/.*spec\.ts/)
@@ -25,7 +24,7 @@ describe("Project Architecture Rules", () => {
 
 	describe("complexity", () => {
 		it("complexity of source files should be lower than 50", () => {
-			const rule = RuleBuilder.defineThat()
+			const rule = TSArch.defineThat()
 				.files()
 				.withoutNameMatching(/.*spec\.ts/)
 				.should()
@@ -38,7 +37,7 @@ describe("Project Architecture Rules", () => {
 
 	describe("cycles", () => {
 		it("the project without test sample files should be cycle free", () => {
-			const rule = RuleBuilder.defineThat()
+			const rule = TSArch.defineThat()
 				.files()
 				.withoutPathMatching(/sample/)
 				.should()
@@ -75,7 +74,7 @@ describe("Project Architecture Rules", () => {
 			${/core\/parser/} | ${/core\/filter/}
 			${/core\/parser/} | ${/core\/lang/}
 		`("$subjectPath should not depend on $objectPath", ({ subjectPath, objectPath }) => {
-			const rule = RuleBuilder.defineThat()
+			const rule = TSArch.defineThat()
 				.files()
 				.withPathMatching(subjectPath)
 				.shouldNot()

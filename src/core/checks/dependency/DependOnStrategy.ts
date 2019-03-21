@@ -4,14 +4,21 @@ import { Noun } from "../../noun/Noun"
 import { File } from "../../noun/File"
 import { Result, ResultEntry } from "../../Result"
 import * as path from "path"
+import { IgnoreConfig } from "../../TSArch"
 export class DependOnStrategy implements CheckStrategy {
+	constructor(private ignore: IgnoreConfig) {}
+
 	execute(isNegated: boolean, subjects: Noun[], objects: Noun[]): Result {
 		const result = new Result()
 		const fileObjects = File.getFrom(objects)
 		const fileSubjects = File.getFrom(subjects)
 
 		fileSubjects.forEach(s => {
-			const dependencies = DependOnStrategy.getDependenciesOfSubject(s, fileObjects)
+			const dependencies = DependOnStrategy.getDependenciesOfSubject(
+				s,
+				fileObjects,
+				this.ignore.js
+			)
 			if (dependencies.length > 0) {
 				dependencies.forEach(d => {
 					result.addEntry(this.buildHasDependenciesResult(s, d, isNegated))
@@ -48,10 +55,18 @@ export class DependOnStrategy implements CheckStrategy {
 		return `has dependency on ${f.getName()}`
 	}
 
-	public static getDependenciesOfSubject(subject: File, objects: File[]): File[] {
+	public static getDependenciesOfSubject(
+		subject: File,
+		objects: File[],
+		ignoreJs: boolean = false
+	): File[] {
 		const result: File[] = []
 		objects.forEach(object => {
-			const declaration = DependOnStrategy.getImportDeclarationForObject(object, subject)
+			const declaration = DependOnStrategy.getImportDeclarationForObject(
+				object,
+				subject,
+				ignoreJs
+			)
 			if (declaration) {
 				result.push(object)
 			}
@@ -61,26 +76,37 @@ export class DependOnStrategy implements CheckStrategy {
 
 	public static getImportDeclarationForObject(
 		object: File,
-		subject: File
+		subject: File,
+		ignoreJs: boolean = false
 	): ImportDeclaration | null {
 		let result: ImportDeclaration | null = null
 		this.getImportDeclarations(subject).forEach(i => {
-			// FIXME this is an assumption, we need to consider shortcutted imports e.g. from node_modules.
-			// FIXME It would be nice to use the typescript compilers resolution algorithm
+
 			const assumedPathTokens = [
 				...subject.getPath().split("/"),
 				...i.moduleSpecifier["text"].split("/")
 			]
 
-			// FIXME this is an assumption, we need to consider other types e.g. JS files
-			// FIXME It would be nice to use the typescript compilers resolution algorithm
-			const assumedPath = path.join(...assumedPathTokens) + ".ts"
+			const assumedPath = path.join(...assumedPathTokens)
 
-			if (
-				path.normalize(assumedPath) ===
-				path.normalize(object.getPath() + "/" + object.getName())
-			) {
-				result = i
+			const isResult = p =>
+				path.normalize(p) === path.normalize(object.getPath() + "/" + object.getName())
+
+			if (assumedPath.match(/.+(.ts)$/)) {
+				if (isResult(assumedPath)) {
+					result = i
+				}
+			} else if (assumedPath.match(/.+(.js)$/) && !ignoreJs) {
+				if (isResult(assumedPath)) {
+					result = i
+				}
+			} else {
+				const assumedTsPath = path.join(...assumedPathTokens) + ".ts"
+				const assumedJsPath = path.join(...assumedPathTokens) + ".js"
+
+				if (isResult(assumedTsPath) || (ignoreJs ? false : isResult(assumedJsPath))) {
+					result = i
+				}
 			}
 		})
 		return result
