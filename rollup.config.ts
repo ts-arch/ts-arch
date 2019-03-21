@@ -1,4 +1,5 @@
 import typescript from "rollup-plugin-typescript2"
+import camelCase from "lodash.camelcase"
 
 const pkg = require("./package.json")
 
@@ -14,6 +15,7 @@ export default {
 	},
 	input: `src/${libraryName}.ts`,
 	output: [
+		{ file: pkg.main, name: camelCase(libraryName), format: "umd", sourcemap: true },
 		{ file: pkg.module, format: "es", sourcemap: true }
 	],
 	watch: {

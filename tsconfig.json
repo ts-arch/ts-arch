@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "declarationDir": "dist/types",
+    "declarationDir": "dist/lib",
     "noImplicitAny": false,
     "outDir": "dist/lib",
     "typeRoots": [
