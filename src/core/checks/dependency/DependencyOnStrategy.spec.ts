@@ -12,9 +12,8 @@ describe("dependency rule", () => {
 	)
 
 	it("NoDependencies.ts should have no dependencies", async () => {
-		const rule = new DependOnStrategy()
 		expect(
-			rule.getDependenciesOfSubject(noDependenciesFile, [
+			DependOnStrategy.getDependenciesOfSubject(noDependenciesFile, [
 				dependOnStrategyFile,
 				haveComplexityLowerThanStrategyFile
 			]).length
@@ -22,9 +21,8 @@ describe("dependency rule", () => {
 	})
 
 	it("TwoDependenciesInProject.ts should have two dependencies", async () => {
-		const rule = new DependOnStrategy()
 		expect(
-			rule.getDependenciesOfSubject(twoDependenciesFile, [
+			DependOnStrategy.getDependenciesOfSubject(twoDependenciesFile, [
 				dependOnStrategyFile,
 				haveComplexityLowerThanStrategyFile
 			]).length

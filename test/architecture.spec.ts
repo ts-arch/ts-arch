@@ -21,28 +21,28 @@ describe("Project Architecture Rules", () => {
 
 			expect(project).toPass(rule)
 		})
+	})
 
-		it("source files without samples in /checks should have Strategy Suffix", () => {
+	describe("complexity", () => {
+		it("complexity of source files should be lower than 50", () => {
 			const rule = RuleBuilder.defineThat()
 				.files()
-				.withPathMatching(/checks/)
-				.withoutPathMatching(/[sS]amples/)
 				.withoutNameMatching(/.*spec\.ts/)
 				.should()
-				.matchName(/.*Strategy.ts/)
+				.haveComplexityLowerThan(50)
 				.build()
 
 			expect(project).toPass(rule)
 		})
 	})
 
-	describe("complexity", () => {
-		it("complexity of source files should be lower than 40", () => {
+	describe("cycles", () => {
+		it("the project without test sample files should be cycle free", () => {
 			const rule = RuleBuilder.defineThat()
 				.files()
-				.withoutNameMatching(/.*spec\.ts/)
+				.withoutPathMatching(/sample/)
 				.should()
-				.haveComplexityLowerThan(40)
+				.beCycleFree()
 				.build()
 
 			expect(project).toPass(rule)

@@ -11,7 +11,7 @@ export class DependOnStrategy implements CheckStrategy {
 		const fileSubjects = File.getFrom(subjects)
 
 		fileSubjects.forEach(s => {
-			const dependencies = this.getDependenciesOfSubject(s, fileObjects)
+			const dependencies = DependOnStrategy.getDependenciesOfSubject(s, fileObjects)
 			if (dependencies.length > 0) {
 				dependencies.forEach(d => {
 					result.addEntry(this.buildHasDependenciesResult(s, d, isNegated))
@@ -48,10 +48,10 @@ export class DependOnStrategy implements CheckStrategy {
 		return `has dependency on object`
 	}
 
-	public getDependenciesOfSubject(subject: File, objects: File[]): File[] {
+	public static getDependenciesOfSubject(subject: File, objects: File[]): File[] {
 		const result: File[] = []
 		objects.forEach(object => {
-			const declaration = this.getImportDeclarationForObject(object, subject)
+			const declaration = DependOnStrategy.getImportDeclarationForObject(object, subject)
 			if (declaration) {
 				result.push(object)
 			}
@@ -59,7 +59,10 @@ export class DependOnStrategy implements CheckStrategy {
 		return result
 	}
 
-	public getImportDeclarationForObject(object: File, subject: File): ImportDeclaration | null {
+	public static getImportDeclarationForObject(
+		object: File,
+		subject: File
+	): ImportDeclaration | null {
 		let result: ImportDeclaration | null = null
 		this.getImportDeclarations(subject).forEach(i => {
 			// FIXME this is an assumption, we need to consider shortcutted imports e.g. from node_modules.
@@ -83,7 +86,7 @@ export class DependOnStrategy implements CheckStrategy {
 		return result
 	}
 
-	public getImportDeclarations(subject: File): ImportDeclaration[] {
+	public static getImportDeclarations(subject: File): ImportDeclaration[] {
 		return subject
 			.getSourceFile()
 			.statements.filter(x => x.kind === SyntaxKind.ImportDeclaration)

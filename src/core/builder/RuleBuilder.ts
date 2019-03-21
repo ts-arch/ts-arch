@@ -17,6 +17,7 @@ import { HaveSubjectsStrategy } from "../checks/count/HaveSubjectsStrategy"
 import { MatchNameStrategy } from "../checks/naming/MatchNameStrategy"
 import { Rule } from "../Rule"
 import { DependOnStrategy } from "../checks/dependency/DependOnStrategy"
+import { CycleFreeStrategy } from "../checks/cycles/CycleFreeStrategy"
 
 export class RuleBuilder
 	implements
@@ -140,6 +141,12 @@ export class RuleBuilder
 	public haveComplexityLowerThan(value: number): Buildable {
 		this.finalizeSubjectFilter()
 		this.currentCheckStrategy = new HaveComplexityLowerThanStrategy(value)
+		return this
+	}
+
+	public beCycleFree(): Buildable {
+		this.finalizeSubjectFilter()
+		this.currentCheckStrategy = new CycleFreeStrategy()
 		return this
 	}
 
