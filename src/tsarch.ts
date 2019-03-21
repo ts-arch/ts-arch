@@ -13,3 +13,7 @@ export class TSArch {
 		return project
 	}
 }
+
+export * from "./core/Project"
+export * from "./core/Result"
+export * from "./core/Rule"

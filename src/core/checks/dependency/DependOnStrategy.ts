@@ -35,7 +35,7 @@ export class DependOnStrategy implements CheckStrategy {
 		return {
 			subject: s,
 			object: d,
-			info: this.buildHasDependencyString(),
+			info: this.buildHasDependencyString(d),
 			pass: !isNegated
 		}
 	}
@@ -44,8 +44,8 @@ export class DependOnStrategy implements CheckStrategy {
 		return `has no dependencies on objects`
 	}
 
-	private buildHasDependencyString(): string {
-		return `has dependency on object`
+	private buildHasDependencyString(f: File): string {
+		return `has dependency on ${f.getName()}`
 	}
 
 	public static getDependenciesOfSubject(subject: File, objects: File[]): File[] {
