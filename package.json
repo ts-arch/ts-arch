@@ -3,9 +3,9 @@
   "version": "0.0.0-development",
   "description": "",
   "keywords": [],
-  "main": "dist/lib/src/tsarch.umd.js",
-  "types": "dist/lib/src/tsarch.d.ts",
-  "module": "dist/lib/src/tsarch.es5.js",
+  "main": "dist/lib/tsarch.umd.js",
+  "types": "dist/lib/tsarch.d.ts",
+  "module": "dist/lib/tsarch.es5.js",
   "files": [
     "dist"
   ],

@@ -1,4 +1,4 @@
-import { TSArch } from "../src/tsarch"
+import { TSArch } from "../src"
 import { generateAnimalSubjectsMock } from "./generators"
 
 describe("Basic Rules", () => {

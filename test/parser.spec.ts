@@ -1,4 +1,4 @@
-import { TSArch } from "../src/tsarch"
+import { TSArch } from "../src"
 import "../src/jest/ArchMatchers"
 
 describe("Parser", async () => {
