@@ -1,4 +1,4 @@
-import { TSArch } from ".."
+import { TSArch } from "../index"
 
 describe("JS Architecture Rules", () => {
 	let project
