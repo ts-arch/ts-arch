@@ -81,35 +81,49 @@ export class DependOnStrategy implements CheckStrategy {
 	): ImportDeclaration | null {
 		let result: ImportDeclaration | null = null
 		this.getImportDeclarations(subject).forEach(i => {
+			const assumedPath = DependOnStrategy.assumePathOfImportedObject(subject, i)
 
-			const assumedPathTokens = [
-				...subject.getPath().split("/"),
-				...i.moduleSpecifier["text"].split("/")
-			]
-
-			const assumedPath = path.join(...assumedPathTokens)
-
-			const isResult = p =>
-				path.normalize(p) === path.normalize(object.getPath() + "/" + object.getName())
-
-			if (assumedPath.match(/.+(.ts)$/)) {
-				if (isResult(assumedPath)) {
-					result = i
-				}
-			} else if (assumedPath.match(/.+(.js)$/) && !ignoreJs) {
-				if (isResult(assumedPath)) {
-					result = i
-				}
+			if (
+				DependOnStrategy.hasSuffix(assumedPath, "ts") &&
+				this.pathsMatch(assumedPath, object)
+			) {
+				result = i
+			} else if (
+				DependOnStrategy.hasSuffix(assumedPath, "js") &&
+				!ignoreJs &&
+				this.pathsMatch(assumedPath, object)
+			) {
+				result = i
 			} else {
-				const assumedTsPath = path.join(...assumedPathTokens) + ".ts"
-				const assumedJsPath = path.join(...assumedPathTokens) + ".js"
+				const assumedTsPath = assumedPath + ".ts"
+				const assumedJsPath = assumedPath + ".js"
 
-				if (isResult(assumedTsPath) || (ignoreJs ? false : isResult(assumedJsPath))) {
+				if (
+					this.pathsMatch(assumedTsPath, object) ||
+					(ignoreJs ? false : this.pathsMatch(assumedJsPath, object))
+				) {
 					result = i
 				}
 			}
 		})
 		return result
+	}
+
+	private static hasSuffix(assumedPath: string, suffix: string) {
+		return assumedPath.match(new RegExp(".+(." + suffix + ")$"))
+	}
+
+	private static pathsMatch(p: string, object: File): boolean {
+		return path.normalize(p) === path.normalize(object.getPath() + "/" + object.getName())
+	}
+
+	private static assumePathOfImportedObject(subject: File, i: ImportDeclaration) {
+		const assumedPathTokens = [
+			...subject.getPath().split("/"),
+			...i.moduleSpecifier["text"].split("/")
+		]
+		const assumedPath = path.join(...assumedPathTokens)
+		return assumedPath
 	}
 
 	public static getImportDeclarations(subject: File): ImportDeclaration[] {
