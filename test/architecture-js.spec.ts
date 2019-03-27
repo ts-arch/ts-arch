@@ -35,11 +35,11 @@ describe("JS Architecture Rules", () => {
 		it("C should depend on A even though it uses an import with the .js suffix", () => {
 			const rule = TSArch.defineThat()
 				.files()
-				.withName("C.js")
+				.withName("C")
 				.should()
 				.dependOn()
 				.files()
-				.withName("A.js")
+				.withName("A")
 				.build()
 
 			expect(project).toPass(rule)

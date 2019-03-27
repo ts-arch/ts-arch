@@ -55,7 +55,10 @@ export class RuleBuilder
 	}
 
 	public withName(expected: string): SubjectFilterAccessor & ObjectFilterAccessor {
-		this.currentlyBuildingFilter = new FilesFilter(this.currentlyBuildingFilter)
+		this.currentlyBuildingFilter = new WithNameMatchingFilter(
+			this.currentlyBuildingFilter,
+			new RegExp(".*" + expected + "\.(ts|js)")
+		)
 		return this
 	}
 
