@@ -1,14 +1,13 @@
 import { createProgram, ScriptTarget } from "typescript"
 import { FileFactory } from "../noun/FileFactory"
 import { Project } from "../Project"
-import { IgnoreConfig } from "../TSArch";
-
+import { IgnoreConfig } from "../TSArchConfig";
 export class ProjectParser {
 	public static async parse(
 		rootPath: string,
 		config: IgnoreConfig
 	): Promise<Project> {
-		const glob = config.js ? "/**/*.ts" : "/**/*.(js|ts)"
+		const glob = config.js ? "**/*.ts" : "**/*.[jt]s"
 		const fileNames = await ProjectParser.getFileNames(rootPath + glob)
 		const project = new Project()
 

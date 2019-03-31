@@ -2,16 +2,8 @@ import { RuleBuilder } from "./builder/RuleBuilder"
 import { SubjectFilterStarter } from "./lang/SubjectFilterStarter"
 import { Project } from "./Project"
 import { ProjectParser } from "./parser/ProjectParser"
+import { TSArchConfig } from "./TSArchConfig";
 
-export interface TSArchConfig {
-	ignore: IgnoreConfig
-}
-
-export interface IgnoreConfig {
-	declarations: boolean
-	nodeModules: boolean
-	js: boolean
-}
 export class TSArch {
 	public static config: TSArchConfig = {
 		ignore: {

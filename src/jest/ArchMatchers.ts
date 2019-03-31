@@ -49,7 +49,7 @@ declare global {
 	}
 }
 
-if (process.env.JEST_WORKER_ID !== undefined) {
+if (expect && expect.extend) {
 	expect.extend({
 		toPass(project?: Project, ruleToMatch?: Checkable) {
 			return toMatchArchRuleLogic(this, project, ruleToMatch)

@@ -23,12 +23,12 @@ describe("Project Architecture Rules", () => {
 	})
 
 	describe("complexity", () => {
-		it("complexity of source files should be lower than 50", () => {
+		it("complexity of source files should be lower than 55", () => {
 			const rule = TSArch.defineThat()
 				.files()
 				.withoutNameMatching(/.*spec\.ts/)
 				.should()
-				.haveComplexityLowerThan(50)
+				.haveComplexityLowerThan(55)
 				.build()
 
 			expect(project).toPass(rule)

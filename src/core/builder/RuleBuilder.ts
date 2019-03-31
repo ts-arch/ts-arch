@@ -18,7 +18,7 @@ import { MatchNameStrategy } from "../checks/naming/MatchNameStrategy"
 import { Rule } from "../Rule"
 import { DependOnStrategy } from "../checks/dependency/DependOnStrategy"
 import { CycleFreeStrategy } from "../checks/cycles/CycleFreeStrategy"
-import { IgnoreConfig } from "../../..";
+import { IgnoreConfig } from "../TSArchConfig";
 
 export class RuleBuilder
 	implements

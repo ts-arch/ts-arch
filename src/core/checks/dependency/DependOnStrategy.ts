@@ -4,7 +4,7 @@ import { Noun } from "../../noun/Noun"
 import { File } from "../../noun/File"
 import { Result, ResultEntry } from "../../Result"
 import * as path from "path"
-import { IgnoreConfig } from "../../TSArch"
+import { IgnoreConfig } from "../../TSArchConfig";
 export class DependOnStrategy implements CheckStrategy {
 	constructor(private ignore: IgnoreConfig) {}
 
