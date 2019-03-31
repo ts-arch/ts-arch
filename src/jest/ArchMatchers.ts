@@ -49,10 +49,9 @@ declare global {
 	}
 }
 
-if (expect && expect.extend) {
-	expect.extend({
-		toPass(project?: Project, ruleToMatch?: Checkable) {
-			return toMatchArchRuleLogic(this, project, ruleToMatch)
-		}
-	} as any)
-}
+expect.extend({
+	toPass(project?: Project, ruleToMatch?: Checkable) {
+		return toMatchArchRuleLogic(this, project, ruleToMatch)
+	}
+} as any)
+

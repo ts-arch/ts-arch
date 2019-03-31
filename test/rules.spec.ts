@@ -1,4 +1,4 @@
-import { TSArch } from ".."
+import { TSArch } from "../jest"
 import { generateAnimalSubjectsMock } from "./generators"
 
 describe("Basic Rules", () => {

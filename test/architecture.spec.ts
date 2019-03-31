@@ -1,5 +1,4 @@
-import {TSArch} from ".."
-import { RuleBuilder } from "../src/core/builder/RuleBuilder"
+import {TSArch} from "../jest"
 
 describe("Project Architecture Rules", () => {
 	let project
