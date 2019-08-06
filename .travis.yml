@@ -1,7 +1,4 @@
 language: node_js
-branches:
-  only:
-    - master
 install:
   - npm install
 cache:
@@ -14,6 +11,7 @@ node_js:
   - node
 script:
   - npm run build
+  - npm test
 after_success:
   - npm run deploy-docs
   - npm run semantic-release
