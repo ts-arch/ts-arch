@@ -1,11 +1,12 @@
 # TSArch
 
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![Travis](https://travis-ci.org/MaibornWolff/ts-arch.svg?branch=master)](https://travis-ci.org/MaibornWolff/ts-arch)
-
 An architecture unit test framework for Typescript
 
-### Usage
+## Build status
+
+[![Travis](https://travis-ci.org/MaibornWolff/ts-arch.svg?branch=master)](https://travis-ci.org/MaibornWolff/ts-arch)
+
+## Usage
 
 ```bash
 npm install --save-dev tsarch
