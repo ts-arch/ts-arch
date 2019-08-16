@@ -5,6 +5,7 @@ import { File } from "../../noun/File"
 import { Result, ResultEntry } from "../../Result"
 import * as path from "path"
 import { IgnoreConfig } from "../../TSArchConfig";
+import { PathHelper } from "./PathHelper"
 export class DependOnStrategy implements CheckStrategy {
 	constructor(private ignore: IgnoreConfig) {}
 
@@ -81,7 +82,7 @@ export class DependOnStrategy implements CheckStrategy {
 	): ImportDeclaration | null {
 		let result: ImportDeclaration | null = null
 		this.getImportDeclarations(subject).forEach(i => {
-			const assumedPath = DependOnStrategy.assumePathOfImportedObject(subject, i)
+			const assumedPath = PathHelper.assumePathOfImportedObject(subject, i)
 
 			if (
 				DependOnStrategy.hasSuffix(assumedPath, "ts") &&
@@ -115,15 +116,6 @@ export class DependOnStrategy implements CheckStrategy {
 
 	private static pathsMatch(p: string, object: File): boolean {
 		return path.normalize(p) === path.normalize(object.getPath() + "/" + object.getName())
-	}
-
-	private static assumePathOfImportedObject(subject: File, i: ImportDeclaration) {
-		const assumedPathTokens = [
-			...subject.getPath().split("/"),
-			...i.moduleSpecifier["text"].split("/")
-		]
-		const assumedPath = path.join(...assumedPathTokens)
-		return assumedPath
 	}
 
 	public static getImportDeclarations(subject: File): ImportDeclaration[] {
