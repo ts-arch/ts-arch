@@ -82,8 +82,10 @@ export class DependOnStrategy implements CheckStrategy {
 	): ImportDeclaration | null {
 		let result: ImportDeclaration | null = null
 		this.getImportDeclarations(subject).forEach(i => {
-			const assumedPath = PathHelper.assumePathOfImportedObject(subject, i)
-
+			const assumedPath = PathHelper.assumePathOfImportedObject(subject.getSourceFile().fileName, i)
+			if (!assumedPath) {
+				return
+			}
 			if (
 				DependOnStrategy.hasSuffix(assumedPath, "ts") &&
 				this.pathsMatch(assumedPath, object)
