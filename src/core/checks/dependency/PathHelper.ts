@@ -1,23 +1,21 @@
-import { File } from "../../noun/File"
-import { ImportDeclaration } from "typescript"
-import * as path from "path"
+import * as ts from "typescript"
 
 export class PathHelper {
-	public static assumePathOfImportedObject(subject: File, i: ImportDeclaration) {
-		let completePath = subject.getPath()
-		const assumedPathTokens = [
-			...completePath.split("/"),
-			...i.moduleSpecifier["text"].split("/")
-		]
-		return PathHelper.assemblePath(assumedPathTokens, completePath)
-	}
+	public static assumePathOfImportedObject(subject: string, i: ts.ImportDeclaration) {
+		const moduleSpecifier = i.moduleSpecifier["text"]
+		let completePath = subject
 
-	private static assemblePath(tokens: string[], completePath: string) {
-		let pathWithoutTrailingSlash = path.join(...tokens)
-		if (completePath.startsWith('/')) {
-			return '/'+pathWithoutTrailingSlash
-		} else {
-			return pathWithoutTrailingSlash
+		let resolvedModule = ts.resolveModuleName(
+			moduleSpecifier,
+			completePath,
+			{},
+			ts.createCompilerHost({}, true)
+		).resolvedModule
+
+		if (!resolvedModule) {
+			return undefined
 		}
+		
+		return resolvedModule.resolvedFileName
 	}
 }
