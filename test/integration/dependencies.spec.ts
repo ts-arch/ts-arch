@@ -1,8 +1,12 @@
 import { TSArch } from "../../src/core/TSArch"
 
 describe('Type script dependencies', () =>{
+	beforeEach( () => {
+		TSArch.config.ignore.nodeModules=true;
+		TSArch.config.ignore.declarations=true;
+	})
 
-	it ('pure typescript', async () => {
+	it('pure typescript', async () => {
 		const project = await TSArch.parseTypescriptProject(__dirname + "/ts/")
 
 		const rule = TSArch.defineThat()
@@ -14,6 +18,38 @@ describe('Type script dependencies', () =>{
 			.withPathMatching(/server/)
 			.build()
 		expect(project.check(rule).hasRulePassed()).toBeFalsy();
+	})
+
+	it('external (positive case)', async () => {
+		TSArch.config.ignore.nodeModules=false;
+		TSArch.config.ignore.declarations=false;
+		const project = await TSArch.parseTypescriptProject(__dirname + "/ts/")
+
+		const rule = TSArch.defineThat()
+			.files()
+			.withPathMatching(/client/)
+			.shouldNot()
+			.dependOn()
+			.files()
+			.withPathMatching(/glob/)
+			.build()
+		expect(project.check(rule).hasRulePassed()).toBeFalsy()
+	})
+
+	it('external (negative case)', async () => {
+		TSArch.config.ignore.nodeModules=true;
+		TSArch.config.ignore.declarations=false;
+		const project = await TSArch.parseTypescriptProject(__dirname + "/ts/")
+
+		const rule = TSArch.defineThat()
+			.files()
+			.withPathMatching(/client/)
+			.shouldNot()
+			.dependOn()
+			.files()
+			.withPathMatching(/glob/)
+			.build()
+		expect(project.check(rule).hasRulePassed()).toBeTruthy()
 	})
 
 	it ('typescript and tsx mixed', async () => {
