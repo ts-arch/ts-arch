@@ -15,6 +15,7 @@ npm install --save-dev tsarch
 ```typescript
 
 import {TSArch} from 'tsarch'
+import 'tsarch/dist/jest'
 
 describe('Architecture', () => {
   
@@ -27,6 +28,7 @@ describe('Architecture', () => {
       .withPathMatching(/.*dog.*/)
       .should()
       .matchName(/.+.Dog\.ts($|\n)/)
+      .build()
 
     expect(project).toMatchArchRule(rule)
 

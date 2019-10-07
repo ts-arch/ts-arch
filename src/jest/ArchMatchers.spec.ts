@@ -4,10 +4,6 @@ import { Project } from "../core/Project"
 import { Result } from "../core/Result"
 
 describe("Jest ArchMatcher", () => {
-	it("should extend jest's expect", () => {
-		expect(expect(null).toPass).toBeDefined()
-	})
-
 	describe("Jest ArchMatcher Logic", () => {
 		let project: Project
 		let rule: Rule
