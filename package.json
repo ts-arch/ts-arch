@@ -22,7 +22,7 @@
     "clean": "rimraf dist",
     "prebuild": "rimraf dist",
     "prepush": "npm run test:prod && npm run lint && npm run build && npm run clean",
-    "build": "tsc --module commonjs && typedoc --out docs --target es6 --theme minimal --mode file src",
+    "build": "tsc && typedoc --out docs --target es6 --theme minimal --mode file src",
     "test": "jest --no-cache",
     "test:watch": "jest --watch --no-cache",
     "test:clear": "jest --clearCache",
@@ -102,8 +102,9 @@
     "validate-commit-msg": "^2.12.2"
   },
   "dependencies": {
+    "@types/glob": "^7.1.1",
     "fs": "0.0.1-security",
-    "typescript": "^3.3.4000",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "typescript": "^3.3.4000"
   }
 }
