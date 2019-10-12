@@ -3,6 +3,7 @@ import { FileFactory } from "../noun/FileFactory"
 import { Project } from "../Project"
 import { IgnoreConfig } from "../TSArchConfig";
 import * as glob from 'glob'
+import * as path from 'path'
 
 export class ProjectParser {
 	public static async parse(
@@ -10,7 +11,7 @@ export class ProjectParser {
 		config: IgnoreConfig
 	): Promise<Project> {
 		const glob = config.js ? "**/*.{ts,tsx}" : "**/*.{ts,tsx,js,jsx}"
-		const fileNames = await ProjectParser.getFileNames(rootPath + glob)
+		const fileNames = await ProjectParser.getFileNames(path.join(rootPath, glob))
 		const project = new Project()
 
 		let program = createProgram(fileNames, {
