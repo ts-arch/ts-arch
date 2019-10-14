@@ -1,4 +1,4 @@
-import { createProgram, ScriptTarget } from "typescript"
+import { createProgram, ModuleResolutionKind, ScriptTarget } from "typescript"
 import { FileFactory } from "../noun/FileFactory"
 import { Project } from "../Project"
 import { IgnoreConfig } from "../TSArchConfig";
@@ -15,13 +15,13 @@ export class ProjectParser {
 		const project = new Project()
 
 		let program = createProgram(fileNames, {
-			target: ScriptTarget.ESNext
+			target: ScriptTarget.ESNext, moduleResolution: ModuleResolutionKind.NodeJs
 		})
 
 		program.getSourceFiles().forEach(s => {
 			if (
-				(config.declarations ? !s.fileName.endsWith(".d.ts") : true) &&
-				(config.nodeModules ? !s.fileName.includes("node_modules") : true)
+				(config.declarations ? !s.isDeclarationFile : true) &&
+				(config.nodeModules ? !program.isSourceFileFromExternalLibrary(s) : true)
 			) {
 				const file = FileFactory.buildFromSourceFile(s)
 				project.addFile(file)
