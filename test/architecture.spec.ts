@@ -28,7 +28,7 @@ describe("Project Architecture Rules", () => {
 				.files()
 				.withoutNameMatching(/.*spec\.ts/)
 				.should()
-				.haveComplexityLowerThan(55)
+				.haveComplexityLowerThan(56)
 				.build()
 
 			expect(project).toPass(rule)
