@@ -4,7 +4,7 @@ import { Noun } from "../../noun/Noun"
 import { File } from "../../noun/File"
 import { Result, ResultEntry } from "../../Result"
 import * as path from "path"
-import { IgnoreConfig } from "../../TSArchConfig";
+import { IgnoreConfig } from "../../TSArchConfig"
 import { PathHelper } from "./PathHelper"
 export class DependOnStrategy implements CheckStrategy {
 	constructor(private ignore: IgnoreConfig) {}
@@ -82,28 +82,37 @@ export class DependOnStrategy implements CheckStrategy {
 	): ImportDeclaration | null {
 		let result: ImportDeclaration | null = null
 		this.getImportDeclarations(subject).forEach(i => {
-			const assumedPath = PathHelper.assumePathOfImportedObject(subject.getSourceFile().fileName, i)
+			const assumedPath = PathHelper.assumePathOfImportedObject(
+				subject.getSourceFile().fileName,
+				i
+			)
 			if (!assumedPath) {
 				return
 			}
 			if (
-				DependOnStrategy.hasSuffix(assumedPath, "ts") &&
+				(DependOnStrategy.hasSuffix(assumedPath, "ts") ||
+					DependOnStrategy.hasSuffix(assumedPath, "tsx")) &&
 				this.pathsMatch(assumedPath, object)
 			) {
 				result = i
 			} else if (
-				DependOnStrategy.hasSuffix(assumedPath, "js") &&
+				(DependOnStrategy.hasSuffix(assumedPath, "js") ||
+					DependOnStrategy.hasSuffix(assumedPath, "jsx")) &&
 				!ignoreJs &&
 				this.pathsMatch(assumedPath, object)
 			) {
 				result = i
 			} else {
 				const assumedTsPath = assumedPath + ".ts"
+				const assumedTsxPath = assumedPath + ".ts"
 				const assumedJsPath = assumedPath + ".js"
+				const assumedJsxPath = assumedPath + ".js"
 
 				if (
 					this.pathsMatch(assumedTsPath, object) ||
-					(ignoreJs ? false : this.pathsMatch(assumedJsPath, object))
+					this.pathsMatch(assumedTsxPath, object) ||
+					(ignoreJs ? false : this.pathsMatch(assumedJsPath, object)) ||
+					(ignoreJs ? false : this.pathsMatch(assumedJsxPath, object))
 				) {
 					result = i
 				}
