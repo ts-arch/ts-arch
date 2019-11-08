@@ -1,4 +1,5 @@
-import {TSArch} from "../jest"
+import { TSArch } from "../src/core/TSArch"
+import "../jest"
 
 describe("Project Architecture Rules", () => {
 	let project
@@ -27,7 +28,7 @@ describe("Project Architecture Rules", () => {
 				.files()
 				.withoutNameMatching(/.*spec\.ts/)
 				.should()
-				.haveComplexityLowerThan(55)
+				.haveComplexityLowerThan(56)
 				.build()
 
 			expect(project).toPass(rule)
