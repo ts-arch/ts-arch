@@ -40,7 +40,7 @@ describe('Architecture', () => {
 
 ## Credits
 
-This project is based on the concept of [TNG's Archunit](https://github.com/TNG/ArchUnit). Initially implemented by [@mrpatpat](https://github.com/mrpatpat) with contributions from:
+This project is inspired by [TNG's Archunit](https://github.com/TNG/ArchUnit). Initially implemented by [@mrpatpat](https://github.com/mrpatpat) with contributions from:
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
