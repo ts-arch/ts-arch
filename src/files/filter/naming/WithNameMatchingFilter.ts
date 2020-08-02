@@ -9,7 +9,7 @@ export class WithNameMatchingFilter implements Filter {
 	) {}
 
 	public filter(nouns: Noun[]): Noun[] {
-		return this.inputFilter.filter(nouns).filter(s => {
+		return this.inputFilter.filter(nouns).filter((s) => {
 			return this.invert ? !s.getName().match(this.regex) : s.getName().match(this.regex)
 		})
 	}

@@ -1,4 +1,4 @@
-import { generateFileSubjectMock } from "../../../../test/generators"
+import { generateFileSubjectMock } from "../../../../test/files/generators"
 import { EmptyFilter } from "../EmptyFilter"
 import { WithNameMatchingFilter } from "./WithNameMatchingFilter"
 describe("SubjectsNameFilterPipe", () => {
@@ -16,10 +16,7 @@ describe("SubjectsNameFilterPipe", () => {
 
 	it("should filter given subjects correctly", () => {
 		expect(
-			pipe.filter([
-				generateFileSubjectMock("a/hello world"),
-				generateFileSubjectMock("a/hi world")
-			])
+			pipe.filter([generateFileSubjectMock("a/hello world"), generateFileSubjectMock("a/hi world")])
 		).toEqual([generateFileSubjectMock("a/hello world")])
 	})
 })

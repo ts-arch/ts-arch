@@ -1,24 +1,22 @@
 import { createProgram, ModuleResolutionKind, ScriptTarget } from "typescript"
 import { FileFactory } from "../noun/FileFactory"
 import { Project } from "../Project"
-import { IgnoreConfig } from "../TSArchConfig";
-import * as glob from 'glob'
-import * as path from 'path'
+import { IgnoreConfig } from "../TSArchConfig"
+import glob from "glob"
+import path from "path"
 
 export class ProjectParser {
-	public static async parse(
-		rootPath: string,
-		config: IgnoreConfig
-	): Promise<Project> {
+	public static async parse(rootPath: string, config: IgnoreConfig): Promise<Project> {
 		const glob = config.js ? "**/*.{ts,tsx}" : "**/*.{ts,tsx,js,jsx}"
 		const fileNames = await ProjectParser.getFileNames(path.join(rootPath, glob))
 		const project = new Project()
 
 		let program = createProgram(fileNames, {
-			target: ScriptTarget.ESNext, moduleResolution: ModuleResolutionKind.NodeJs
+			target: ScriptTarget.ESNext,
+			moduleResolution: ModuleResolutionKind.NodeJs
 		})
 
-		program.getSourceFiles().forEach(s => {
+		program.getSourceFiles().forEach((s) => {
 			if (
 				(config.declarations ? !s.isDeclarationFile : true) &&
 				(config.nodeModules ? !program.isSourceFileFromExternalLibrary(s) : true)

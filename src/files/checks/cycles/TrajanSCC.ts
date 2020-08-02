@@ -26,7 +26,7 @@ export class TrajanSCC {
 	public findStronglyConnectedComponents(edges: Edge[]): Array<Edge[]> {
 		this.init(edges)
 
-		this.graph.forEach(vertex => {
+		this.graph.forEach((vertex) => {
 			if (vertex.index < 0) {
 				this.visit(vertex)
 			}
@@ -42,7 +42,7 @@ export class TrajanSCC {
 
 		for (let i in vertex.neighbours) {
 			let v = vertex
-			let w = this.graph.find(x => x.id === vertex.neighbours[i])!
+			let w = this.graph.find((x) => x.id === vertex.neighbours[i])!
 
 			if (w.index < 0) {
 				this.visit(w)
@@ -63,8 +63,8 @@ export class TrajanSCC {
 			}
 			if (scc.length > 0) {
 				const sccEdges: Edge[] = []
-				this.edges.forEach(edge => {
-					if (scc.find(x => x.id === edge.from) && scc.find(x => x.id === edge.to)) {
+				this.edges.forEach((edge) => {
+					if (scc.find((x) => x.id === edge.from) && scc.find((x) => x.id === edge.to)) {
 						sccEdges.push(edge)
 					}
 				})
@@ -78,8 +78,8 @@ export class TrajanSCC {
 	private init(edges: Edge[]) {
 		this.edges = edges
 		this.graph = []
-		edges.forEach(edge => {
-			let v = this.graph.find(x => x.id === edge.from)
+		edges.forEach((edge) => {
+			let v = this.graph.find((x) => x.id === edge.from)
 			if (v) {
 				if (!v.neighbours.includes(edge.to)) {
 					v.neighbours.push(edge.to)
@@ -90,7 +90,7 @@ export class TrajanSCC {
 				this.graph.push(v)
 			}
 
-			if (!this.graph.find(x => x.id === edge.to)) {
+			if (!this.graph.find((x) => x.id === edge.to)) {
 				this.graph.push(new Vertex(edge.to))
 			}
 		})

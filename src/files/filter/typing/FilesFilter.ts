@@ -8,7 +8,7 @@ export class FilesFilter implements Filter {
 	public filter(nouns: Noun[]): File[] {
 		return this.input
 			.filter(nouns)
-			.filter(x => x instanceof File)
-			.map(x => x as File)
+			.filter((x) => x instanceof File)
+			.map((x) => x as File)
 	}
 }

@@ -6,7 +6,7 @@ export class TwoDependenciesInProject {
 
 	constructor() {
 		this.a = 2
-		const b = new DependOnStrategy({ js: false, declarations: true, nodeModules: true})
+		const b = new DependOnStrategy({ js: false, declarations: true, nodeModules: true })
 		const c = new HaveComplexityLowerThanStrategy(2)
 	}
 }

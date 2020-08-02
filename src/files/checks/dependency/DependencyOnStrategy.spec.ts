@@ -1,6 +1,6 @@
 import { DependOnStrategy } from "./DependOnStrategy"
 import { FileFactory } from "../../noun/FileFactory"
-import { TSArch } from "../../TSArch";
+import { TSArch } from "../../TSArch"
 
 describe("dependency rule", () => {
 	const noDependenciesFile = FileFactory.buildFromPath(__dirname + "/samples/NoDependencies.ts")

@@ -18,7 +18,7 @@ import { MatchNameStrategy } from "../checks/naming/MatchNameStrategy"
 import { Rule } from "../Rule"
 import { DependOnStrategy } from "../checks/dependency/DependOnStrategy"
 import { CycleFreeStrategy } from "../checks/cycles/CycleFreeStrategy"
-import { IgnoreConfig } from "../TSArchConfig";
+import { IgnoreConfig } from "../TSArchConfig"
 
 export class RuleBuilder
 	implements
@@ -57,16 +57,13 @@ export class RuleBuilder
 	public withName(expected: string): SubjectFilterAccessor & ObjectFilterAccessor {
 		this.currentlyBuildingFilter = new WithNameMatchingFilter(
 			this.currentlyBuildingFilter,
-			new RegExp(".*" + expected + "\.(ts|js)")
+			new RegExp(".*" + expected + ".(ts|js)")
 		)
 		return this
 	}
 
 	public withNameMatching(regex: RegExp): SubjectFilterAccessor & ObjectFilterAccessor {
-		this.currentlyBuildingFilter = new WithNameMatchingFilter(
-			this.currentlyBuildingFilter,
-			regex
-		)
+		this.currentlyBuildingFilter = new WithNameMatchingFilter(this.currentlyBuildingFilter, regex)
 		return this
 	}
 

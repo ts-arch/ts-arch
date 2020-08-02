@@ -1,0 +1,48 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "usernamehw.errorlens",
+      "esbenp.prettier-vscode",
+      "maples7.terminal-inplace",
+      "joaompinto.asciidoctor-vscode",
+      "yzhang.markdown-all-in-one",
+      "christian-kohler.npm-intellisense",
+      "christian-kohler.path-intellisense",
+      "rbbit.typescript-hero",
+      "alefragnani.bookmarks",
+      "eamodio.gitlens",
+      "hbenl.vscode-test-explorer-liveshare",
+      "hbenl.vscode-test-explorer",
+      "ms-vsliveshare.vsliveshare",
+      "kavod-io.vscode-jest-test-adapter"
+    ]
+  },
+  "settings": {
+    "asciidoc.preview.attributes": {
+      "plantuml-server-url": "http://plantuml.com/plantuml"
+    },
+    "editor.tabSize": 2,
+    "typescript.preferences.quoteStyle": "single",
+    "javascript.preferences.quoteStyle": "single",
+    "editor.snippetSuggestions": "top",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.autoSave": "afterDelay",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/*.code-search": true,
+      "**/.history": true
+    }
+  }
+}

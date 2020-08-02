@@ -38,7 +38,7 @@ export class Result {
 			return false
 		}
 		let result = true
-		this.entries.forEach(r => {
+		this.entries.forEach((r) => {
 			if (!r.pass) {
 				result = false
 			}

@@ -7,7 +7,7 @@ export class MatchNameStrategy implements CheckStrategy {
 
 	execute(isNegated: boolean, subjects: Noun[]): Result {
 		const result = new Result()
-		subjects.forEach(s => {
+		subjects.forEach((s) => {
 			if (s.getName().match(this.regex)) {
 				result.addEntry(this.buildMatchingResult(s, isNegated))
 			} else {

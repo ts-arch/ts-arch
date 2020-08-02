@@ -1,0 +1,24 @@
+  @startuml
+    component [fluentapi] #Green
+    component [processing]
+    component [domain]
+    component [assertions]
+    component [extraction]
+    component [projections]
+    component [uml]
+    component [util] #Grey
+    [fluentapi] -> [processing]
+    [fluentapi] -> [domain]
+    [fluentapi] -> [assertions]
+    [fluentapi] -> [extraction]
+    [fluentapi] -> [projections]
+    [fluentapi] -> [uml]
+    [processing] --> [domain]
+    [assertions] --> [processing]
+    [extraction] --> [domain]
+    [projections] --> [domain]
+    [projections] --> [processing]
+    [projections] --> [util]
+    [uml] --> [processing]
+    [uml] --> [assertions]
+@enduml

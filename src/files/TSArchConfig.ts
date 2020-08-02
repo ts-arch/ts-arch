@@ -1,8 +1,8 @@
 export interface TSArchConfig {
-	ignore: IgnoreConfig;
+	ignore: IgnoreConfig
 }
 export interface IgnoreConfig {
-	declarations: boolean;
-	nodeModules: boolean;
-	js: boolean;
+	declarations: boolean
+	nodeModules: boolean
+	js: boolean
 }

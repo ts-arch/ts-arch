@@ -15,6 +15,6 @@ export class File extends Noun {
 	}
 
 	public static getFrom(nouns: Noun[]): File[] {
-		return nouns.filter(x => x instanceof File).map(x => x as File)
+		return nouns.filter((x) => x instanceof File).map((x) => x as File)
 	}
 }

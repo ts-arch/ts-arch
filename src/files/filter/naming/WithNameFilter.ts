@@ -5,6 +5,6 @@ export class WithNameFilter implements Filter {
 	constructor(private inputFilter: Filter, private name: string) {}
 
 	public filter(nouns: Noun[]): Noun[] {
-		return this.inputFilter.filter(nouns).filter(x => x.getName() === this.name)
+		return this.inputFilter.filter(nouns).filter((x) => x.getName() === this.name)
 	}
 }

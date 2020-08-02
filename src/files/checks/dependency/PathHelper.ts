@@ -15,7 +15,7 @@ export class PathHelper {
 		if (!resolvedModule) {
 			return undefined
 		}
-		
+
 		return resolvedModule.resolvedFileName
 	}
 }

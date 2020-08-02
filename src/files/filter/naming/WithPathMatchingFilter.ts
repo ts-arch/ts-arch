@@ -8,12 +8,11 @@ export class WithPathMatchingFilter implements Filter {
 	public filter(nouns: Noun[]): Noun[] {
 		return this.inputFilter
 			.filter(nouns)
-			.filter(s => s instanceof File)
-			.filter(
-				s =>
-					this.invert
-						? !(s as File).getPath().match(this.regex)
-						: (s as File).getPath().match(this.regex)
+			.filter((s) => s instanceof File)
+			.filter((s) =>
+				this.invert
+					? !(s as File).getPath().match(this.regex)
+					: (s as File).getPath().match(this.regex)
 			)
 	}
 }

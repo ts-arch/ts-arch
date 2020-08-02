@@ -1,7 +1,7 @@
 import { toMatchArchRuleLogic } from "./ArchMatchers"
-import { Rule } from "../core/Rule"
-import { Project } from "../core/Project"
-import { Result } from "../core/Result"
+import { Rule } from "../files/Rule"
+import { Project } from "../files/Project"
+import { Result } from "../files/Result"
 
 describe("Jest ArchMatcher", () => {
 	describe("Jest ArchMatcher Logic", () => {

@@ -2,7 +2,7 @@ import { RuleBuilder } from "./builder/RuleBuilder"
 import { SubjectFilterStarter } from "./lang/SubjectFilterStarter"
 import { Project } from "./Project"
 import { ProjectParser } from "./parser/ProjectParser"
-import { TSArchConfig } from "./TSArchConfig";
+import { TSArchConfig } from "./TSArchConfig"
 
 export class TSArch {
 	public static config: TSArchConfig = {

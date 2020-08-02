@@ -9,7 +9,7 @@ export class HaveComplexityLowerThanStrategy implements CheckStrategy {
 
 	execute(isNegated: boolean, subjects: Noun[]): Result {
 		const result = new Result()
-		File.getFrom(subjects).forEach(s => {
+		File.getFrom(subjects).forEach((s) => {
 			const mcc = this.getMcc(s)
 			if (mcc >= this.value) {
 				result.addEntry(this.buildResult(s, isNegated, mcc))
@@ -47,7 +47,7 @@ export class HaveComplexityLowerThanStrategy implements CheckStrategy {
 				mcc++
 				break
 		}
-		node.forEachChild(c => {
+		node.forEachChild((c) => {
 			mcc += this.analyze(c)
 		})
 		return mcc

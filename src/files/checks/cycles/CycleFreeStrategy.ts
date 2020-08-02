@@ -23,7 +23,7 @@ export class CycleFreeStrategy implements CheckStrategy {
 		const cycles = this.getSimpleCycles(this.getDependencyGraph(File.getFrom(subjects)))
 
 		if (cycles.cycles.length > 0) {
-			cycles.cycles.forEach(cycle => {
+			cycles.cycles.forEach((cycle) => {
 				const subject = cycles.fileData.get(cycle[0].from)!
 				result.addEntry({
 					subject: subject,
@@ -39,7 +39,7 @@ export class CycleFreeStrategy implements CheckStrategy {
 	private getReadableCycle(c: Edge[], fileData: Map<number, File>): string {
 		return (
 			"Cyclic dependency found: " +
-			[...c, c[0]].map(edge => fileData.get(edge.from)!.getName()).join(" -> ")
+			[...c, c[0]].map((edge) => fileData.get(edge.from)!.getName()).join(" -> ")
 		)
 	}
 
@@ -47,7 +47,7 @@ export class CycleFreeStrategy implements CheckStrategy {
 		const tarjan = new TrajanSCC()
 		const cycles: Array<Edge[]> = []
 		const stronglyConnectedComponents = tarjan.findStronglyConnectedComponents(graph.edges)
-		stronglyConnectedComponents.forEach(scc => {
+		stronglyConnectedComponents.forEach((scc) => {
 			const johnson = new JohnsonsAPSP()
 			if (scc.length > 1) {
 				cycles.push(...johnson.findSimpleCycles(scc))
@@ -69,7 +69,7 @@ export class CycleFreeStrategy implements CheckStrategy {
 		})
 		ids.forEach((id, file) => {
 			const fileDeps = DependOnStrategy.getDependenciesOfSubject(file, subjects)
-			fileDeps.forEach(fileDep => {
+			fileDeps.forEach((fileDep) => {
 				const depId = ids.get(fileDep)
 				if (depId !== undefined) {
 					edges.push({

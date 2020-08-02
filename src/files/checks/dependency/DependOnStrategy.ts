@@ -14,14 +14,10 @@ export class DependOnStrategy implements CheckStrategy {
 		const fileObjects = File.getFrom(objects)
 		const fileSubjects = File.getFrom(subjects)
 
-		fileSubjects.forEach(s => {
-			const dependencies = DependOnStrategy.getDependenciesOfSubject(
-				s,
-				fileObjects,
-				this.ignore.js
-			)
+		fileSubjects.forEach((s) => {
+			const dependencies = DependOnStrategy.getDependenciesOfSubject(s, fileObjects, this.ignore.js)
 			if (dependencies.length > 0) {
-				dependencies.forEach(d => {
+				dependencies.forEach((d) => {
 					result.addEntry(this.buildHasDependenciesResult(s, d, isNegated))
 				})
 			} else {
@@ -62,12 +58,8 @@ export class DependOnStrategy implements CheckStrategy {
 		ignoreJs: boolean = false
 	): File[] {
 		const result: File[] = []
-		objects.forEach(object => {
-			const declaration = DependOnStrategy.getImportDeclarationForObject(
-				object,
-				subject,
-				ignoreJs
-			)
+		objects.forEach((object) => {
+			const declaration = DependOnStrategy.getImportDeclarationForObject(object, subject, ignoreJs)
 			if (declaration) {
 				result.push(object)
 			}
@@ -81,11 +73,8 @@ export class DependOnStrategy implements CheckStrategy {
 		ignoreJs: boolean = false
 	): ImportDeclaration | null {
 		let result: ImportDeclaration | null = null
-		this.getImportDeclarations(subject).forEach(i => {
-			const assumedPath = PathHelper.assumePathOfImportedObject(
-				subject.getSourceFile().fileName,
-				i
-			)
+		this.getImportDeclarations(subject).forEach((i) => {
+			const assumedPath = PathHelper.assumePathOfImportedObject(subject.getSourceFile().fileName, i)
 			if (!assumedPath) {
 				return
 			}
@@ -132,7 +121,7 @@ export class DependOnStrategy implements CheckStrategy {
 	public static getImportDeclarations(subject: File): ImportDeclaration[] {
 		return subject
 			.getSourceFile()
-			.statements.filter(x => x.kind === SyntaxKind.ImportDeclaration)
-			.map(x => x as ImportDeclaration)
+			.statements.filter((x) => x.kind === SyntaxKind.ImportDeclaration)
+			.map((x) => x as ImportDeclaration)
 	}
 }
