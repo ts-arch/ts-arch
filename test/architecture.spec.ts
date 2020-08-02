@@ -1,4 +1,4 @@
-import { TSArch } from "../src/core/TSArch"
+import { TSArch } from "../src/files/TSArch"
 import "../jest"
 
 describe("Project Architecture Rules", () => {
@@ -50,29 +50,29 @@ describe("Project Architecture Rules", () => {
 
 	describe("dependencies", () => {
 		test.each`
-			subjectPath       | objectPath
-			${/core/}         | ${/jest/}
-			${/core\/checks/} | ${/core\/builder/}
-			${/core\/checks/} | ${/core\/filter/}
-			${/core\/checks/} | ${/core\/lang/}
-			${/core\/checks/} | ${/core\/parser/}
-			${/core\/filter/} | ${/core\/builder/}
-			${/core\/filter/} | ${/core\/checks/}
-			${/core\/filter/} | ${/core\/lang/}
-			${/core\/filter/} | ${/core\/parser/}
-			${/core\/lang/}   | ${/core\/builder/}
-			${/core\/lang/}   | ${/core\/filter/}
-			${/core\/lang/}   | ${/core\/checks/}
-			${/core\/lang/}   | ${/core\/parser/}
-			${/core\/noun/}   | ${/core\/builder/}
-			${/core\/noun/}   | ${/core\/checks/}
-			${/core\/noun/}   | ${/core\/filter/}
-			${/core\/noun/}   | ${/core\/lang/}
-			${/core\/noun/}   | ${/core\/parser/}
-			${/core\/parser/} | ${/core\/builder/}
-			${/core\/parser/} | ${/core\/checks/}
-			${/core\/parser/} | ${/core\/filter/}
-			${/core\/parser/} | ${/core\/lang/}
+			subjectPath        | objectPath
+			${/files/}         | ${/jest/}
+			${/files\/checks/} | ${/files\/builder/}
+			${/files\/checks/} | ${/files\/filter/}
+			${/files\/checks/} | ${/files\/lang/}
+			${/files\/checks/} | ${/files\/parser/}
+			${/files\/filter/} | ${/files\/builder/}
+			${/files\/filter/} | ${/files\/checks/}
+			${/files\/filter/} | ${/files\/lang/}
+			${/files\/filter/} | ${/files\/parser/}
+			${/files\/lang/}   | ${/files\/builder/}
+			${/files\/lang/}   | ${/files\/filter/}
+			${/files\/lang/}   | ${/files\/checks/}
+			${/files\/lang/}   | ${/files\/parser/}
+			${/files\/noun/}   | ${/files\/builder/}
+			${/files\/noun/}   | ${/files\/checks/}
+			${/files\/noun/}   | ${/files\/filter/}
+			${/files\/noun/}   | ${/files\/lang/}
+			${/files\/noun/}   | ${/files\/parser/}
+			${/files\/parser/} | ${/files\/builder/}
+			${/files\/parser/} | ${/files\/checks/}
+			${/files\/parser/} | ${/files\/filter/}
+			${/files\/parser/} | ${/files\/lang/}
 		`("$subjectPath should not depend on $objectPath", ({ subjectPath, objectPath }) => {
 			const rule = TSArch.defineThat()
 				.files()

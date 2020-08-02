@@ -1,4 +1,4 @@
-import { TSArch } from "../../src/core/TSArch"
+import { TSArch } from "../../src/files/TSArch"
 
 describe("Type script dependencies", () => {
 	beforeEach(() => {
