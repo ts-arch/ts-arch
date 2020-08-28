@@ -1,6 +1,6 @@
-import { Result } from "../core/Result"
-import { Project } from "../core/Project"
-import { Checkable } from "../core/lang/Checkable"
+import { Result } from "../files/Result"
+import { Project } from "../files/Project"
+import { Checkable } from "../files/lang/Checkable"
 
 function buildJestResult(
 	pass: boolean,
@@ -12,8 +12,8 @@ function buildJestResult(
 		info += "\nDetails:\n"
 		details
 			.getEntries()
-			.filter(e => !e.pass)
-			.forEach(e => (info += `${e.pass} | ${e.subject.getName()} -> ${e.info}\n`))
+			.filter((e) => !e.pass)
+			.forEach((e) => (info += `${e.pass} | ${e.subject.getName()} -> ${e.info}\n`))
 	}
 	return { pass: pass, message: () => info }
 }
@@ -56,4 +56,3 @@ export function extendJestMatchers() {
 		}
 	} as any)
 }
-

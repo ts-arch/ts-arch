@@ -1,110 +1,114 @@
 {
-  "name": "tsarch",
-  "version": "0.0.0-development",
-  "description": "",
-  "keywords": [],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "author": "mrpatpat <adrian.endrich@googlemail.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/MaibornWolff/ts-arch.git"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">=6.0.0"
-  },
-  "scripts": {
-    "lint": "tslint -t codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
-    "clean": "rimraf dist",
-    "prebuild": "rimraf dist",
-    "prepush": "npm run test:prod && npm run lint && npm run build && npm run clean",
-    "build": "tsc && typedoc --out docs --target es6 --theme minimal --mode file src",
-    "test": "jest --no-cache",
-    "test:watch": "jest --watch --no-cache",
-    "test:clear": "jest --clearCache",
-    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
-    "deploy-docs": "ts-node tools/gh-pages-publish",
-    "commit": "git-cz",
-    "commitmsg": "validate-commit-msg",
-    "semantic-release": "semantic-release",
-    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
-    "travis-deploy-once": "travis-deploy-once"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    },
-    "validate-commit-msg": {
-      "types": "conventional-commit-types",
-      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
-    }
-  },
-  "jest": {
-    "testURL": "http://localhost/",
-    "transform": {
-      ".(ts|tsx)": "ts-jest"
-    },
-    "testRegex": "(/(test|src)/.*\\.(test|spec))\\.(ts|tsx)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 70,
-        "functions": 70,
-        "lines": 70,
-        "statements": 70
-      }
-    },
-    "collectCoverage": true
-  },
-  "prettier": {
-    "semi": false,
-    "tabWidth": 4,
-    "singleQuote": false
-  },
-  "devDependencies": {
-    "@types/jest": "^23.0.0",
-    "@types/node": "^10.5.2",
-    "colors": "^1.1.2",
-    "commitizen": "^2.9.6",
-    "cross-env": "^5.2.0",
-    "cz-conventional-changelog": "^2.0.0",
-    "glob": "^7.1.2",
-    "husky": "^0.14.3",
-    "jest": "^23.0.0",
-    "lint-staged": "^7.2.0",
-    "lodash.camelcase": "^4.3.0",
-    "prettier": "^1.13.7",
-    "prompt": "^1.0.0",
-    "recast": "^0.16.1",
-    "replace-in-file": "^3.0.0-beta.2",
-    "rimraf": "^2.6.1",
-    "semantic-release": "^15.8.1",
-    "travis-deploy-once": "^5.0.1",
-    "ts-jest": "^23.10.5",
-    "ts-node": "^6.2.0",
-    "tslib": "^1.9.3",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.14.0",
-    "tslint-config-standard": "^7.1.0",
-    "typedoc": "^0.14.0",
-    "validate-commit-msg": "^2.12.2"
-  },
-  "dependencies": {
-    "@types/glob": "^7.1.1",
-    "fs": "0.0.1-security",
-    "path": "^0.12.7",
-    "typescript": "^3.3.4000"
-  }
+	"name": "tsarch",
+	"version": "0.0.0-development",
+	"description": "",
+	"keywords": [],
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"author": "mrpatpat <adrian.endrich@googlemail.com>",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/MaibornWolff/ts-arch.git"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=14.0.0"
+	},
+	"scripts": {
+		"lint": "tslint -t codeFrame --project tsconfig.json 'src/**/*.ts' 'test/**/*.ts'",
+		"clean": "rimraf dist",
+		"prebuild": "rimraf dist",
+		"build": "tsc && typedoc --out docs --target es6 --theme minimal --mode file src",
+		"format": "prettier --ignore-path .gitignore --write '**/*.ts'",
+		"test": "jest --no-cache",
+		"test:watch": "jest --watch --no-cache",
+		"test:clear": "jest --clearCache",
+		"test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+		"deploy-docs": "ts-node tools/gh-pages-publish",
+		"commit": "git-cz",
+		"commitmsg": "validate-commit-msg",
+		"semantic-release": "semantic-release",
+		"semantic-release-prepare": "ts-node tools/semantic-release-prepare",
+		"travis-deploy-once": "travis-deploy-once"
+	},
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-conventional-changelog"
+		},
+		"validate-commit-msg": {
+			"types": "conventional-commit-types",
+			"helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+		}
+	},
+	"jest": {
+		"testURL": "http://localhost/",
+		"transform": {
+			".(ts|tsx)": "ts-jest"
+		},
+		"testRegex": "(/(test|src)/.*\\.(test|spec))\\.(ts|tsx)$",
+		"moduleFileExtensions": [
+			"ts",
+			"tsx",
+			"js"
+		],
+		"coveragePathIgnorePatterns": [
+			"/node_modules/",
+			"/test/"
+		],
+		"coverageThreshold": {
+			"global": {
+				"branches": 70,
+				"functions": 70,
+				"lines": 70,
+				"statements": 70
+			}
+		},
+		"collectCoverage": true
+	},
+	"prettier": {
+		"printWidth": 100,
+		"trailingComma": "none",
+		"tabWidth": 2,
+		"semi": false,
+		"singleQuote": false
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.3",
+		"@types/jest": "^23.0.0",
+		"@types/node": "^10.17.28",
+		"colors": "^1.1.2",
+		"commitizen": "^2.9.6",
+		"cross-env": "^5.2.0",
+		"cz-conventional-changelog": "^2.0.0",
+		"glob": "^7.1.6",
+		"jest": "^23.0.0",
+		"lint-staged": "^7.2.0",
+		"lodash.camelcase": "^4.3.0",
+		"prettier": "^2.0.5",
+		"prompt": "^1.0.0",
+		"recast": "^0.16.1",
+		"replace-in-file": "^3.0.0-beta.2",
+		"rimraf": "^2.6.1",
+		"semantic-release": "^15.8.1",
+		"travis-deploy-once": "^5.0.1",
+		"ts-jest": "^23.10.5",
+		"ts-node": "^8.10.1",
+		"tslib": "^1.9.3",
+		"tslint": "^5.11.0",
+		"tslint-config-prettier": "^1.14.0",
+		"tslint-config-standard": "^7.1.0",
+		"typedoc": "^0.17.8",
+		"validate-commit-msg": "^2.12.2"
+	},
+	"dependencies": {
+		"fs": "0.0.1-security",
+		"neverthrow": "^2.7.1",
+		"path": "^0.12.7",
+		"plantuml-parser": "0.0.16",
+		"typescript": "^3.8.3",
+		"walk-sync": "^2.2.0"
+	}
 }

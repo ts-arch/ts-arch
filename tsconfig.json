@@ -1,23 +1,21 @@
 {
-  "compilerOptions": {
-    "moduleResolution": "node",
-    "target": "es5",
-    "module":"commonjs",
-    "lib": ["es2015", "es2016", "es2017"],
-    "strict": true,
-    "sourceMap": true,
-    "declaration": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "declarationDir": "dist",
-    "noImplicitAny": false,
-    "outDir": "dist",
-    "typeRoots": [
-      "node_modules/@types"
-    ]
-  },
-  "include": [
-    "src", "index.ts", "jest.ts"
-  ]
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"target": "es5",
+		"module": "commonjs",
+		"lib": ["es2019"],
+		"jsx": "preserve",
+		"strict": true,
+		"sourceMap": true,
+		"declaration": true,
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"declarationDir": "dist",
+		"outDir": "dist",
+		"downlevelIteration": true,
+		"noImplicitAny": false,
+		"esModuleInterop": true
+	},
+	"include": ["src", "index.ts", "jest.ts", "test"]
 }
