@@ -30,11 +30,8 @@
 		"deploy-docs": "ts-node tools/gh-pages-publish",
 		"commit": "git-cz",
 		"commitmsg": "validate-commit-msg",
-		"semantic-release": "semantic-release",
+		"semantic-release": "semantic-release --branches main",
 		"travis-deploy-once": "travis-deploy-once"
-	},
-	"release": {
-		"branches": ["main"]
 	},
 	"config": {
 		"commitizen": {
