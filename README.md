@@ -4,7 +4,7 @@ An architecture unit test framework for Typescript
 
 ## Build status
 
-[![Travis](https://travis-ci.org/MaibornWolff/ts-arch.svg?branch=master)](https://travis-ci.org/MaibornWolff/ts-arch)
+[![Travis](https://travis-ci.org/MaibornWolff/ts-arch.svg?branch=main)](https://travis-ci.org/MaibornWolff/ts-arch)
 
 ## Installation
 

@@ -31,8 +31,10 @@
 		"commit": "git-cz",
 		"commitmsg": "validate-commit-msg",
 		"semantic-release": "semantic-release",
-		"semantic-release-prepare": "ts-node tools/semantic-release-prepare",
 		"travis-deploy-once": "travis-deploy-once"
+	},
+	"release": {
+		"branches": ["main"]
 	},
 	"config": {
 		"commitizen": {
