@@ -3,9 +3,9 @@ export function sliceByPattern(pattern: string): MapFunction {
 	return sliceByRegex(new RegExp(`^${regexp}`))
 }
 
-import { Edge } from "../domain/graph"
+import { Edge } from "../../common/domain/graph"
 import { MapFunction, MappedEdge } from "../processing/project"
-import { safeArrayGet } from "../util/arrayUtils"
+import { safeArrayGet } from "../../common/util/arrayUtils"
 
 export function sliceByRegex(regexp: RegExp): MapFunction {
 	return function slice(edge: Edge): MappedEdge | undefined {

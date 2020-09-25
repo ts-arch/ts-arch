@@ -1,7 +1,7 @@
 import { generateRule } from "../uml/generateRules"
 import { sliceByPattern } from "../projections/slicing"
 import { project } from "../processing/project"
-import { extractGraph } from "../extraction/extractGraph"
+import { extractGraph } from "../../common/extraction/extractGraph"
 import {
 	gatherPositiveViolations,
 	ViolatingEdge,

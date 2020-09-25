@@ -4,7 +4,7 @@ import { Result, ok, err } from "neverthrow"
 import { CompilerOptions } from "typescript"
 import glob from "glob"
 import path from "path"
-import { Edge } from "../domain/graph"
+import { Edge } from "../../common/domain/graph"
 
 async function guessProjectFiles(globPattern: string): Promise<string[]> {
 	return new Promise<string[]>((resolve, reject) => {
@@ -45,14 +45,14 @@ export async function extractGraph(configFileName?: string): Promise<Result<Edge
 		configFile = guessLocationOfTsconfig()
 	}
 	if (configFile === undefined) {
-		return err("Could not find configuration file")
+		return err("Could not find configuration path")
 	}
 	const config = ts.readConfigFile(configFile, (path: string) => {
 		return fs.readFileSync(path).toString()
 	})
 
 	if (config.error !== undefined) {
-		return err("invalid config file")
+		return err("invalid config path")
 	}
 
 	const parsedConfig: CompilerOptions = config.config
@@ -73,6 +73,7 @@ export async function extractGraph(configFileName?: string): Promise<Result<Edge
 
 	const imports: Edge[] = []
 
+	// TODO currently the graph is made of imports as edges. Files that are not imported are not found in this graph.
 	for (const sourceFile of program.getSourceFiles()) {
 		ts.forEachChild(sourceFile, (x) => {
 			if (ts.isImportDeclaration(x)) {

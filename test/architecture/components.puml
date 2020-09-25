@@ -1,0 +1,10 @@
+  @startuml
+    component [common]
+    component [files]
+    component [files-legacy]
+    component [jest]
+    component [slices]
+    [files] -> [common]
+    [slices] -> [common]
+    [jest] -> [files-legacy]
+@enduml

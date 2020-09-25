@@ -1,5 +1,5 @@
 import { SourceFile } from "typescript"
-import { FileFactory } from "../../src/files/noun/FileFactory"
+import { FileFactory } from "../../src/files-legacy/noun/FileFactory"
 
 export const generatefileMock = (fileName) =>
 	jest.fn<SourceFile>(() => {

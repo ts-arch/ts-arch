@@ -1,4 +1,4 @@
-import { Edge } from "../domain/graph"
+import { Edge } from "../../common/domain/graph"
 
 export type ProjectedEdge = {
 	sourceLabel: string

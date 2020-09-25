@@ -1,6 +1,6 @@
-import { Result } from "../files/Result"
-import { Project } from "../files/Project"
-import { Checkable } from "../files/lang/Checkable"
+import { Result } from "../files-legacy/Result"
+import { Project } from "../files-legacy/Project"
+import { Checkable } from "../files-legacy/lang/Checkable"
 
 function buildJestResult(
 	pass: boolean,
