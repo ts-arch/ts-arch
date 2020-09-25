@@ -3,6 +3,7 @@ import {err, ok, Result} from "neverthrow"
 import {gatherRegexMatchingViolations, ViolatingFile} from "../assertions/matchingFiles";
 import {projectToNodes} from "../processing/project";
 import {matchingAllPatterns} from "../../common/util/regexUtils";
+import {FileRule} from "./FileRule";
 
 export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder {
 	return new FileConditionBuilder(tsConfigFilePath)
@@ -74,7 +75,7 @@ export class MatchPatternFileConditionBuilder {
 	}
 }
 
-export class MatchPatternFileCondition {
+export class MatchPatternFileCondition implements FileRule {
 	constructor(
 		readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder,
 		readonly pattern: string

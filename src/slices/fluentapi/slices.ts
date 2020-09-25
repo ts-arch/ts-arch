@@ -10,6 +10,7 @@ import {
 } from "../assertions/admissibleEdges"
 import { Result, err, ok } from "neverthrow"
 import fs from "fs"
+import {EdgeRule} from "./SliceRule";
 
 export function slicesOfProject(filename?: string): SliceConditionBuilder {
 	return new SliceConditionBuilder(filename)
@@ -34,7 +35,7 @@ export class SlicesShouldCondition {
 	}
 }
 
-export class NegativeSliceCondition {
+export class NegativeSliceCondition implements EdgeRule {
 	constructor(
 		readonly slicesShouldcondition: SlicesShouldCondition,
 		private readonly forbiddenEdges: Rule[]
@@ -71,7 +72,7 @@ export class PositiveConditionBuilder {
 	}
 }
 
-export class PositiveSliceCondition {
+export class PositiveSliceCondition implements EdgeRule{
 	constructor(
 		readonly positiveConditionBuilder: PositiveConditionBuilder,
 		readonly diagram: { filename?: string; diagram?: string }
