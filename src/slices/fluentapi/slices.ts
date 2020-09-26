@@ -1,6 +1,5 @@
 import { generateRule } from "../uml/generateRules"
 import { sliceByPattern } from "../projections/slicing"
-import { project } from "../processing/project"
 import { extractGraph } from "../../common/extraction/extractGraph"
 import {
 	gatherPositiveViolations,
@@ -12,6 +11,7 @@ import fs from "fs"
 import {TechnicalError} from "../../common/error/errors";
 import {Checkable} from "../../common/fluentapi/checkable";
 import {Violation} from "../../common/fluentapi/violation";
+import {project} from "../../common/processing/project";
 
 export function slicesOfProject(filename?: string): SliceConditionBuilder {
 	return new SliceConditionBuilder(filename)

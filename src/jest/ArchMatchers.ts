@@ -2,6 +2,7 @@ import {Checkable} from "../common/fluentapi/checkable";
 import {Violation} from "../common/fluentapi/violation";
 import {ViolatingEdge} from "../slices/assertions/admissibleEdges";
 import {ViolatingNode} from "../files/assertions/matchingFiles";
+import {ViolatingCycle} from "../files/assertions/freeOfCycles";
 
 /*
  * Extending Jest and defining its type
@@ -43,6 +44,9 @@ export class JestViolationFactory {
 		if(violation instanceof ViolatingEdge) {
 			return this.fromViolatingEdge(violation)
 		}
+		if(violation instanceof ViolatingCycle) {
+			return this.fromViolatingCycle(violation)
+		}
 		return new UnknownJestViolation()
 	}
 
@@ -57,6 +61,17 @@ export class JestViolationFactory {
 		return {
 			message: `${edge.projectedEdge.sourceLabel} -> ${edge.projectedEdge.targetLabel} is not allowed`, // TODO we need the negation information
 			details: edge
+		}
+	}
+
+	private static fromViolatingCycle(cycle: ViolatingCycle): JestViolation {
+		let cycleText = cycle.cycle[0].sourceLabel
+		cycle.cycle.forEach(c => {
+			cycleText += " -> " + c.targetLabel
+		})
+		return {
+			message: `Found cycle: ${cycleText}`, // TODO we need the negation information
+			details: cycle
 		}
 	}
 

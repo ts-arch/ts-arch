@@ -1,6 +1,7 @@
 import "../jest"
 import path from "path"
 import {slicesOfProject} from "../src/slices/fluentapi/slices";
+import {filesOfProject} from "../src/files/fluentapi/files";
 
 describe("architecture", () => {
 	jest.setTimeout(60000);
@@ -20,7 +21,7 @@ describe("architecture", () => {
 		}
 	})
 
-	// TODO where is the problem here ?
+	// TODO where is the problem here ? I think it has to do with positive violations
 	xit("components follow the architecture", async () => {
 		const diagramLocation = path.resolve("test", "components.puml")
 
@@ -28,6 +29,15 @@ describe("architecture", () => {
 			.definedBy("src/(**)/")
 			.should()
 			.adhereToDiagramInFile(diagramLocation)
+
+		await expect(rule).toPassAsync()
+	})
+
+	it("code should be cycle free", async () => {
+		const rule = filesOfProject()
+			.inFolder("src\/(common|files|slices|jest)")
+			.should()
+			.beFreeOfCycles()
 
 		await expect(rule).toPassAsync()
 	})

@@ -2,11 +2,11 @@ import { parse } from "plantuml-parser"
 
 import { gatherPositiveViolations } from "../../../src/slices/assertions/admissibleEdges"
 import { slicesOfProject } from "../../../src/slices/fluentapi/slices"
-import { project } from "../../../src/slices/processing/project"
 import { sliceByFileSuffix, sliceByPattern } from "../../../src/slices/projections/slicing"
 import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
 import path from "path"
 import {extractGraph} from "../../../src/common/extraction/extractGraph";
+import {project} from "../../../src/common/processing/project";
 
 describe("Integration test", () => {
 

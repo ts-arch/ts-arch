@@ -4,6 +4,9 @@ import {projectToNodes} from "../processing/project";
 import {RegexFactory} from "../domain/RegexFactory";
 import {Checkable} from "../../common/fluentapi/checkable";
 import {Violation} from "../../common/fluentapi/violation";
+import {perInternalEdge} from "../projections/files";
+import {gatherCycleViolations} from "../assertions/freeOfCycles";
+import {project} from "../../common/processing/project";
 
 export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder {
 	return new FileConditionBuilder(tsConfigFilePath)
@@ -56,8 +59,30 @@ export class MatchPatternFileConditionBuilder {
 		return new MatchPatternFileCondition(this, pattern)
 	}
 
+	public beFreeOfCycles(): CycleFreeFileCondition {
+		return new CycleFreeFileCondition(this)
+	}
+
 	public beInFolder(folder: string): MatchPatternFileCondition {
 		return new MatchPatternFileCondition(this, RegexFactory.folderMatcher(folder))
+	}
+}
+
+export class CycleFreeFileCondition implements Checkable {
+	constructor(
+		readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder
+	) {}
+
+	public async check(): Promise<Violation[]> {
+		const graph = await extractGraph(
+			this.matchPatternFileConditionBuilder.filesShouldCondition.fileCondition.tsConfigFilePath
+		)
+
+		const projectedEdges = project(graph, perInternalEdge())
+
+		return gatherCycleViolations(projectedEdges,
+			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns,
+			this.matchPatternFileConditionBuilder.isNegated)
 	}
 }
 
