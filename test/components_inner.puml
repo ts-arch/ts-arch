@@ -6,6 +6,7 @@
     component [extraction]
     component [projections]
     component [uml]
+    component [error]
     component [util] #Grey
     [fluentapi] -> [processing]
     [fluentapi] -> [domain]
@@ -16,6 +17,8 @@
     [processing] --> [domain]
     [assertions] --> [processing]
     [extraction] --> [domain]
+    [extraction] --> [error]
+    [extraction] --> [util]
     [projections] --> [domain]
     [projections] --> [processing]
     [projections] --> [util]

@@ -3,8 +3,9 @@ import fs from "fs"
 import { CompilerOptions } from "typescript"
 import glob from "glob"
 import path from "path"
-import { Edge } from "../../common/domain/graph"
+import { Edge } from "../domain/graph"
 import { TechnicalError } from "../error/errors"
+import {normalizeWindowsPaths} from "../util/pathUtils";
 
 async function guessProjectFiles(globPattern: string): Promise<string[]> {
 	return new Promise<string[]>((resolve, reject) => {
@@ -93,8 +94,8 @@ export async function extractGraph(configFileName?: string): Promise<Edge[]> {
 				const normalizedTargetFileName = path.relative(rootDir, resolvedFileName)
 
 				imports.push({
-					source: normalizedSourceFileName,
-					target: normalizedTargetFileName,
+					source: normalizeWindowsPaths(normalizedSourceFileName),
+					target: normalizeWindowsPaths(normalizedTargetFileName),
 					external: isExternalLibraryImport ?? false
 				})
 			}

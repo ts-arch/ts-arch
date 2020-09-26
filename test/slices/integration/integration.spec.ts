@@ -9,8 +9,8 @@ import path from "path"
 import {extractGraph} from "../../../src/common/extraction/extractGraph";
 
 describe("Integration test", () => {
+
 	it("finds simple violations", async () => {
-		// TODO: support OS other than unix
 		const violations = await slicesOfProject(__dirname + "/samples/foldersample/tsconfig.json")
 			.definedBy("src/(**)/")
 			.shouldNot()
@@ -18,15 +18,17 @@ describe("Integration test", () => {
 			.check()
 
 		expect(violations).toContainEqual({
-			sourceLabel: "services",
-			targetLabel: "controllers",
-			cumulatedEdges: [
-				{
-					source: "src/services/Service.ts",
-					target: "src/controllers/Controller.ts",
-					external: false
-				}
-			],
+			projectedEdge: {
+				sourceLabel: "services",
+				targetLabel: "controllers",
+				cumulatedEdges: [
+					{
+						source: "src/services/Service.ts",
+						target: "src/controllers/Controller.ts",
+						external: false
+					}
+				]
+			},
 			rule: { source: "services", target: "controllers" }
 		})
 	})
@@ -42,15 +44,18 @@ describe("Integration test", () => {
 
 		expect(gatherPositiveViolations(sliced, [])).toEqual([
 			{
-				cumulatedEdges: [
-					{
-						external: false,
-						source: "src/facades/another/AnotherFacade.ts",
-						target: "src/facades/one/OneFacade.ts"
-					}
-				],
-				sourceLabel: "another",
-				targetLabel: "one"
+				projectedEdge: {
+					cumulatedEdges: [
+						{
+							external: false,
+							source: "src/facades/another/AnotherFacade.ts",
+							target: "src/facades/one/OneFacade.ts"
+						}
+					],
+					sourceLabel: "another",
+					targetLabel: "one"
+				},
+				rule: null
 			}
 		])
 	})
@@ -70,15 +75,18 @@ describe("Integration test", () => {
 			.check()
 
 		expect(violations).toContainEqual({
-			sourceLabel: "services",
-			targetLabel: "controllers",
-			cumulatedEdges: [
-				{
-					source: "src/services/Service.ts",
-					target: "src/controllers/Controller.ts",
-					external: false
-				}
-			]
+			rule: null,
+			projectedEdge: {
+				sourceLabel: "services",
+				targetLabel: "controllers",
+				cumulatedEdges: [
+					{
+						source: "src/services/Service.ts",
+						target: "src/controllers/Controller.ts",
+						external: false
+					}
+				]
+			}
 		})
 	})
 
@@ -94,15 +102,18 @@ describe("Integration test", () => {
 			.check()
 
 		expect(violations).toContainEqual({
-			sourceLabel: "services",
-			targetLabel: "controllers",
-			cumulatedEdges: [
-				{
-					source: "src/services/Service.ts",
-					target: "src/controllers/Controller.ts",
-					external: false
-				}
-			]
+			rule: null,
+			projectedEdge: {
+				sourceLabel: "services",
+				targetLabel: "controllers",
+				cumulatedEdges: [
+					{
+						source: "src/services/Service.ts",
+						target: "src/controllers/Controller.ts",
+						external: false
+					}
+				]
+			}
 		})
 	})
 
