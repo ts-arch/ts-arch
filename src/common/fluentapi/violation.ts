@@ -1,4 +1,1 @@
-export type Violation = {
-	message: string;
-	details: any;
-}
+export interface Violation{}

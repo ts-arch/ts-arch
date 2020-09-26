@@ -6,40 +6,39 @@ export type Rule = {
 	target: string
 }
 
-export type ViolatingEdge = {
-	rule?: Rule
-} & ProjectedEdge
+export class ViolatingEdge implements Violation{
+	public rule: Rule|null
+	public projectedEdge: ProjectedEdge
 
-export function gatherViolations(graph: ProjectedEdge[], forbidden: Rule[]): Violation[] {
+	constructor(rule: Rule|null, projectedEdge: ProjectedEdge) {
+		this.rule = rule
+		this.projectedEdge = projectedEdge
+	}
+}
+
+export function gatherViolations(graph: ProjectedEdge[], forbidden: Rule[]): ViolatingEdge[] {
 	const violatingEdges: ViolatingEdge[] = []
 	for (const edge of graph) {
 		for (const rule of forbidden) {
 			if (edge.sourceLabel === rule.source && edge.targetLabel === rule.target) {
-				violatingEdges.push({
-					...edge,
-					rule
-				})
+				violatingEdges.push(new ViolatingEdge(rule, edge))
 			}
 		}
 	}
-	return violatingEdges.map(v => {
-		return { message: `${v.sourceLabel} should not use ${v.targetLabel}`, details: v}
-	})
+	return violatingEdges
 }
 
-export function gatherPositiveViolations(graph: ProjectedGraph, allowed: Rule[]): Violation[] {
+export function gatherPositiveViolations(graph: ProjectedGraph, allowed: Rule[]): ViolatingEdge[] {
 	const violatingEdges: ViolatingEdge[] = []
 	for (const edge of graph) {
 		const match = allowed.find((allowedRule) => {
 			return edge.sourceLabel === allowedRule.source && edge.targetLabel === allowedRule.target
 		})
 		if (match === undefined) {
-			violatingEdges.push(edge)
+			violatingEdges.push(new ViolatingEdge(null, edge))
 		}
 	}
-	return violatingEdges.map(v => {
-		return { message: `${v.sourceLabel} should not use ${v.targetLabel}`, details: v}
-	})
+	return violatingEdges
 }
 
 // TODO implement complete coherence

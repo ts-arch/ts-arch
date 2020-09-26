@@ -27,3 +27,14 @@ Array [
   },
 ]
 `;
+
+exports[`Integration test services should be named Service 2`] = `
+Array [
+  ViolatingNode {
+    "checkPattern": ".*Service.ts",
+    "projectedNode": Object {
+      "label": "src\\\\services\\\\SomeController.ts",
+    },
+  },
+]
+`;
