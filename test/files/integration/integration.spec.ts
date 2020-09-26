@@ -21,7 +21,7 @@ describe("Integration test", () => {
 			.beInFolder("services") // TODO we should unify path notations
 			.check()
 
-		expect(violations).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should not match regex '.*\\\\services\\\\.*'"}])
+		expect(violations).toMatchSnapshot()
 	})
 
 	it("services should be named Service", async () => {
@@ -32,6 +32,6 @@ describe("Integration test", () => {
 			.matchPattern(".*Service\.ts")
 			.check()
 
-		expect(violations).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should match regex '.*Service.ts'"}])
+		expect(violations).toMatchSnapshot()
 	})
 })

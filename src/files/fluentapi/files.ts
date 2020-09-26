@@ -1,6 +1,9 @@
 import {extractGraph} from "../../common/extraction/extractGraph"
-import {gatherRegexMatchingViolations, ViolatingFile} from "../assertions/matchingFiles";
+import {gatherRegexMatchingViolations} from "../assertions/matchingFiles";
 import {projectToNodes} from "../processing/project";
+import {RegexFactory} from "../domain/RegexFactory";
+import {Checkable} from "../../common/fluentapi/checkable";
+import {Violation} from "../../common/fluentapi/violation";
 
 export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder {
 	return new FileConditionBuilder(tsConfigFilePath)
@@ -9,16 +12,16 @@ export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder 
 export class FileConditionBuilder {
 	constructor(readonly tsConfigFilePath?: string) {}
 
-	public matchingPattern(pattern: string): FilesShouldCondition { // TODO Regex data type for regex literals
-		return FileShouldConditionFactory.matchingPattern(this, pattern)
+	public matchingPattern(pattern: string): FilesShouldCondition {
+		return new FilesShouldCondition(this, [pattern])
 	}
 
 	public withName(name: string): FilesShouldCondition {
-		return FileShouldConditionFactory.withName(this, name)
+		return new FilesShouldCondition(this, [RegexFactory.fileNameMatcher(name)])
 	}
 
 	public inFolder(folder: string): FilesShouldCondition {
-		return FileShouldConditionFactory.inFolder(this, folder)
+		return new FilesShouldCondition(this, [RegexFactory.folderMatcher(folder)])
 	}
 }
 
@@ -33,29 +36,15 @@ export class FilesShouldCondition {
 	}
 
 	public matchingPattern(pattern: string): FilesShouldCondition {
-		return FileShouldConditionFactory.matchingPattern(this.fileCondition, pattern, this.patterns)
+		return new FilesShouldCondition(this, [...this.patterns, pattern])
 	}
 
 	public withName(name: string): FilesShouldCondition {
-		return FileShouldConditionFactory.withName(this.fileCondition, name, this.patterns)
+		return new FilesShouldCondition(this, [...this.patterns, RegexFactory.fileNameMatcher(name)])
 	}
 
 	public inFolder(folder: string): FilesShouldCondition {
-		return FileShouldConditionFactory.inFolder(this.fileCondition, folder, this.patterns)
-	}
-}
-
-class FileShouldConditionFactory {
-	public static matchingPattern(fileCondition: FileConditionBuilder, pattern: string, patterns: string[] = []): FilesShouldCondition {
-		return new FilesShouldCondition(fileCondition, [...patterns, pattern])
-	}
-
-	public static withName(fileCondition: FileConditionBuilder, name: string, patterns: string[] = []): FilesShouldCondition {
-		return new FilesShouldCondition(fileCondition, [...patterns, ".*" + name + ".(ts|js)"])
-	}
-
-	public static inFolder(fileCondition: FileConditionBuilder, folder: string, patterns: string[] = []): FilesShouldCondition {
-		return new FilesShouldCondition(fileCondition, [...patterns, ".*\\\\" + folder + "\\\\.*"])
+		return new FilesShouldCondition(this, [...this.patterns, RegexFactory.folderMatcher(folder)])
 	}
 }
 
@@ -68,21 +57,17 @@ export class MatchPatternFileConditionBuilder {
 	}
 
 	public beInFolder(folder: string): MatchPatternFileCondition {
-		return new MatchPatternFileCondition(this, ".*\\\\" + folder + "\\\\.*")
+		return new MatchPatternFileCondition(this, RegexFactory.folderMatcher(folder))
 	}
 }
 
-export interface FileRule {
-	check(): Promise<ViolatingFile[]>
-}
-
-export class MatchPatternFileCondition implements FileRule {
+export class MatchPatternFileCondition implements Checkable {
 	constructor(
 		readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder,
 		readonly pattern: string
 	) {}
 
-	public async check(): Promise<ViolatingFile[]> {
+	public async check(): Promise<Violation[]> {
 		const graph = await extractGraph(
 			this.matchPatternFileConditionBuilder.filesShouldCondition.fileCondition.tsConfigFilePath
 		)

@@ -1,68 +1,30 @@
-import { Result as LegacyResult } from "../files-legacy/Result"
-import { Project } from "../files-legacy/Project"
-import { Checkable } from "../files-legacy/lang/Checkable"
-import {ViolatingFile} from "../files/assertions/matchingFiles";
-import {FileRule} from "../files/fluentapi/FileRule";
+import {Checkable} from "../common/fluentapi/checkable";
+import {Violation} from "../common/fluentapi/violation";
 
 function buildJestResult(
 	pass: boolean,
 	msg: string,
-	details?: LegacyResult
+	details?: Violation[]
 ): { pass: boolean; message: () => string } {
-	let info = msg
-	if (details && !pass) {
-		info += "\nDetails:\n"
-		details
-			.getEntries()
-			.filter((e) => !e.pass)
-			.forEach((e) => (info += `${e.pass} | ${e.subject.getName()} -> ${e.info}\n`))
-	}
-	return { pass: pass, message: () => info }
-}
-
-function buildNewJestResult(
-	pass: boolean,
-	msg: string,
-	details?: ViolatingFile[]
-): { pass: boolean; message: () => string } {
-	let info = msg
+	let info = msg + "\n"
 	if (details && !pass) {
 		details
-			.forEach((e) => (info += `${e.label} -> ${e.rule}\n`))
+			.forEach((e) => (info += `${e.message}\n${JSON.stringify(e.details)}\n\n`))
 	}
 	return { pass: pass, message: () => info }
-}
-
-export function toMatchArchRuleLogic(
-	jestCtx: { isNot: boolean },
-	project?: Project,
-	ruleToMatch?: Checkable
-): { pass: boolean; message?: () => string } {
-	if (!project) {
-		return buildJestResult(false, "expected project as input")
-	} else if (!ruleToMatch) {
-		return buildJestResult(false, "expected rule to match against")
-	} else {
-		const result: LegacyResult = project.check(ruleToMatch)
-		if (jestCtx.isNot) {
-			return buildJestResult(!result.hasRulePassed(), "expected to not pass rule", result)
-		} else {
-			return buildJestResult(result.hasRulePassed(), "expected to pass rule", result)
-		}
-	}
 }
 
 export function toMatchNewRuleLogic(
 	jestCtx: { isNot: boolean },
-	violations?: ViolatingFile[]
+	violations?: Violation[]
 ): { pass: boolean; message?: () => string } {
 	 if (!violations) {
-		return buildJestResult(false, "expected ViolatingFile[] to match against")
+		return buildJestResult(false, "expected violations to check")
 	} else {
 		if (jestCtx.isNot) {
-			return buildNewJestResult(violations.length !== 0, "expected to not pass rule", violations)
+			return buildJestResult(violations.length !== 0, "expected to not pass rule", violations)
 		} else {
-			return buildNewJestResult(violations.length === 0, "expected to pass rule", violations)
+			return buildJestResult(violations.length === 0, "expected to pass rule", violations)
 		}
 	}
 }
@@ -74,7 +36,6 @@ declare global {
 	namespace jest {
 		// tslint:disable-next-line:interface-name
 		interface Matchers<R> {
-			toPass(ruleToMatch: Checkable): R
 			toPassAsync(): R
 		}
 	}
@@ -82,13 +43,8 @@ declare global {
 
 export function extendJestMatchers() {
 	expect.extend({
-		toPass(project?: Project, ruleToMatch?: Checkable) {
-			return toMatchArchRuleLogic(this, project, ruleToMatch)
-		}
-	} as any)
-	expect.extend({
-		async toPassAsync(rule:  FileRule) {
-			const violations = await rule.check()
+		async toPassAsync(checkable:  Checkable) {
+			const violations = await checkable.check()
 			return toMatchNewRuleLogic(this, violations)
 		}
 	} as any)

@@ -9,8 +9,9 @@ import {
 	gatherViolations
 } from "../assertions/admissibleEdges"
 import fs from "fs"
-import {EdgeRule} from "./SliceRule";
 import {TechnicalError} from "../../common/error/errors";
+import {Checkable} from "../../common/fluentapi/checkable";
+import {Violation} from "../../common/fluentapi/violation";
 
 export function slicesOfProject(filename?: string): SliceConditionBuilder {
 	return new SliceConditionBuilder(filename)
@@ -35,7 +36,7 @@ export class SlicesShouldCondition {
 	}
 }
 
-export class NegativeSliceCondition implements EdgeRule {
+export class NegativeSliceCondition implements Checkable {
 	constructor(
 		readonly slicesShouldcondition: SlicesShouldCondition,
 		private readonly forbiddenEdges: Rule[]
@@ -48,7 +49,7 @@ export class NegativeSliceCondition implements EdgeRule {
 		])
 	}
 
-	public async check(): Promise<ViolatingEdge[]> {
+	public async check(): Promise<Violation[]> {
 		const graph = await extractGraph(this.slicesShouldcondition.sliceCondition.filename)
 		const mapFunction = sliceByPattern(this.slicesShouldcondition.pattern)
 		const mapped = project(graph, mapFunction)
@@ -68,13 +69,13 @@ export class PositiveConditionBuilder {
 	}
 }
 
-export class PositiveSliceCondition implements EdgeRule{
+export class PositiveSliceCondition implements Checkable{
 	constructor(
 		readonly positiveConditionBuilder: PositiveConditionBuilder,
 		readonly diagram: { filename?: string; diagram?: string }
 	) {}
 
-	public async check(): Promise<ViolatingEdge[]> {
+	public async check(): Promise<Violation[]> {
 		const graph = await extractGraph(
 			this.positiveConditionBuilder.slicesShouldCondition.sliceCondition.filename
 		)

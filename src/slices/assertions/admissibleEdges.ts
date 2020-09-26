@@ -1,4 +1,5 @@
 import { ProjectedEdge, ProjectedGraph } from "../processing/project"
+import {Violation} from "../../common/fluentapi/violation";
 
 export type Rule = {
 	source: string
@@ -9,7 +10,7 @@ export type ViolatingEdge = {
 	rule?: Rule
 } & ProjectedEdge
 
-export function gatherViolations(graph: ProjectedEdge[], forbidden: Rule[]): ViolatingEdge[] {
+export function gatherViolations(graph: ProjectedEdge[], forbidden: Rule[]): Violation[] {
 	const violatingEdges: ViolatingEdge[] = []
 	for (const edge of graph) {
 		for (const rule of forbidden) {
@@ -21,10 +22,12 @@ export function gatherViolations(graph: ProjectedEdge[], forbidden: Rule[]): Vio
 			}
 		}
 	}
-	return violatingEdges
+	return violatingEdges.map(v => {
+		return { message: `${v.sourceLabel} should not use ${v.targetLabel}`, details: v}
+	})
 }
 
-export function gatherPositiveViolations(graph: ProjectedGraph, allowed: Rule[]): ViolatingEdge[] {
+export function gatherPositiveViolations(graph: ProjectedGraph, allowed: Rule[]): Violation[] {
 	const violatingEdges: ViolatingEdge[] = []
 	for (const edge of graph) {
 		const match = allowed.find((allowedRule) => {
@@ -34,7 +37,9 @@ export function gatherPositiveViolations(graph: ProjectedGraph, allowed: Rule[])
 			violatingEdges.push(edge)
 		}
 	}
-	return violatingEdges
+	return violatingEdges.map(v => {
+		return { message: `${v.sourceLabel} should not use ${v.targetLabel}`, details: v}
+	})
 }
 
 // TODO implement complete coherence

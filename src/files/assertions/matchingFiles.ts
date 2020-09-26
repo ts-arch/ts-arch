@@ -1,15 +1,12 @@
 import {ProjectedNode} from "../processing/project";
 import {matchingAllPatterns} from "../../common/util/regexUtils";
-
-export type ViolatingFile = {
-	rule: string
-} & ProjectedNode
+import {Violation} from "../../common/fluentapi/violation";
 
 export function gatherRegexMatchingViolations(files: ProjectedNode[],
 											  checkPattern: string,
 											  preconditionPatterns: string[],
-											  isNegated: boolean): ViolatingFile[] {
-	const violations: ViolatingFile[] = []
+											  isNegated: boolean): Violation[] {
+	const violations: Violation[] = []
 
 	const filteredFiles = files
 		.filter((node) => matchingAllPatterns(node.label, preconditionPatterns))
@@ -28,17 +25,31 @@ export function gatherRegexMatchingViolations(files: ProjectedNode[],
 			}
 		}
 	})
+
 	return violations
+
 }
 
-function checkNegativeViolation(match: RegExpMatchArray | null, file: ProjectedNode, pattern: string): ViolatingFile|null {
+function checkNegativeViolation(match: RegExpMatchArray | null, file: ProjectedNode, pattern: string): Violation|null {
 	if (match != null && match.length > 0) {
-		return {label: file.label, rule: `should not match regex '${pattern}'`}
+		 return {
+		 	 message: `${file.label} should not match regex '${pattern}'`,
+			 details: {
+		 	 	 file: file,
+				 pattern: pattern
+			 }
+		 }
 	} else return null
 }
 
-function checkPositiveViolation(match: RegExpMatchArray | null, file: ProjectedNode, pattern: string): ViolatingFile|null  {
+function checkPositiveViolation(match: RegExpMatchArray | null, file: ProjectedNode, pattern: string): Violation|null  {
 	if (match == null || match.length === 0) {
-		return {label: file.label, rule: `should match regex '${pattern}'`}
+		return {
+			message: `${file.label} should match regex '${pattern}'`,
+			details: {
+				file: file,
+				pattern: pattern
+			}
+		}
 	} else return null
 }
