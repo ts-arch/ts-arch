@@ -21,16 +21,40 @@ describe("architecture", () => {
 		}
 	})
 
-	// TODO where is the problem here ? I think it has to do with positive violations
-	xit("components follow the architecture", async () => {
-		const diagramLocation = path.resolve("test", "components.puml")
+	it("common should not depend on specific components", async () => {
+		for (const c of ["files", "jest", "slices"]) {
+			const rule = filesOfProject()
+				.inFolder("src\/common")
+				.shouldNot()
+				.dependOnFiles()
+				.inFolder("src\/"+c)
 
-		const rule = slicesOfProject()
-			.definedBy("src/(**)/")
-			.should()
-			.adhereToDiagramInFile(diagramLocation)
+			await expect(rule).toPassAsync()
+		}
+	})
 
-		await expect(rule).toPassAsync()
+	it("files should not depend on forbidden components", async () => {
+		for (const c of ["slices", "jest"]) {
+			const rule = filesOfProject()
+				.inFolder("src\/files")
+				.shouldNot()
+				.dependOnFiles()
+				.inFolder("src\/"+c)
+
+			await expect(rule).toPassAsync()
+		}
+	})
+
+	it("slices should not depend on forbidden components", async () => {
+		for (const c of ["files", "jest"]) {
+			const rule = filesOfProject()
+				.inFolder("src\/slices")
+				.shouldNot()
+				.dependOnFiles()
+				.inFolder("src\/"+c)
+
+			await expect(rule).toPassAsync()
+		}
 	})
 
 	it("code should be cycle free", async () => {

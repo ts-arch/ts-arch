@@ -4,9 +4,10 @@ import {projectToNodes} from "../processing/project";
 import {RegexFactory} from "../domain/RegexFactory";
 import {Checkable} from "../../common/fluentapi/checkable";
 import {Violation} from "../../common/fluentapi/violation";
-import {perInternalEdge} from "../projections/files";
+import {perEdge, perInternalEdge} from "../projections/files";
 import {gatherCycleViolations} from "../assertions/freeOfCycles";
 import {project} from "../../common/processing/project";
+import {gatherDependOnFileViolations} from "../assertions/dependOnFiles";
 
 export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder {
 	return new FileConditionBuilder(tsConfigFilePath)
@@ -66,6 +67,57 @@ export class MatchPatternFileConditionBuilder {
 	public beInFolder(folder: string): MatchPatternFileCondition {
 		return new MatchPatternFileCondition(this, RegexFactory.folderMatcher(folder))
 	}
+
+	public dependOnFiles(): DependOnFileConditionBuilder {
+		return new DependOnFileConditionBuilder(this)
+	}
+}
+
+export class DependOnFileConditionBuilder {
+	constructor(readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder) {}
+
+	public matchingPattern(pattern: string): DependOnFileCondition {
+		return new DependOnFileCondition(this, [pattern])
+	}
+
+	public withName(name: string): DependOnFileCondition {
+		return new DependOnFileCondition(this, [RegexFactory.fileNameMatcher(name)])
+	}
+
+	public inFolder(folder: string): DependOnFileCondition {
+		return new DependOnFileCondition(this, [RegexFactory.folderMatcher(folder)])
+	}
+}
+
+export class DependOnFileCondition implements Checkable{
+	constructor(readonly dependOnFileConditionBuilder: DependOnFileConditionBuilder,
+				readonly subjectPatterns: string[]) {}
+
+	public matchingPattern(pattern: string): DependOnFileCondition {
+		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [...this.subjectPatterns, pattern])
+	}
+
+	public withName(name: string): DependOnFileCondition {
+		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [...this.subjectPatterns, RegexFactory.fileNameMatcher(name)])
+	}
+
+	public inFolder(folder: string): DependOnFileCondition {
+		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [...this.subjectPatterns, RegexFactory.folderMatcher(folder)])
+	}
+
+	public async check(): Promise<Violation[]> {
+		const graph = await extractGraph(
+			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition.fileCondition.tsConfigFilePath
+		)
+
+		const projectedEdges = project(graph, perEdge())
+
+		return gatherDependOnFileViolations(projectedEdges,
+			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition.patterns,
+			this.subjectPatterns,
+			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.isNegated)
+	}
+
 }
 
 export class CycleFreeFileCondition implements Checkable {

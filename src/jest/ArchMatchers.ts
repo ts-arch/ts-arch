@@ -3,6 +3,7 @@ import {Violation} from "../common/fluentapi/violation";
 import {ViolatingEdge} from "../slices/assertions/admissibleEdges";
 import {ViolatingNode} from "../files/assertions/matchingFiles";
 import {ViolatingCycle} from "../files/assertions/freeOfCycles";
+import {ViolatingFileDependency} from "../files/assertions/dependOnFiles";
 
 /*
  * Extending Jest and defining its type
@@ -47,6 +48,10 @@ export class JestViolationFactory {
 		if(violation instanceof ViolatingCycle) {
 			return this.fromViolatingCycle(violation)
 		}
+
+		if(violation instanceof ViolatingFileDependency) {
+			return this.fromViolatingFileDependency(violation)
+		}
 		return new UnknownJestViolation()
 	}
 
@@ -60,6 +65,13 @@ export class JestViolationFactory {
 	private static fromViolatingEdge(edge: ViolatingEdge): JestViolation {
 		return {
 			message: `${edge.projectedEdge.sourceLabel} -> ${edge.projectedEdge.targetLabel} is not allowed`, // TODO we need the negation information
+			details: edge
+		}
+	}
+
+	private static fromViolatingFileDependency(edge: ViolatingFileDependency): JestViolation {
+		return {
+			message: `${edge.dependency.sourceLabel} -> ${edge.dependency.targetLabel} is not allowed`, // TODO we need the negation information
 			details: edge
 		}
 	}
