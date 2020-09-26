@@ -1,10 +1,10 @@
 import ts from "typescript"
 import fs from "fs"
-import { Result, ok, err } from "neverthrow"
 import { CompilerOptions } from "typescript"
 import glob from "glob"
 import path from "path"
 import { Edge } from "../../common/domain/graph"
+import { TechnicalError } from "../error/errors"
 
 async function guessProjectFiles(globPattern: string): Promise<string[]> {
 	return new Promise<string[]>((resolve, reject) => {
@@ -39,20 +39,20 @@ function guessLocationOfTsconfigRecursively(pathName: string): string | undefine
 }
 
 // TODO - distinguish between different import kinds (types, function etc.)
-export async function extractGraph(configFileName?: string): Promise<Result<Edge[], string>> {
+export async function extractGraph(configFileName?: string): Promise<Edge[]> {
 	let configFile = configFileName
 	if (configFile === undefined) {
 		configFile = guessLocationOfTsconfig()
 	}
 	if (configFile === undefined) {
-		return err("Could not find configuration path")
+		throw new TechnicalError("Could not find configuration path")
 	}
 	const config = ts.readConfigFile(configFile, (path: string) => {
 		return fs.readFileSync(path).toString()
 	})
 
 	if (config.error !== undefined) {
-		return err("invalid config path")
+		throw new TechnicalError("invalid config path")
 	}
 
 	const parsedConfig: CompilerOptions = config.config
@@ -101,5 +101,5 @@ export async function extractGraph(configFileName?: string): Promise<Result<Edge
 		})
 	}
 
-	return ok(imports)
+	return imports
 }

@@ -104,7 +104,6 @@
 	},
 	"dependencies": {
 		"fs": "0.0.1-security",
-		"neverthrow": "^2.7.1",
 		"path": "^0.12.7",
 		"plantuml-parser": "0.0.16",
 		"typescript": "^3.8.3",

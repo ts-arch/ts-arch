@@ -2,7 +2,6 @@ import { Result as LegacyResult } from "../files-legacy/Result"
 import { Project } from "../files-legacy/Project"
 import { Checkable } from "../files-legacy/lang/Checkable"
 import {ViolatingFile} from "../files/assertions/matchingFiles";
-import {Result} from "neverthrow";
 import {FileRule} from "../files/fluentapi/FileRule";
 
 function buildJestResult(
@@ -90,7 +89,7 @@ export function extendJestMatchers() {
 	expect.extend({
 		async toPassAsync(rule:  FileRule) {
 			const violations = await rule.check()
-			return toMatchNewRuleLogic(this, violations._unsafeUnwrap())
+			return toMatchNewRuleLogic(this, violations)
 		}
 	} as any)
 }

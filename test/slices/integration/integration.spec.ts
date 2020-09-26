@@ -1,12 +1,12 @@
 import { parse } from "plantuml-parser"
 
 import { gatherPositiveViolations } from "../../../src/slices/assertions/admissibleEdges"
-import { extractGraph } from "../../../src/slices/extraction/extractGraph"
 import { slicesOfProject } from "../../../src/slices/fluentapi/slices"
 import { project } from "../../../src/slices/processing/project"
 import { sliceByFileSuffix, sliceByPattern } from "../../../src/slices/projections/slicing"
 import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
 import path from "path"
+import {extractGraph} from "../../../src/common/extraction/extractGraph";
 
 describe("Integration test", () => {
 	it("finds simple violations", async () => {
@@ -17,7 +17,7 @@ describe("Integration test", () => {
 			.containDependency("services", "controllers")
 			.check()
 
-		expect(violations._unsafeUnwrap()).toContainEqual({
+		expect(violations).toContainEqual({
 			sourceLabel: "services",
 			targetLabel: "controllers",
 			cumulatedEdges: [
@@ -34,7 +34,7 @@ describe("Integration test", () => {
 	it("reports inner dependencies", async () => {
 		const graph = (
 			await extractGraph(__dirname + "/samples/innerdependencies/tsconfig.json")
-		)._unsafeUnwrap()
+		)
 
 		const mapFunction = sliceByPattern("src/facades/(**)/")
 
@@ -69,7 +69,7 @@ describe("Integration test", () => {
 			.adhereToDiagram(diagram)
 			.check()
 
-		expect(violations._unsafeUnwrap()).toContainEqual({
+		expect(violations).toContainEqual({
 			sourceLabel: "services",
 			targetLabel: "controllers",
 			cumulatedEdges: [
@@ -93,7 +93,7 @@ describe("Integration test", () => {
 			.adhereToDiagramInFile(exampleUml)
 			.check()
 
-		expect(violations._unsafeUnwrap()).toContainEqual({
+		expect(violations).toContainEqual({
 			sourceLabel: "services",
 			targetLabel: "controllers",
 			cumulatedEdges: [
@@ -109,7 +109,7 @@ describe("Integration test", () => {
 	it("exports the architecture by suffixes", async () => {
 		const graph = (
 			await extractGraph(__dirname + "/samples/suffixsample/tsconfig.json")
-		)._unsafeUnwrap()
+		)
 
 		const mapFunction = sliceByFileSuffix(
 			new Map([
@@ -139,7 +139,7 @@ describe("Integration test", () => {
 	it("exports the architecture by folders", async () => {
 		const graph = (
 			await extractGraph(__dirname + "/samples/foldersample/tsconfig.json")
-		)._unsafeUnwrap()
+		)
 		const mapFunction = sliceByPattern("src/(**)/")
 
 		const reducedGraph = project(graph, mapFunction)

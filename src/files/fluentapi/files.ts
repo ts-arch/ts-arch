@@ -1,9 +1,6 @@
 import {extractGraph} from "../../common/extraction/extractGraph"
-import {err, ok, Result} from "neverthrow"
 import {gatherRegexMatchingViolations, ViolatingFile} from "../assertions/matchingFiles";
 import {projectToNodes} from "../processing/project";
-import {matchingAllPatterns} from "../../common/util/regexUtils";
-import {FileRule} from "./FileRule";
 
 export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder {
 	return new FileConditionBuilder(tsConfigFilePath)
@@ -75,30 +72,26 @@ export class MatchPatternFileConditionBuilder {
 	}
 }
 
+export interface FileRule {
+	check(): Promise<ViolatingFile[]>
+}
+
 export class MatchPatternFileCondition implements FileRule {
 	constructor(
 		readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder,
 		readonly pattern: string
 	) {}
 
-	public async check(): Promise<Result<ViolatingFile[], string>> {
+	public async check(): Promise<ViolatingFile[]> {
 		const graph = await extractGraph(
 			this.matchPatternFileConditionBuilder.filesShouldCondition.fileCondition.tsConfigFilePath
 		)
 
-		if (graph.isErr()) {
-			return err(graph.error)
-		}
+		const projectedNodes = projectToNodes(graph)
 
-		const projectedNodes = projectToNodes(graph._unsafeUnwrap())
-
-		// TODO where should this part happen?
-		let preFiltered = projectedNodes
-			.filter((node) => matchingAllPatterns(node.label,
-				this.matchPatternFileConditionBuilder.filesShouldCondition.patterns))
-
-		const violations = gatherRegexMatchingViolations(preFiltered, this.pattern, this.matchPatternFileConditionBuilder.isNegated)
-
-		return ok(violations)
+		return gatherRegexMatchingViolations(projectedNodes,
+			this.pattern,
+			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns,
+			this.matchPatternFileConditionBuilder.isNegated)
 	}
 }

@@ -8,9 +8,9 @@ import {
 	Rule,
 	gatherViolations
 } from "../assertions/admissibleEdges"
-import { Result, err, ok } from "neverthrow"
 import fs from "fs"
 import {EdgeRule} from "./SliceRule";
+import {TechnicalError} from "../../common/error/errors";
 
 export function slicesOfProject(filename?: string): SliceConditionBuilder {
 	return new SliceConditionBuilder(filename)
@@ -48,15 +48,11 @@ export class NegativeSliceCondition implements EdgeRule {
 		])
 	}
 
-	public async check(): Promise<Result<ViolatingEdge[], string>> {
+	public async check(): Promise<ViolatingEdge[]> {
 		const graph = await extractGraph(this.slicesShouldcondition.sliceCondition.filename)
-		if (graph.isErr()) {
-			return err(graph.error)
-		}
 		const mapFunction = sliceByPattern(this.slicesShouldcondition.pattern)
-
-		const mapped = project(graph.value, mapFunction)
-		return ok(gatherViolations(mapped, this.forbiddenEdges))
+		const mapped = project(graph, mapFunction)
+		return gatherViolations(mapped, this.forbiddenEdges)
 	}
 }
 
@@ -78,28 +74,25 @@ export class PositiveSliceCondition implements EdgeRule{
 		readonly diagram: { filename?: string; diagram?: string }
 	) {}
 
-	public async check(): Promise<Result<ViolatingEdge[], string>> {
+	public async check(): Promise<ViolatingEdge[]> {
 		const graph = await extractGraph(
 			this.positiveConditionBuilder.slicesShouldCondition.sliceCondition.filename
 		)
 		let diagram = this.diagram.diagram
 		const filename = this.diagram.filename
-		if (graph.isErr()) {
-			return err(graph.error)
-		}
 
 		if (diagram === undefined) {
 			if (filename !== undefined) {
 				diagram = fs.readFileSync(filename).toString()
 			} else {
-				return err("No diagram provided")
+				throw new TechnicalError("No diagram provided")
 			}
 		}
 		const rules = generateRule(diagram)
 
 		const mapFunction = sliceByPattern(this.positiveConditionBuilder.slicesShouldCondition.pattern)
 
-		const mapped = project(graph.value, mapFunction)
-		return ok(gatherPositiveViolations(mapped, rules))
+		const mapped = project(graph, mapFunction)
+		return gatherPositiveViolations(mapped, rules)
 	}
 }

@@ -11,7 +11,7 @@ describe("Integration test", () => {
 			.matchPattern(".*\\\\services\\\\.*") // TODO we should unify path notations
 			.check()
 
-		expect(violations._unsafeUnwrap()).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should not match regex '.*\\\\services\\\\.*'"}])
+		expect(violations).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should not match regex '.*\\\\services\\\\.*'"}])
 	})
 
 	it("controllers should not be in services", async () => {
@@ -21,7 +21,7 @@ describe("Integration test", () => {
 			.beInFolder("services") // TODO we should unify path notations
 			.check()
 
-		expect(violations._unsafeUnwrap()).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should not match regex '.*\\\\services\\\\.*'"}])
+		expect(violations).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should not match regex '.*\\\\services\\\\.*'"}])
 	})
 
 	it("services should be named Service", async () => {
@@ -32,6 +32,6 @@ describe("Integration test", () => {
 			.matchPattern(".*Service\.ts")
 			.check()
 
-		expect(violations._unsafeUnwrap()).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should match regex '.*Service.ts'"}])
+		expect(violations).toEqual([{"label": "src\\services\\SomeController.ts", "rule": "should match regex '.*Service.ts'"}])
 	})
 })

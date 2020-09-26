@@ -11,6 +11,6 @@ describe("architecture", () => {
 			.adhereToDiagramInFile(diagramLocation)
 			.check()
 
-		expect(violations._unsafeUnwrap()).toEqual([])
+		expect(violations).toEqual([])
 	})
 })
