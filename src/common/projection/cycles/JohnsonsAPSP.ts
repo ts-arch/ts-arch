@@ -1,4 +1,4 @@
-import { NumberNode, NumberCycle, NumberEdge } from "./Model"
+import { NumberNode, NumberEdge } from "./Model"
 import { CycleUtils } from "./CycleUtils"
 
 interface BlockedBy {

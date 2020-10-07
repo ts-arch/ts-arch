@@ -29,6 +29,9 @@ interface JestResult {
 class UnknownJestViolation implements JestViolation{
 	details: Object = Object()
 	message: string = "Unknown Violation found"
+	constructor(details: Object = Object()) {
+		this.details = details
+	}
 }
 
 export interface JestViolation {
@@ -48,11 +51,10 @@ export class JestViolationFactory {
 		if(violation instanceof ViolatingCycle) {
 			return this.fromViolatingCycle(violation)
 		}
-
 		if(violation instanceof ViolatingFileDependency) {
 			return this.fromViolatingFileDependency(violation)
 		}
-		return new UnknownJestViolation()
+		return new UnknownJestViolation(violation)
 	}
 
 	private static fromViolatingFile(file: ViolatingNode): JestViolation {
