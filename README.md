@@ -20,7 +20,7 @@ The project has currently two perspectives on architecture: file based architect
 
 ```typescript
 // imports and applies the jest extensions
-import "tsarch/jest"
+import "tsarch/dist/jest"
 
 // imports the files entrypoint
 import {filesOfProject} from "tsarch"
@@ -62,7 +62,7 @@ Assume that you have an architecture diagram (Plant Uml) as part of your documen
 in the `docs` folder of your project.
 
 ```typescript
-import "tsarch/jest"
+import "tsarch/dist/jest"
 import {slicesOfProject} from "tsarch" 
 import * as path from "path"
 
