@@ -58,8 +58,7 @@ function findCycles(filteredEdges: ProjectedEdge[]) {
 }
 
 export function gatherCycleViolations(projectedEdges: ProjectedEdge[],
-									  preconditionPatterns: string[],
-									  isNegated: boolean): ViolatingCycle[] {
+									  preconditionPatterns: string[]): ViolatingCycle[] {
 
 	const filteredEdges = projectedEdges
 		.filter((edge) =>

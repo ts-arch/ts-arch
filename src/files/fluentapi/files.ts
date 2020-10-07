@@ -32,11 +32,11 @@ export class FileConditionBuilder {
 export class FilesShouldCondition {
 	constructor(readonly fileCondition: FileConditionBuilder, readonly patterns: string[]) {}
 
-	public should(): MatchPatternFileConditionBuilder {
-		return new MatchPatternFileConditionBuilder(this, false)
+	public should(): PositiveMatchPatternFileConditionBuilder {
+		return new PositiveMatchPatternFileConditionBuilder(this)
 	}
-	public shouldNot(): MatchPatternFileConditionBuilder {
-		return new MatchPatternFileConditionBuilder(this, true)
+	public shouldNot(): NegatedMatchPatternFileConditionBuilder {
+		return new NegatedMatchPatternFileConditionBuilder(this)
 	}
 
 	public matchingPattern(pattern: string): FilesShouldCondition {
@@ -52,9 +52,28 @@ export class FilesShouldCondition {
 	}
 }
 
-export class MatchPatternFileConditionBuilder {
-	constructor(readonly filesShouldCondition: FilesShouldCondition,
-				readonly isNegated: boolean) {}
+export class NegatedMatchPatternFileConditionBuilder {
+	readonly isNegated: boolean = true;
+
+	constructor(readonly filesShouldCondition: FilesShouldCondition) {}
+
+	public matchPattern(pattern: string): MatchPatternFileCondition {
+		return new MatchPatternFileCondition(this, pattern)
+	}
+
+	public beInFolder(folder: string): MatchPatternFileCondition {
+		return new MatchPatternFileCondition(this, RegexFactory.folderMatcher(folder))
+	}
+
+	public dependOnFiles(): DependOnFileConditionBuilder {
+		return new DependOnFileConditionBuilder(this)
+	}
+}
+
+export class PositiveMatchPatternFileConditionBuilder {
+	readonly isNegated: boolean = false;
+
+	constructor(readonly filesShouldCondition: FilesShouldCondition) {}
 
 	public matchPattern(pattern: string): MatchPatternFileCondition {
 		return new MatchPatternFileCondition(this, pattern)
@@ -74,7 +93,7 @@ export class MatchPatternFileConditionBuilder {
 }
 
 export class DependOnFileConditionBuilder {
-	constructor(readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder) {}
+	constructor(readonly matchPatternFileConditionBuilder: NegatedMatchPatternFileConditionBuilder) {}
 
 	public matchingPattern(pattern: string): DependOnFileCondition {
 		return new DependOnFileCondition(this, [pattern])
@@ -122,7 +141,7 @@ export class DependOnFileCondition implements Checkable{
 
 export class CycleFreeFileCondition implements Checkable {
 	constructor(
-		readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder
+		readonly matchPatternFileConditionBuilder: NegatedMatchPatternFileConditionBuilder
 	) {}
 
 	public async check(): Promise<Violation[]> {
@@ -133,14 +152,13 @@ export class CycleFreeFileCondition implements Checkable {
 		const projectedEdges = project(graph, perInternalEdge())
 
 		return gatherCycleViolations(projectedEdges,
-			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns,
-			this.matchPatternFileConditionBuilder.isNegated)
+			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns)
 	}
 }
 
 export class MatchPatternFileCondition implements Checkable {
 	constructor(
-		readonly matchPatternFileConditionBuilder: MatchPatternFileConditionBuilder,
+		readonly matchPatternFileConditionBuilder: NegatedMatchPatternFileConditionBuilder,
 		readonly pattern: string
 	) {}
 
