@@ -19,52 +19,76 @@ The project has currently two perspectives on architecture: file based architect
 ### File API
 
 ```typescript
-import { TSArch } from 'tsarch';
-import 'tsarch/dist/jest';
+// imports and applies the jest extensions
+import "tsarch/jest"
 
-describe('Architecture', () => {
-	it('defines that all files in dog folder should be called ...Dog.ts', async () => {
-		const project = await TSArch.parseTypescriptProject('./src');
+// imports the files entrypoint
+import {filesOfProject} from "tsarch"
 
-		const rule = TSArch.defineThat()
-			.files()
-			.withPathMatching(/.*dog.*/)
-			.should()
-			.matchName(/.+.Dog\.ts($|\n)/)
-			.build();
+describe("architecture", ()=> {
 
-		expect(project).toPass(rule);
-	});
-});
+    // architecture tests can take a while to finish
+    jest.setTimeout(60000);
+
+    // we use async await in combination with jest since this project uses asynchronous calls
+    it("business logic should not depend on the ui", async ()=> {
+        const rule = filesOfProject()
+            .inFolder("business")
+            .shouldNot()
+            .dependOnFiles()
+            .inFolder("ui")
+
+        await expect(rule).toPassAsync()
+    })
+
+    it("business logic should be cycle free", async ()=> {
+        const rule = filesOfProject()
+            .inFolder("business")
+            .should()
+            .beFreeOfCycles()
+
+        await expect(rule).toPassAsync()
+    })
+})
+
 ```
 
-Further examples of the usage can be found in the integration tests
-in `tests/files/integration`.
+An example without jest and further examples of the usage can be found in the integration tests
+in `test/files/integration`. 
 
 ### Slices API
 
-Assume that you have an architecture diagram as part of your documentation
+Assume that you have an architecture diagram (Plant Uml) as part of your documentation
 in the `docs` folder of your project.
 
 ```typescript
-it('the architecture adheres to the config', async () => {
-	const diagramLocation = path.resolve('docs', 'components.puml');
+import "tsarch/jest"
+import {slicesOfProject} from "tsarch" 
+import * as path from "path"
 
-	const violations = await slicesOfProject()
-		.definedBy('src/(**)/')
-		.should()
-		.adhereToDiagramInFile(diagramLocation)
-		.check();
+describe("architecture", ()=> {
+    jest.setTimeout(60000);
 
-	expect(violations._unsafeUnwrap()).toEqual([]);
-});
+    it('the architecture adheres to the config', async () => {
+    	const diagramLocation = path.resolve('docs', 'components.puml');
+    
+    	const rule = await slicesOfProject()
+    		.definedBy('src/(**)/')
+    		.should()
+    		.adhereToDiagramInFile(diagramLocation)
+    
+    	await expect(rule).toPassAsync()
+    });
+})
+
 ```
+
+An example without jest and further examples of the usage can be found in the integration tests
+in `test/slices/integration`. 
 
 ### Path handling
 
 The path of the project is always relative to a given `tsconfig.json`.
 If no `tsconfig.json` is given `ts-arch` tries to find one in a parent
-folder.
-
-Further examples of the usage can be found in the integration tests
-in `tests/files/integration`.
+folder, e.g. if your `tsconfig.json` is in the same folder as your `src` folder, then all the paths 
+begin with `src/...`

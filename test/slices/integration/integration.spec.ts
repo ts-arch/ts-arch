@@ -1,32 +1,34 @@
 import { parse } from "plantuml-parser"
 
-import { gatherPositiveViolations } from "../../../src/slices/assertions/admissibleEdges"
-import { extractGraph } from "../../../src/slices/extraction/extractGraph"
 import { slicesOfProject } from "../../../src/slices/fluentapi/slices"
-import { project } from "../../../src/slices/processing/project"
-import { sliceByFileSuffix, sliceByPattern } from "../../../src/slices/projections/slicing"
 import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
 import path from "path"
+import {extractGraph} from "../../../src/common/extraction/extractGraph";
+import {sliceByFileSuffix, sliceByPattern} from "../../../src/slices/projection/slicingProjections";
+import {projectEdges} from "../../../src/common/projection/projectEdges";
+import {gatherPositiveViolations} from "../../../src/slices/assertion/admissibleEdges";
 
 describe("Integration test", () => {
+
 	it("finds simple violations", async () => {
-		// TODO: support OS other than unix
 		const violations = await slicesOfProject(__dirname + "/samples/foldersample/tsconfig.json")
 			.definedBy("src/(**)/")
 			.shouldNot()
 			.containDependency("services", "controllers")
 			.check()
 
-		expect(violations._unsafeUnwrap()).toContainEqual({
-			sourceLabel: "services",
-			targetLabel: "controllers",
-			cumulatedEdges: [
-				{
-					source: "src/services/Service.ts",
-					target: "src/controllers/Controller.ts",
-					external: false
-				}
-			],
+		expect(violations).toContainEqual({
+			projectedEdge: {
+				sourceLabel: "services",
+				targetLabel: "controllers",
+				cumulatedEdges: [
+					{
+						source: "src/services/Service.ts",
+						target: "src/controllers/Controller.ts",
+						external: false
+					}
+				]
+			},
 			rule: { source: "services", target: "controllers" }
 		})
 	})
@@ -34,23 +36,26 @@ describe("Integration test", () => {
 	it("reports inner dependencies", async () => {
 		const graph = (
 			await extractGraph(__dirname + "/samples/innerdependencies/tsconfig.json")
-		)._unsafeUnwrap()
+		)
 
 		const mapFunction = sliceByPattern("src/facades/(**)/")
 
-		const sliced = project(graph, mapFunction)
+		const sliced = projectEdges(graph, mapFunction)
 
 		expect(gatherPositiveViolations(sliced, [])).toEqual([
 			{
-				cumulatedEdges: [
-					{
-						external: false,
-						source: "src/facades/another/AnotherFacade.ts",
-						target: "src/facades/one/OneFacade.ts"
-					}
-				],
-				sourceLabel: "another",
-				targetLabel: "one"
+				projectedEdge: {
+					cumulatedEdges: [
+						{
+							external: false,
+							source: "src/facades/another/AnotherFacade.ts",
+							target: "src/facades/one/OneFacade.ts"
+						}
+					],
+					sourceLabel: "another",
+					targetLabel: "one"
+				},
+				rule: null
 			}
 		])
 	})
@@ -69,16 +74,19 @@ describe("Integration test", () => {
 			.adhereToDiagram(diagram)
 			.check()
 
-		expect(violations._unsafeUnwrap()).toContainEqual({
-			sourceLabel: "services",
-			targetLabel: "controllers",
-			cumulatedEdges: [
-				{
-					source: "src/services/Service.ts",
-					target: "src/controllers/Controller.ts",
-					external: false
-				}
-			]
+		expect(violations).toContainEqual({
+			rule: null,
+			projectedEdge: {
+				sourceLabel: "services",
+				targetLabel: "controllers",
+				cumulatedEdges: [
+					{
+						source: "src/services/Service.ts",
+						target: "src/controllers/Controller.ts",
+						external: false
+					}
+				]
+			}
 		})
 	})
 
@@ -93,23 +101,26 @@ describe("Integration test", () => {
 			.adhereToDiagramInFile(exampleUml)
 			.check()
 
-		expect(violations._unsafeUnwrap()).toContainEqual({
-			sourceLabel: "services",
-			targetLabel: "controllers",
-			cumulatedEdges: [
-				{
-					source: "src/services/Service.ts",
-					target: "src/controllers/Controller.ts",
-					external: false
-				}
-			]
+		expect(violations).toContainEqual({
+			rule: null,
+			projectedEdge: {
+				sourceLabel: "services",
+				targetLabel: "controllers",
+				cumulatedEdges: [
+					{
+						source: "src/services/Service.ts",
+						target: "src/controllers/Controller.ts",
+						external: false
+					}
+				]
+			}
 		})
 	})
 
 	it("exports the architecture by suffixes", async () => {
 		const graph = (
 			await extractGraph(__dirname + "/samples/suffixsample/tsconfig.json")
-		)._unsafeUnwrap()
+		)
 
 		const mapFunction = sliceByFileSuffix(
 			new Map([
@@ -118,7 +129,7 @@ describe("Integration test", () => {
 			])
 		)
 
-		const reducedGraph = project(graph, mapFunction)
+		const reducedGraph = projectEdges(graph, mapFunction)
 
 		const stringDiagram = exportDiagram(reducedGraph)
 		const parsedActual = parse(stringDiagram)
@@ -139,10 +150,10 @@ describe("Integration test", () => {
 	it("exports the architecture by folders", async () => {
 		const graph = (
 			await extractGraph(__dirname + "/samples/foldersample/tsconfig.json")
-		)._unsafeUnwrap()
+		)
 		const mapFunction = sliceByPattern("src/(**)/")
 
-		const reducedGraph = project(graph, mapFunction)
+		const reducedGraph = projectEdges(graph, mapFunction)
 
 		const stringDiagram = exportDiagram(reducedGraph)
 		const parsedActual = parse(stringDiagram)

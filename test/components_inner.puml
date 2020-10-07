@@ -1,0 +1,17 @@
+@startuml
+    component [fluentapi] #Green
+    component [assertion]
+    component [extraction]
+    component [projection]
+    component [uml]
+    [fluentapi] -> [assertion]
+    [fluentapi] -> [uml]
+    [fluentapi] -> [extraction]
+    [fluentapi] -> [projection]
+    [assertion] -> [projection]
+    [projection] -> [projection/cycles]
+    [projection] -> [extraction]
+    [extraction] -> [util]
+    [extraction] -> [error]
+    [uml] -> [assertion]
+@enduml

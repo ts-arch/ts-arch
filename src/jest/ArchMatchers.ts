@@ -1,58 +1,124 @@
-import { Result } from "../files/Result"
-import { Project } from "../files/Project"
-import { Checkable } from "../files/lang/Checkable"
-
-function buildJestResult(
-	pass: boolean,
-	msg: string,
-	details?: Result
-): { pass: boolean; message: () => string } {
-	let info = msg
-	if (details && !pass) {
-		info += "\nDetails:\n"
-		details
-			.getEntries()
-			.filter((e) => !e.pass)
-			.forEach((e) => (info += `${e.pass} | ${e.subject.getName()} -> ${e.info}\n`))
-	}
-	return { pass: pass, message: () => info }
-}
-
-export function toMatchArchRuleLogic(
-	jestCtx: { isNot: boolean },
-	project?: Project,
-	ruleToMatch?: Checkable
-): { pass: boolean; message?: () => string } {
-	if (!project) {
-		return buildJestResult(false, "expected project as input")
-	} else if (!ruleToMatch) {
-		return buildJestResult(false, "expected rule to match against")
-	} else {
-		const result: Result = project.check(ruleToMatch)
-		if (jestCtx.isNot) {
-			return buildJestResult(!result.hasRulePassed(), "expected to not pass rule", result)
-		} else {
-			return buildJestResult(result.hasRulePassed(), "expected to pass rule", result)
-		}
-	}
-}
+import {Checkable} from "../common/fluentapi/checkable";
+import {Violation} from "../common/assertion/violation";
+import {ViolatingNode} from "../files/assertion/matchingFiles";
+import {ViolatingEdge} from "../slices/assertion/admissibleEdges";
+import {ViolatingCycle} from "../files/assertion/freeOfCycles";
+import {ViolatingFileDependency} from "../files/assertion/dependOnFiles";
 
 /*
- * Extending Jest and its type
+ * Extending Jest and defining its type
  */
 declare global {
 	namespace jest {
 		// tslint:disable-next-line:interface-name
 		interface Matchers<R> {
-			toPass(ruleToMatch: Checkable): R
+			toPassAsync(): R
 		}
 	}
 }
 
+interface JestResult {
+	pass: boolean;
+	message: () => string
+}
+
+/*
+ * Matcher
+ */
+
+class UnknownJestViolation implements JestViolation{
+	details: Object = Object()
+	message: string = "Unknown Violation found"
+	constructor(details: Object = Object()) {
+		this.details = details
+	}
+}
+
+export interface JestViolation {
+	message: string,
+	details: Object
+}
+
+export class JestViolationFactory {
+
+	public static from(violation: Violation): JestViolation {
+		if(violation instanceof ViolatingNode) {
+			return this.fromViolatingFile(violation)
+		}
+		if(violation instanceof ViolatingEdge) {
+			return this.fromViolatingEdge(violation)
+		}
+		if(violation instanceof ViolatingCycle) {
+			return this.fromViolatingCycle(violation)
+		}
+		if(violation instanceof ViolatingFileDependency) {
+			return this.fromViolatingFileDependency(violation)
+		}
+		return new UnknownJestViolation(violation)
+	}
+
+	private static fromViolatingFile(file: ViolatingNode): JestViolation {
+		return {
+			message: `${file.projectedNode.label} should match ${file.checkPattern}`, // TODO we need the negation information
+			details: file
+		}
+	}
+
+	private static fromViolatingEdge(edge: ViolatingEdge): JestViolation {
+		return {
+			message: `${edge.projectedEdge.sourceLabel} -> ${edge.projectedEdge.targetLabel} is not allowed`, // TODO we need the negation information
+			details: edge
+		}
+	}
+
+	private static fromViolatingFileDependency(edge: ViolatingFileDependency): JestViolation {
+		return {
+			message: `${edge.dependency.sourceLabel} -> ${edge.dependency.targetLabel} is not allowed`, // TODO we need the negation information
+			details: edge
+		}
+	}
+
+	private static fromViolatingCycle(cycle: ViolatingCycle): JestViolation {
+		let cycleText = cycle.cycle[0].sourceLabel
+		cycle.cycle.forEach(c => {
+			cycleText += " -> " + c.targetLabel
+		})
+		return {
+			message: `Found cycle: ${cycleText}`, // TODO we need the negation information
+			details: cycle
+		}
+	}
+
+}
+
+export class JestResultFactory {
+
+	public static result(shouldNotPass: boolean, violations: JestViolation[]): JestResult {
+		let info = shouldNotPass ? "expected to not pass\n" : "expected to pass\n"
+		if (violations.length > 0) {
+			violations.forEach((e) => {
+				info += `${e.message}\n${JSON.stringify(e.details)}\n\n`
+			})
+			return { pass: false, message: () => info }
+		}
+		return { pass: true, message: () => info }
+	}
+
+	public static error(message): JestResult {
+		return { pass: false, message: () => message }
+	}
+
+}
+
 export function extendJestMatchers() {
 	expect.extend({
-		toPass(project?: Project, ruleToMatch?: Checkable) {
-			return toMatchArchRuleLogic(this, project, ruleToMatch)
+		async toPassAsync(checkable:  Checkable) {
+			if (!checkable) {
+				return JestResultFactory.error("expected something checkable as an argument for expect()")
+			}
+			const violations = await checkable.check()
+			const jestViolations = violations.map(v => JestViolationFactory.from(v))
+			return JestResultFactory.result(this.isNot, jestViolations)
 		}
 	} as any)
 }
