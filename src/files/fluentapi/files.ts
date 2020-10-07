@@ -1,13 +1,13 @@
 import {extractGraph} from "../../common/extraction/extractGraph"
-import {gatherRegexMatchingViolations} from "../assertions/matchingFiles";
-import {projectToNodes} from "../processing/project";
-import {RegexFactory} from "../domain/RegexFactory";
+import {RegexFactory} from "./RegexFactory";
 import {Checkable} from "../../common/fluentapi/checkable";
-import {Violation} from "../../common/fluentapi/violation";
-import {perEdge, perInternalEdge} from "../projections/files";
-import {gatherCycleViolations} from "../assertions/freeOfCycles";
-import {project} from "../../common/processing/project";
-import {gatherDependOnFileViolations} from "../assertions/dependOnFiles";
+import {projectEdges} from "../../common/projection/projectEdges";
+import {perEdge, perInternalEdge} from "../../common/projection/edgeProjections";
+import {projectToNodes} from "../../common/projection/projectNodes";
+import {gatherRegexMatchingViolations} from "../assertion/matchingFiles";
+import {Violation} from "../../common/assertion/violation";
+import {gatherCycleViolations} from "../assertion/freeOfCycles";
+import {gatherDependOnFileViolations} from "../assertion/dependOnFiles";
 
 export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder {
 	return new FileConditionBuilder(tsConfigFilePath)
@@ -129,7 +129,7 @@ export class DependOnFileCondition implements Checkable{
 			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition.fileCondition.tsConfigFilePath
 		)
 
-		const projectedEdges = project(graph, perEdge())
+		const projectedEdges = projectEdges(graph, perEdge())
 
 		return gatherDependOnFileViolations(projectedEdges,
 			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition.patterns,
@@ -149,7 +149,7 @@ export class CycleFreeFileCondition implements Checkable {
 			this.matchPatternFileConditionBuilder.filesShouldCondition.fileCondition.tsConfigFilePath
 		)
 
-		const projectedEdges = project(graph, perInternalEdge())
+		const projectedEdges = projectEdges(graph, perInternalEdge())
 
 		return gatherCycleViolations(projectedEdges,
 			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns)

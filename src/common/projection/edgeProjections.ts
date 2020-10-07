@@ -1,4 +1,4 @@
-import {MapFunction} from "../../common/processing/project";
+import {MapFunction} from "./projectEdges";
 
 export function perInternalEdge(): MapFunction {
 	return (edge) => {

@@ -1,6 +1,6 @@
-import {ProjectedNode} from "../processing/project";
 import {matchingAllPatterns} from "../../common/util/regexUtils";
-import {Violation} from "../../common/fluentapi/violation";
+import {Violation} from "../../common/assertion/violation";
+import {ProjectedNode} from "../../common/projection/projectNodes";
 
 export class ViolatingNode implements Violation{
 	public checkPattern: string

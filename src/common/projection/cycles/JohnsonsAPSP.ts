@@ -1,21 +1,21 @@
-import { Node, Cycle, Edge } from "./Model"
+import { NumberNode, NumberCycle, NumberEdge } from "./Model"
 import { CycleUtils } from "./CycleUtils"
 
 interface BlockedBy {
-	blocked: Node
-	by: Node
+	blocked: NumberNode
+	by: NumberNode
 }
 
 // see https://www.youtube.com/watch?v=johyrWospv0
 export class JohnsonsAPSP {
-	private blocked: Node[] = []
-	private stack: Node[] = []
+	private blocked: NumberNode[] = []
+	private stack: NumberNode[] = []
 	private blockedMap: BlockedBy[] = []
-	private graph: Node[] = []
-	private start: Node = null as any
-	private cycles: Array<Edge[]> = []
+	private graph: NumberNode[] = []
+	private start: NumberNode = null as any
+	private cycles: Array<NumberEdge[]> = []
 
-	public findSimpleCycles(edges: Edge[]): Array<Edge[]> {
+	public findSimpleCycles(edges: NumberEdge[]): Array<NumberEdge[]> {
 		this.init(edges)
 		this.graph.forEach((node) => {
 			this.start = node
@@ -27,7 +27,7 @@ export class JohnsonsAPSP {
 		return this.cycles
 	}
 
-	private exploreNeighbours(currentNode: Node) {
+	private exploreNeighbours(currentNode: NumberNode) {
 		CycleUtils.getOutgoingNeighbours(currentNode, this.graph).forEach((neighbour) => {
 			if (this.foundCycle(neighbour)) {
 				this.cycles.push(this.buildCycle())
@@ -50,7 +50,7 @@ export class JohnsonsAPSP {
 		}
 	}
 
-	private unblock(node: Node) {
+	private unblock(node: NumberNode) {
 		this.blocked = this.blocked.filter((x) => x !== node)
 		const toRemove: BlockedBy[] = []
 		this.blockedMap.forEach((blocker) => {
@@ -62,7 +62,7 @@ export class JohnsonsAPSP {
 		this.blockedMap = this.blockedMap.filter((x) => !toRemove.includes(x))
 	}
 
-	private isPartOfCurrentStartCycle(currentNode: Node): boolean {
+	private isPartOfCurrentStartCycle(currentNode: NumberNode): boolean {
 		return (
 			this.cycles.filter(
 				(x) => x[0].from === this.start.node && x.find((y) => y.from === currentNode.node)
@@ -70,7 +70,7 @@ export class JohnsonsAPSP {
 		)
 	}
 
-	private init(edges: Edge[]) {
+	private init(edges: NumberEdge[]) {
 		this.blocked = []
 		this.stack = []
 		this.blockedMap = []
@@ -78,11 +78,11 @@ export class JohnsonsAPSP {
 		this.cycles = []
 	}
 
-	private isBlocked(child: Node) {
+	private isBlocked(child: NumberNode) {
 		return this.blocked.indexOf(child) !== -1
 	}
 
-	private removeFromGraph(toRemove: Node) {
+	private removeFromGraph(toRemove: NumberNode) {
 		this.graph.forEach((node) => {
 			node.incoming = node.incoming.filter(
 				(x) => x.from !== toRemove.node && x.to !== toRemove.node
@@ -93,12 +93,12 @@ export class JohnsonsAPSP {
 		})
 	}
 
-	private foundCycle(currentNode: Node) {
+	private foundCycle(currentNode: NumberNode) {
 		return currentNode === this.start
 	}
 
-	private buildCycle(): Edge[] {
-		const cycleEdges: Edge[] = []
+	private buildCycle(): NumberEdge[] {
+		const cycleEdges: NumberEdge[] = []
 		this.stack
 			.map((x) => x.node)
 			.forEach((id, i) => {

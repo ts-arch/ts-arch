@@ -1,7 +1,5 @@
-import {gatherDependOnFileViolations} from "./dependOnFiles";
-import {ProjectedEdge} from "../../common/processing/project";
 import {gatherRegexMatchingViolations} from "./matchingFiles";
-import {ProjectedNode} from "../processing/project";
+import {ProjectedNode} from "../../common/projection/projectNodes";
 
 describe("matchingFiles", () => {
 	describe("when not negated", () => {

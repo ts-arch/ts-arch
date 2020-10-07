@@ -1,5 +1,5 @@
 import {gatherDependOnFileViolations} from "./dependOnFiles";
-import {ProjectedEdge} from "../../common/processing/project";
+import {ProjectedEdge} from "../../common/projection/projectEdges";
 
 describe("dependOnFiles", () => {
 	describe("when negated", () => {

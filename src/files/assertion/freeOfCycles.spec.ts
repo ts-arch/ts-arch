@@ -1,5 +1,5 @@
-import {ProjectedEdge} from "../../common/processing/project";
 import {gatherCycleViolations} from "./freeOfCycles";
+import {ProjectedEdge} from "../../common/projection/projectEdges";
 
 describe("freeOfCycles", () => {
 	describe("when not negated", () => {

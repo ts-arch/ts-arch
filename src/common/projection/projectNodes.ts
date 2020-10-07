@@ -1,4 +1,4 @@
-import { Edge } from "../../common/domain/graph"
+import { Edge } from "../extraction/graph"
 
 export type ProjectedNode = { // TODO this should have a list of incoming and outgoing edges
 	label: string

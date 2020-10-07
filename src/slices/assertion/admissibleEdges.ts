@@ -1,5 +1,5 @@
-import { ProjectedEdge, ProjectedGraph } from "../processing/project"
-import {Violation} from "../../common/fluentapi/violation";
+import {ProjectedEdge, ProjectedGraph} from "../../common/projection/projectEdges";
+import {Violation} from "../../common/assertion/violation";
 
 export type Rule = {
 	source: string

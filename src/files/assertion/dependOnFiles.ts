@@ -1,10 +1,7 @@
 import {matchingAllPatterns} from "../../common/util/regexUtils";
-import {Violation} from "../../common/fluentapi/violation";
-import {ProjectedEdge} from "../../common/processing/project";
-import {Edge} from "../../common/domain/cycles/Model";
-import {TrajanSCC} from "../../common/domain/cycles/TrajanSCC";
-import { JohnsonsAPSP } from "../../common/domain/cycles/JohnsonsAPSP";
-import {TechnicalError, UserError} from "../../common/error/errors";
+import {UserError} from "../../common/error/errors";
+import {Violation} from "../../common/assertion/violation";
+import {ProjectedEdge} from "../../common/projection/projectEdges";
 
 export class ViolatingFileDependency implements Violation{
 	public dependency: ProjectedEdge

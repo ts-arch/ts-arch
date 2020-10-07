@@ -1,4 +1,4 @@
-import { Edge } from "./Model"
+import { NumberEdge } from "./Model"
 
 class Vertex {
 	public index: number = -1
@@ -20,10 +20,10 @@ export class TrajanSCC {
 	private graph: Vertex[] = []
 	private index: number = 0
 	private stack: Vertex[] = []
-	private sccs: Array<Edge[]> = []
-	private edges: Edge[] = []
+	private sccs: Array<NumberEdge[]> = []
+	private edges: NumberEdge[] = []
 
-	public findStronglyConnectedComponents(edges: Edge[]): Array<Edge[]> {
+	public findStronglyConnectedComponents(edges: NumberEdge[]): Array<NumberEdge[]> {
 		this.init(edges)
 
 		this.graph.forEach((vertex) => {
@@ -62,7 +62,7 @@ export class TrajanSCC {
 				} while (!vertex.equals(w))
 			}
 			if (scc.length > 0) {
-				const sccEdges: Edge[] = []
+				const sccEdges: NumberEdge[] = []
 				this.edges.forEach((edge) => {
 					if (scc.find((x) => x.id === edge.from) && scc.find((x) => x.id === edge.to)) {
 						sccEdges.push(edge)
@@ -75,7 +75,7 @@ export class TrajanSCC {
 		}
 	}
 
-	private init(edges: Edge[]) {
+	private init(edges: NumberEdge[]) {
 		this.edges = edges
 		this.graph = []
 		edges.forEach((edge) => {

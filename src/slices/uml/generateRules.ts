@@ -1,5 +1,5 @@
 import { parse, Relationship } from "plantuml-parser"
-import { Rule } from "../assertions/admissibleEdges"
+import {Rule} from "../assertion/admissibleEdges";
 
 export function generateRule(data: string): Rule[] {
 	const parsed = parse(data)

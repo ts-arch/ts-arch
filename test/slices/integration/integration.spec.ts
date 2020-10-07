@@ -1,12 +1,12 @@
 import { parse } from "plantuml-parser"
 
-import { gatherPositiveViolations } from "../../../src/slices/assertions/admissibleEdges"
 import { slicesOfProject } from "../../../src/slices/fluentapi/slices"
-import { sliceByFileSuffix, sliceByPattern } from "../../../src/slices/projections/slicing"
 import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
 import path from "path"
 import {extractGraph} from "../../../src/common/extraction/extractGraph";
-import {project} from "../../../src/common/processing/project";
+import {sliceByFileSuffix, sliceByPattern} from "../../../src/slices/projection/slicingProjections";
+import {projectEdges} from "../../../src/common/projection/projectEdges";
+import {gatherPositiveViolations} from "../../../src/slices/assertion/admissibleEdges";
 
 describe("Integration test", () => {
 
@@ -40,7 +40,7 @@ describe("Integration test", () => {
 
 		const mapFunction = sliceByPattern("src/facades/(**)/")
 
-		const sliced = project(graph, mapFunction)
+		const sliced = projectEdges(graph, mapFunction)
 
 		expect(gatherPositiveViolations(sliced, [])).toEqual([
 			{
@@ -129,7 +129,7 @@ describe("Integration test", () => {
 			])
 		)
 
-		const reducedGraph = project(graph, mapFunction)
+		const reducedGraph = projectEdges(graph, mapFunction)
 
 		const stringDiagram = exportDiagram(reducedGraph)
 		const parsedActual = parse(stringDiagram)
@@ -153,7 +153,7 @@ describe("Integration test", () => {
 		)
 		const mapFunction = sliceByPattern("src/(**)/")
 
-		const reducedGraph = project(graph, mapFunction)
+		const reducedGraph = projectEdges(graph, mapFunction)
 
 		const stringDiagram = exportDiagram(reducedGraph)
 		const parsedActual = parse(stringDiagram)

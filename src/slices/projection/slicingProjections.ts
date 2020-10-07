@@ -1,11 +1,11 @@
+import { Edge } from "../../common/extraction/graph"
+import { safeArrayGet } from "../../common/util/arrayUtils"
+import {MapFunction, MappedEdge} from "../../common/projection/projectEdges";
+
 export function sliceByPattern(pattern: string): MapFunction {
 	const regexp = pattern.replace("(**)", "([\\w].+)")
 	return sliceByRegex(new RegExp(`^${regexp}`))
 }
-
-import { Edge } from "../../common/domain/graph"
-import { MapFunction, MappedEdge } from "../processing/project"
-import { safeArrayGet } from "../../common/util/arrayUtils"
 
 export function sliceByRegex(regexp: RegExp): MapFunction {
 	return function slice(edge: Edge): MappedEdge | undefined {

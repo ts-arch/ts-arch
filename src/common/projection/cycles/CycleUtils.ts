@@ -1,15 +1,15 @@
-import { Edge, Node } from "./Model"
+import { NumberEdge, NumberNode } from "./Model"
 
 export class CycleUtils {
-	public static getOutgoingNeighbours(currentNode: Node, graph: Node[]): Node[] {
+	public static getOutgoingNeighbours(currentNode: NumberNode, graph: NumberNode[]): NumberNode[] {
 		return currentNode.outgoing
 			.map((edge) => edge.to)
 			.map((id) => graph.find((n) => n.node === id))
-			.filter((x) => x !== undefined) as Node[]
+			.filter((x) => x !== undefined) as NumberNode[]
 	}
 
-	public static transformEdgeData(edges: Edge[]): Node[] {
-		const data: Node[] = []
+	public static transformEdgeData(edges: NumberEdge[]): NumberNode[] {
+		const data: NumberNode[] = []
 
 		const uniqueNodes: number[] = CycleUtils.findUniqueNodes(edges)
 
@@ -24,7 +24,7 @@ export class CycleUtils {
 		return data
 	}
 
-	public static findUniqueNodes(edges: Edge[]): number[] {
+	public static findUniqueNodes(edges: NumberEdge[]): number[] {
 		const uniqueNodes: number[] = []
 
 		const pushIfNotFound = (value) => {

@@ -3,7 +3,7 @@ import fs from "fs"
 import { CompilerOptions } from "typescript"
 import glob from "glob"
 import path from "path"
-import { Edge } from "../domain/graph"
+import { Edge } from "./graph"
 import { TechnicalError } from "../error/errors"
 import {normalizeWindowsPaths} from "../util/pathUtils";
 

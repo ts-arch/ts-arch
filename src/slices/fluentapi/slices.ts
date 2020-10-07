@@ -1,17 +1,12 @@
 import { generateRule } from "../uml/generateRules"
-import { sliceByPattern } from "../projections/slicing"
 import { extractGraph } from "../../common/extraction/extractGraph"
-import {
-	gatherPositiveViolations,
-	ViolatingEdge,
-	Rule,
-	gatherViolations
-} from "../assertions/admissibleEdges"
 import fs from "fs"
 import {TechnicalError} from "../../common/error/errors";
 import {Checkable} from "../../common/fluentapi/checkable";
-import {Violation} from "../../common/fluentapi/violation";
-import {project} from "../../common/processing/project";
+import {gatherPositiveViolations, gatherViolations, Rule} from "../assertion/admissibleEdges";
+import {Violation} from "../../common/assertion/violation";
+import {sliceByPattern} from "../projection/slicingProjections";
+import {projectEdges} from "../../common/projection/projectEdges";
 
 export function slicesOfProject(filename?: string): SliceConditionBuilder {
 	return new SliceConditionBuilder(filename)
@@ -52,7 +47,7 @@ export class NegativeSliceCondition implements Checkable {
 	public async check(): Promise<Violation[]> {
 		const graph = await extractGraph(this.slicesShouldcondition.sliceCondition.filename)
 		const mapFunction = sliceByPattern(this.slicesShouldcondition.pattern)
-		const mapped = project(graph, mapFunction)
+		const mapped = projectEdges(graph, mapFunction)
 		return gatherViolations(mapped, this.forbiddenEdges)
 	}
 }
@@ -93,7 +88,7 @@ export class PositiveSliceCondition implements Checkable{
 
 		const mapFunction = sliceByPattern(this.positiveConditionBuilder.slicesShouldCondition.pattern)
 
-		const mapped = project(graph, mapFunction)
+		const mapped = projectEdges(graph, mapFunction)
 		return gatherPositiveViolations(mapped, rules)
 	}
 }

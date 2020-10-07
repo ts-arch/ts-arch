@@ -1,4 +1,4 @@
-import { Edge } from "../../common/domain/graph"
+import { Edge } from "../extraction/graph"
 
 export type ProjectedEdge = {
 	sourceLabel: string
@@ -12,7 +12,7 @@ export type MappedEdge = { sourceLabel: string; targetLabel: string }
 
 export type MapFunction = (edge: Edge) => MappedEdge | undefined
 
-export function project(graph: Edge[], mapper: MapFunction): ProjectedEdge[] {
+export function projectEdges(graph: Edge[], mapper: MapFunction): ProjectedEdge[] {
 	const builtGraph: ProjectedEdge[] = []
 	for (const edge of graph) {
 		const mapped = mapper(edge)

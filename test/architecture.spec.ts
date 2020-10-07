@@ -9,7 +9,7 @@ describe("architecture", () => {
 	it("components follow their inner architecture", async () => {
 		const diagramLocation = path.resolve("test", "components_inner.puml")
 
-		const rules = ["common", "files", "jest", "slices"].map(c => {
+		const rules = ["common", "files", "slices"].map(c => {
 			return slicesOfProject()
 				.definedBy("src/" + c + "/(**)/")
 				.should()
