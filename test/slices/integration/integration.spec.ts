@@ -3,13 +3,15 @@ import { parse } from "plantuml-parser"
 import { slicesOfProject } from "../../../src/slices/fluentapi/slices"
 import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
 import path from "path"
-import {extractGraph} from "../../../src/common/extraction/extractGraph";
-import {sliceByFileSuffix, sliceByPattern} from "../../../src/slices/projection/slicingProjections";
-import {projectEdges} from "../../../src/common/projection/projectEdges";
-import {gatherPositiveViolations} from "../../../src/slices/assertion/admissibleEdges";
+import { extractGraph } from "../../../src/common/extraction/extractGraph"
+import {
+	sliceByFileSuffix,
+	sliceByPattern
+} from "../../../src/slices/projection/slicingProjections"
+import { projectEdges } from "../../../src/common/projection/projectEdges"
+import { gatherPositiveViolations } from "../../../src/slices/assertion/admissibleEdges"
 
 describe("Integration test", () => {
-
 	it("finds simple violations", async () => {
 		const violations = await slicesOfProject(__dirname + "/samples/foldersample/tsconfig.json")
 			.definedBy("src/(**)/")
@@ -23,7 +25,7 @@ describe("Integration test", () => {
 				targetLabel: "controllers",
 				cumulatedEdges: [
 					{
-						source: "src/services/Service.ts",
+						source: "src/services/util/Service.ts",
 						target: "src/controllers/Controller.ts",
 						external: false
 					}
@@ -34,9 +36,7 @@ describe("Integration test", () => {
 	})
 
 	it("reports inner dependencies", async () => {
-		const graph = (
-			await extractGraph(__dirname + "/samples/innerdependencies/tsconfig.json")
-		)
+		const graph = await extractGraph(__dirname + "/samples/innerdependencies/tsconfig.json")
 
 		const mapFunction = sliceByPattern("src/facades/(**)/")
 
@@ -81,7 +81,7 @@ describe("Integration test", () => {
 				targetLabel: "controllers",
 				cumulatedEdges: [
 					{
-						source: "src/services/Service.ts",
+						source: "src/services/util/Service.ts",
 						target: "src/controllers/Controller.ts",
 						external: false
 					}
@@ -108,7 +108,7 @@ describe("Integration test", () => {
 				targetLabel: "controllers",
 				cumulatedEdges: [
 					{
-						source: "src/services/Service.ts",
+						source: "src/services/util/Service.ts",
 						target: "src/controllers/Controller.ts",
 						external: false
 					}
@@ -118,9 +118,7 @@ describe("Integration test", () => {
 	})
 
 	it("exports the architecture by suffixes", async () => {
-		const graph = (
-			await extractGraph(__dirname + "/samples/suffixsample/tsconfig.json")
-		)
+		const graph = await extractGraph(__dirname + "/samples/suffixsample/tsconfig.json")
 
 		const mapFunction = sliceByFileSuffix(
 			new Map([
@@ -148,9 +146,7 @@ describe("Integration test", () => {
 	})
 
 	it("exports the architecture by folders", async () => {
-		const graph = (
-			await extractGraph(__dirname + "/samples/foldersample/tsconfig.json")
-		)
+		const graph = await extractGraph(__dirname + "/samples/foldersample/tsconfig.json")
 		const mapFunction = sliceByPattern("src/(**)/")
 
 		const reducedGraph = projectEdges(graph, mapFunction)

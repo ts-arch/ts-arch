@@ -1,10 +1,29 @@
 import { Edge } from "../../common/extraction/graph"
 import { safeArrayGet } from "../../common/util/arrayUtils"
-import {MapFunction, MappedEdge} from "../../common/projection/projectEdges";
+import { MapFunction, MappedEdge } from "../../common/projection/projectEdges"
 
 export function sliceByPattern(pattern: string): MapFunction {
-	const regexp = pattern.replace("(**)", "([\\w].+)")
-	return sliceByRegex(new RegExp(`^${regexp}`))
+	const index = pattern.indexOf("(**)")
+	if (index === -1) {
+		throw new Error(
+			"Could not find '(**)' inside slice pattern. It should contain exactly one occurance'(**)'"
+		)
+	}
+	const prefix = escapeForRegexp(pattern.substr(0, index))
+	const unescapedSuffix = pattern.substr(index + 4, pattern.length)
+	if (unescapedSuffix.indexOf("(**)") !== -1) {
+		throw new Error(
+			"Found too many '(**)' inside slice pattern. It should contain exactly one occurance'(**)'"
+		)
+	}
+
+	const suffix = escapeForRegexp(unescapedSuffix)
+	const regexp = `^${prefix}([\\w]+)${suffix}.*$`
+	return sliceByRegex(new RegExp(regexp))
+}
+
+function escapeForRegexp(input: string): string {
+	return input.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
 }
 
 export function sliceByRegex(regexp: RegExp): MapFunction {
