@@ -5,7 +5,7 @@ import glob from "glob"
 import path from "path"
 import { Edge } from "./graph"
 import { TechnicalError } from "../error/errors"
-import {normalizeWindowsPaths} from "../util/pathUtils";
+import { normalizeWindowsPaths } from "../util/pathUtils"
 
 async function guessProjectFiles(globPattern: string): Promise<string[]> {
 	return new Promise<string[]>((resolve, reject) => {
@@ -39,8 +39,21 @@ function guessLocationOfTsconfigRecursively(pathName: string): string | undefine
 	}
 }
 
-// TODO - distinguish between different import kinds (types, function etc.)
+const graphCache: Map<string | undefined, Promise<Edge[]>> = new Map()
+
 export async function extractGraph(configFileName?: string): Promise<Edge[]> {
+	const there = graphCache.get(configFileName)
+	if (there !== undefined) {
+		return there
+	} else {
+		const computedResult = extractGraphUncached(configFileName)
+		graphCache.set(configFileName, computedResult)
+		return await computedResult
+	}
+}
+
+// TODO - distinguish between different import kinds (types, function etc.)
+export async function extractGraphUncached(configFileName?: string): Promise<Edge[]> {
 	let configFile = configFileName
 	if (configFile === undefined) {
 		configFile = guessLocationOfTsconfig()
