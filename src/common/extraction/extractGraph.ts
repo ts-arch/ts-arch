@@ -96,9 +96,13 @@ export async function extractGraphUncached(configFileName?: string): Promise<Edg
 				if (module === undefined) {
 					return
 				}
+				console.log("we found some module in imports:" + module)
 				// TODO use module resolution cache
 				const resolvedModule = ts.resolveModuleName(module, sourceFile.fileName, parsedConfig, host)
 					.resolvedModule
+
+				console.log("we resolved from " + module  + ": " + resolvedModule)
+
 				if (resolvedModule === undefined) {
 					return
 				}

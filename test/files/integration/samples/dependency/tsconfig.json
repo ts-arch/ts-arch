@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@components/*": ["./src/components/*"]
+		},
+		"target": "es5",
+		"module": "commonjs",
+		"lib": ["es2019", "dom"],
+		"rootDir": "./src",
+		"noEmit": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"esModuleInterop": true
+	}
+}
