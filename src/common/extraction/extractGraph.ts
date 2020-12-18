@@ -6,6 +6,7 @@ import path from "path"
 import { Edge } from "./graph"
 import { TechnicalError } from "../error/errors"
 import { normalizeWindowsPaths } from "../util/pathUtils"
+import { ImportPathsResolver } from "@zerollup/ts-helpers"
 
 async function guessProjectFiles(globPattern: string): Promise<string[]> {
 	return new Promise<string[]>((resolve, reject) => {
@@ -91,19 +92,35 @@ export async function extractGraphUncached(configFileName?: string): Promise<Edg
 	for (const sourceFile of program.getSourceFiles()) {
 		ts.forEachChild(sourceFile, (x) => {
 			if (ts.isImportDeclaration(x)) {
+				const normalizedSourceFileName = path.relative(rootDir, sourceFile.fileName)
+
 				const specifier = x.moduleSpecifier
 				const module = (specifier as { text?: string })["text"]
 				if (module === undefined) {
 					return
 				}
+				const resolver = new ImportPathsResolver((parsedConfig as any).compilerOptions)
+
+				const suggestion = resolver.getImportSuggestions(
+					module,
+					path.dirname(normalizedSourceFileName)
+				)
+
+				const bestGuess = suggestion !== undefined ? suggestion[0] : undefined
+
 				// TODO use module resolution cache
-				const resolvedModule = ts.resolveModuleName(module, sourceFile.fileName, parsedConfig, host)
-					.resolvedModule
+				const resolvedModule = ts.resolveModuleName(
+					bestGuess ?? module,
+					sourceFile.fileName,
+					parsedConfig,
+					host
+				).resolvedModule
+
 				if (resolvedModule === undefined) {
 					return
 				}
+
 				const { resolvedFileName, isExternalLibraryImport } = resolvedModule
-				const normalizedSourceFileName = path.relative(rootDir, sourceFile.fileName)
 				const normalizedTargetFileName = path.relative(rootDir, resolvedFileName)
 
 				imports.push({
