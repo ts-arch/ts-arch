@@ -1,6 +1,6 @@
 # TSArch
 
-An architecture unit test framework for Typescript
+It's a library for checking architecture conventions in TypeScript&JavaScript projects using any test framework. You check dependencies between files, folders and slices, check for cyclic dependencies and more. It's similar to ArchUnit but for TS/JS projects.
 
 ## Build status
 
