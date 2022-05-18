@@ -4,7 +4,7 @@ It's a library for checking architecture conventions in TypeScript&JavaScript pr
 
 ## Build status
 
-[![Travis](https://travis-ci.org/MaibornWolff/ts-arch.svg?branch=main)](https://travis-ci.org/MaibornWolff/ts-arch)
+[![Build](https://github.com/ts-arch/ts-arch/actions/workflows/build.yaml/badge.svg)](https://github.com/ts-arch/ts-arch/actions/workflows/build.yaml)
 
 ## Installation
 
