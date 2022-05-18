@@ -2745,7 +2745,11 @@ img {
 		<section class="tsd-panel">
 			<h3>Implemented by</h3>
 			<ul class="tsd-hierarchy">
-				<li><a href="../classes/rule.html" class="tsd-signature-type">Rule</a></li>
+				<li><a href="../classes/cyclefreefilecondition.html" class="tsd-signature-type">CycleFreeFileCondition</a></li>
+				<li><a href="../classes/dependonfilecondition.html" class="tsd-signature-type">DependOnFileCondition</a></li>
+				<li><a href="../classes/matchpatternfilecondition.html" class="tsd-signature-type">MatchPatternFileCondition</a></li>
+				<li><a href="../classes/negativeslicecondition.html" class="tsd-signature-type">NegativeSliceCondition</a></li>
+				<li><a href="../classes/positiveslicecondition.html" class="tsd-signature-type">PositiveSliceCondition</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2767,22 +2771,16 @@ img {
 				<a name="check" class="tsd-anchor"></a>
 				<h3>check</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
-					<li class="tsd-signature tsd-kind-icon">check<span class="tsd-signature-symbol">(</span>nouns<span class="tsd-signature-symbol">: </span><a href="../classes/noun.html" class="tsd-signature-type">Noun</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../classes/result.html" class="tsd-signature-type">Result</a></li>
+					<li class="tsd-signature tsd-kind-icon">check<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="violation.html" class="tsd-signature-type">Violation</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/MaibornWolff/ts-arch/blob/6551982/src/files/lang/Checkable.ts#L5">src/files/lang/Checkable.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/f850b1f/src/common/fluentapi/checkable.ts#L4">src/common/fluentapi/checkable.ts:4</a></li>
 							</ul>
 						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>nouns: <a href="../classes/noun.html" class="tsd-signature-type">Noun</a><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="../classes/result.html" class="tsd-signature-type">Result</a></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="violation.html" class="tsd-signature-type">Violation</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -2795,7 +2793,6 @@ img {
 						<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 						<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 						<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-						<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
 					</ul>
 					<ul class="tsd-legend">
 						<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
@@ -2806,10 +2803,11 @@ img {
 						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 					</ul>
 					<ul class="tsd-legend">
-						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 					</ul>
 					<ul class="tsd-legend">
-						<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+						<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
 					</ul>
 				</div>
 			</div>

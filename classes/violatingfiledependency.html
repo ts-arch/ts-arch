@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>BlockedBy | tsarch</title>
+	<title>ViolatingFileDependency | tsarch</title>
 	<meta name="description" content="Documentation for tsarch">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -2722,14 +2722,14 @@ img {
 </header>
 <nav class="tsd-navigation secondary">
 	<ul>
-		<li class="current tsd-kind-interface">
-			<a href="blockedby.html" class="tsd-kind-icon">Blocked<wbr>By</a>
+		<li class="current tsd-kind-class">
+			<a href="violatingfiledependency.html" class="tsd-kind-icon">Violating<wbr>File<wbr>Dependency</a>
 			<ul>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="blockedby.html#blocked" class="tsd-kind-icon">blocked</a>
+				<li class=" tsd-kind-constructor tsd-parent-kind-class">
+					<a href="violatingfiledependency.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
-				<li class=" tsd-kind-property tsd-parent-kind-interface">
-					<a href="blockedby.html#by" class="tsd-kind-icon">by</a>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="violatingfiledependency.html#dependency" class="tsd-kind-icon">dependency</a>
 				</li>
 			</ul>
 		</li>
@@ -2741,8 +2741,14 @@ img {
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">BlockedBy</span>
+					<span class="target">ViolatingFileDependency</span>
 				</li>
+			</ul>
+		</section>
+		<section class="tsd-panel">
+			<h3>Implements</h3>
+			<ul class="tsd-hierarchy">
+				<li><a href="../interfaces/violation.html" class="tsd-signature-type">Violation</a></li>
 			</ul>
 		</section>
 		<section class="tsd-panel-group tsd-index-group">
@@ -2750,34 +2756,55 @@ img {
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
 					<section class="tsd-index-section ">
+						<h3>Constructors</h3>
+						<ul class="tsd-index-list">
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="violatingfiledependency.html#constructor" class="tsd-kind-icon">constructor</a></li>
+						</ul>
+					</section>
+					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="blockedby.html#blocked" class="tsd-kind-icon">blocked</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-interface"><a href="blockedby.html#by" class="tsd-kind-icon">by</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="violatingfiledependency.html#dependency" class="tsd-kind-icon">dependency</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
-			<h2>Properties</h2>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="blocked" class="tsd-anchor"></a>
-				<h3>blocked</h3>
-				<div class="tsd-signature tsd-kind-icon">blocked<span class="tsd-signature-symbol">:</span> <a href="numbernode.html" class="tsd-signature-type">NumberNode</a></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/f850b1f/src/common/projection/cycles/JohnsonsAPSP.ts#L5">src/common/projection/cycles/JohnsonsAPSP.ts:5</a></li>
-					</ul>
-				</aside>
+			<h2>Constructors</h2>
+			<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
+				<a name="constructor" class="tsd-anchor"></a>
+				<h3>constructor</h3>
+				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Violating<wbr>File<wbr>Dependency<span class="tsd-signature-symbol">(</span>dependency<span class="tsd-signature-symbol">: </span><a href="../globals.html#projectededge" class="tsd-signature-type">ProjectedEdge</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="violatingfiledependency.html" class="tsd-signature-type">ViolatingFileDependency</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/f850b1f/src/files/assertion/dependOnFiles.ts#L7">src/files/assertion/dependOnFiles.ts:7</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>dependency: <a href="../globals.html#projectededge" class="tsd-signature-type">ProjectedEdge</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="violatingfiledependency.html" class="tsd-signature-type">ViolatingFileDependency</a></h4>
+					</li>
+				</ul>
 			</section>
-			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-				<a name="by" class="tsd-anchor"></a>
-				<h3>by</h3>
-				<div class="tsd-signature tsd-kind-icon">by<span class="tsd-signature-symbol">:</span> <a href="numbernode.html" class="tsd-signature-type">NumberNode</a></div>
+		</section>
+		<section class="tsd-panel-group tsd-member-group ">
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="dependency" class="tsd-anchor"></a>
+				<h3>dependency</h3>
+				<div class="tsd-signature tsd-kind-icon">dependency<span class="tsd-signature-symbol">:</span> <a href="../globals.html#projectededge" class="tsd-signature-type">ProjectedEdge</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/f850b1f/src/common/projection/cycles/JohnsonsAPSP.ts#L6">src/common/projection/cycles/JohnsonsAPSP.ts:6</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/f850b1f/src/files/assertion/dependOnFiles.ts#L7">src/files/assertion/dependOnFiles.ts:7</a></li>
 					</ul>
 				</aside>
 			</section>
