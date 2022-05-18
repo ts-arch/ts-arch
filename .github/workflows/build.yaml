@@ -29,7 +29,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
           full_commit_message: 'docs(docs): update gh-pages'
-          allow_empty_commit: true
       - run: npm run semantic-release
         if: github.ref == 'refs/heads/main'
         env:
