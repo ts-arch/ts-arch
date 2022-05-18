@@ -11,7 +11,7 @@
 	"author": "mrpatpat <adrian.endrich@googlemail.com>",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/MaibornWolff/ts-arch.git"
+		"url": "https://github.com/ts-arch/ts-arch.git"
 	},
 	"license": "MIT",
 	"engines": {
