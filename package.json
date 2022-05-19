@@ -76,14 +76,14 @@
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
-		"@types/jest": "^27.5.1",
+		"@types/jest": "^23.0.0",
 		"@types/node": "^10.17.28",
 		"colors": "^1.1.2",
-		"commitizen": "^4.2.4",
+		"commitizen": "^2.9.6",
 		"cross-env": "^5.2.0",
-		"cz-conventional-changelog": "^3.3.0",
+		"cz-conventional-changelog": "^2.0.0",
 		"glob": "^7.1.6",
-		"jest": "^27.5.1",
+		"jest": "^23.0.0",
 		"lint-staged": "^7.2.0",
 		"lodash.camelcase": "^4.3.0",
 		"prettier": "^2.0.5",
@@ -91,15 +91,15 @@
 		"recast": "^0.16.1",
 		"replace-in-file": "^3.0.0-beta.2",
 		"rimraf": "^2.6.1",
-		"semantic-release": "^19.0.2",
+		"semantic-release": "^17.1.1",
 		"travis-deploy-once": "^5.0.1",
-		"ts-jest": "^27.1.4",
+		"ts-jest": "^23.10.5",
 		"ts-node": "^8.10.1",
 		"tslib": "^1.9.3",
 		"tslint": "^5.11.0",
 		"tslint-config-prettier": "^1.14.0",
 		"tslint-config-standard": "^7.1.0",
-		"typedoc": "^0.20.37",
+		"typedoc": "^0.17.8",
 		"validate-commit-msg": "^2.12.2"
 	},
 	"dependencies": {
@@ -109,10 +109,5 @@
 		"plantuml-parser": "0.0.16",
 		"typescript": "^3.8.3",
 		"walk-sync": "^2.2.0"
-	},
-	"overrides": {
-		"commitizen": {
-			"minimist": "^1.2.6"
-		}
 	}
 }
