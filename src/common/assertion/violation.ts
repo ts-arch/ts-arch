@@ -1,1 +1,1 @@
-export interface Violation{}
+export interface Violation {}
