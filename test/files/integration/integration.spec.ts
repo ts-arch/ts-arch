@@ -121,4 +121,17 @@ describe("Integration test", () => {
 			}
 		])
 	})
+
+	it("correctly ignores files exlucded by tsconfig", async () => {
+		const violations = await filesOfProject(
+			path.resolve(__dirname, "samples", "ignores", "tsconfig.json")
+		)
+			.inFolder("ignore")
+			.shouldNot()
+			.dependOnFiles()
+			.inFolder("dontImport")
+			.check()
+
+		expect(violations).toEqual([])
+	})
 })
