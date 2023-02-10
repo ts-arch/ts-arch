@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: npm ci
       - run: npm run build
+      - run: npm run format:check
       - run: npm test
       - name: Publish docs
         uses: peaceiris/actions-gh-pages@v3
@@ -28,7 +29,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
-          full_commit_message: 'docs(docs): update gh-pages'
+          full_commit_message: "docs(docs): update gh-pages"
       - run: npm run semantic-release
         if: github.ref == 'refs/heads/main'
         env:

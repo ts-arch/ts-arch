@@ -1,15 +1,15 @@
 import "../jest"
 import path from "path"
-import {slicesOfProject} from "../src/slices/fluentapi/slices";
-import {filesOfProject} from "../src/files/fluentapi/files";
+import { slicesOfProject } from "../src/slices/fluentapi/slices"
+import { filesOfProject } from "../src/files/fluentapi/files"
 
 describe("architecture", () => {
-	jest.setTimeout(60000);
+	jest.setTimeout(60000)
 
 	it("components follow their inner architecture", async () => {
 		const diagramLocation = path.resolve("test", "components_inner.puml")
 
-		const rules = ["common", "files", "slices"].map(c => {
+		const rules = ["common", "files", "slices"].map((c) => {
 			return slicesOfProject()
 				.definedBy("src/" + c + "/(**)/")
 				.should()
@@ -24,10 +24,10 @@ describe("architecture", () => {
 	it("common should not depend on specific components", async () => {
 		for (const c of ["files", "jest", "slices"]) {
 			const rule = filesOfProject()
-				.inFolder("src\/common")
+				.inFolder("src/common")
 				.shouldNot()
 				.dependOnFiles()
-				.inFolder("src\/"+c)
+				.inFolder("src/" + c)
 
 			await expect(rule).toPassAsync()
 		}
@@ -36,10 +36,10 @@ describe("architecture", () => {
 	it("files should not depend on forbidden components", async () => {
 		for (const c of ["slices", "jest"]) {
 			const rule = filesOfProject()
-				.inFolder("src\/files")
+				.inFolder("src/files")
 				.shouldNot()
 				.dependOnFiles()
-				.inFolder("src\/"+c)
+				.inFolder("src/" + c)
 
 			await expect(rule).toPassAsync()
 		}
@@ -48,10 +48,10 @@ describe("architecture", () => {
 	it("slices should not depend on forbidden components", async () => {
 		for (const c of ["files", "jest"]) {
 			const rule = filesOfProject()
-				.inFolder("src\/slices")
+				.inFolder("src/slices")
 				.shouldNot()
 				.dependOnFiles()
-				.inFolder("src\/"+c)
+				.inFolder("src/" + c)
 
 			await expect(rule).toPassAsync()
 		}
@@ -59,7 +59,7 @@ describe("architecture", () => {
 
 	it("code should be cycle free", async () => {
 		const rule = filesOfProject()
-			.inFolder("src\/(common|files|slices|jest)")
+			.inFolder("src/(common|files|slices|jest)")
 			.should()
 			.beFreeOfCycles()
 
