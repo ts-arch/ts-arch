@@ -1,24 +1,11 @@
-import ts from "typescript"
+import ts, { CompilerHost, TypeAcquisition } from "typescript"
 import fs from "fs"
 import { CompilerOptions } from "typescript"
-import glob from "glob"
 import path from "path"
 import { Edge } from "./graph"
 import { TechnicalError } from "../error/errors"
 import { normalizeWindowsPaths } from "../util/pathUtils"
 import { ImportPathsResolver } from "@zerollup/ts-helpers"
-
-async function guessProjectFiles(globPattern: string): Promise<string[]> {
-	return new Promise<string[]>((resolve, reject) => {
-		glob(globPattern, (err, files: string[]) => {
-			if (err !== null) {
-				reject(err)
-				return
-			}
-			resolve(files)
-		})
-	})
-}
 
 // TODO write exception code free everywhere
 export function guessLocationOfTsconfig(): string | undefined {
@@ -38,6 +25,21 @@ function guessLocationOfTsconfigRecursively(pathName: string): string | undefine
 	} else {
 		return guessLocationOfTsconfigRecursively(levelUp)
 	}
+}
+
+function getProjectFiles(
+	rootDir: string,
+	compilerHost: CompilerHost,
+	config: CompilerOptions & TypeAcquisition
+): string[] {
+	const files = compilerHost.readDirectory
+		? compilerHost.readDirectory(rootDir, ["ts", "tsx"], config.exclude ?? [], config.include ?? [])
+		: undefined
+
+	if (files === undefined) {
+		throw new TechnicalError("compiler could not resolve project files")
+	}
+	return files
 }
 
 const graphCache: Map<string | undefined, Promise<Edge[]>> = new Map()
@@ -74,16 +76,14 @@ export async function extractGraphUncached(configFileName?: string): Promise<Edg
 
 	const rootDir = path.dirname(path.resolve(configFile))
 
-	// TODO: make configurable
-	const globpattern = rootDir + "/**/*.{ts,tsx}"
-	const files = await guessProjectFiles(globpattern)
+	const compilerHost = ts.createCompilerHost(parsedConfig)
 
-	const host = ts.createCompilerHost(parsedConfig)
+	const files = getProjectFiles(rootDir, compilerHost, config?.config)
 
 	const program = ts.createProgram({
-		rootNames: files,
+		rootNames: files ?? [],
 		options: parsedConfig,
-		host
+		host: compilerHost
 	})
 
 	const imports: Edge[] = []
@@ -113,7 +113,7 @@ export async function extractGraphUncached(configFileName?: string): Promise<Edg
 					bestGuess ?? module,
 					sourceFile.fileName,
 					parsedConfig,
-					host
+					compilerHost
 				).resolvedModule
 
 				if (resolvedModule === undefined) {
