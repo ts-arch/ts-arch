@@ -1,16 +1,16 @@
-import {ProjectedEdge, ProjectedGraph} from "../../common/projection/projectEdges";
-import {Violation} from "../../common/assertion/violation";
+import { ProjectedEdge, ProjectedGraph } from "../../common/projection/projectEdges"
+import { Violation } from "../../common/assertion/violation"
 
 export type Rule = {
 	source: string
 	target: string
 }
 
-export class ViolatingEdge implements Violation{
-	public rule: Rule|null
+export class ViolatingEdge implements Violation {
+	public rule: Rule | null
 	public projectedEdge: ProjectedEdge
 
-	constructor(rule: Rule|null, projectedEdge: ProjectedEdge) {
+	constructor(rule: Rule | null, projectedEdge: ProjectedEdge) {
 		this.rule = rule
 		this.projectedEdge = projectedEdge
 	}

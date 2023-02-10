@@ -1,13 +1,13 @@
-import {extractGraph} from "../../common/extraction/extractGraph"
-import {RegexFactory} from "./RegexFactory";
-import {Checkable} from "../../common/fluentapi/checkable";
-import {projectEdges} from "../../common/projection/projectEdges";
-import {perEdge, perInternalEdge} from "../../common/projection/edgeProjections";
-import {projectToNodes} from "../../common/projection/projectNodes";
-import {gatherRegexMatchingViolations} from "../assertion/matchingFiles";
-import {Violation} from "../../common/assertion/violation";
-import {gatherCycleViolations} from "../assertion/freeOfCycles";
-import {gatherDependOnFileViolations} from "../assertion/dependOnFiles";
+import { extractGraph } from "../../common/extraction/extractGraph"
+import { RegexFactory } from "./RegexFactory"
+import { Checkable } from "../../common/fluentapi/checkable"
+import { projectEdges } from "../../common/projection/projectEdges"
+import { perEdge, perInternalEdge } from "../../common/projection/edgeProjections"
+import { projectToNodes } from "../../common/projection/projectNodes"
+import { gatherRegexMatchingViolations } from "../assertion/matchingFiles"
+import { Violation } from "../../common/assertion/violation"
+import { gatherCycleViolations } from "../assertion/freeOfCycles"
+import { gatherDependOnFileViolations } from "../assertion/dependOnFiles"
 
 export function filesOfProject(tsConfigFilePath?: string): FileConditionBuilder {
 	return new FileConditionBuilder(tsConfigFilePath)
@@ -53,7 +53,7 @@ export class FilesShouldCondition {
 }
 
 export class NegatedMatchPatternFileConditionBuilder {
-	readonly isNegated: boolean = true;
+	readonly isNegated: boolean = true
 
 	constructor(readonly filesShouldCondition: FilesShouldCondition) {}
 
@@ -71,7 +71,7 @@ export class NegatedMatchPatternFileConditionBuilder {
 }
 
 export class PositiveMatchPatternFileConditionBuilder {
-	readonly isNegated: boolean = false;
+	readonly isNegated: boolean = false
 
 	constructor(readonly filesShouldCondition: FilesShouldCondition) {}
 
@@ -108,41 +108,53 @@ export class DependOnFileConditionBuilder {
 	}
 }
 
-export class DependOnFileCondition implements Checkable{
-	constructor(readonly dependOnFileConditionBuilder: DependOnFileConditionBuilder,
-				readonly subjectPatterns: string[]) {}
+export class DependOnFileCondition implements Checkable {
+	constructor(
+		readonly dependOnFileConditionBuilder: DependOnFileConditionBuilder,
+		readonly subjectPatterns: string[]
+	) {}
 
 	public matchingPattern(pattern: string): DependOnFileCondition {
-		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [...this.subjectPatterns, pattern])
+		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [
+			...this.subjectPatterns,
+			pattern
+		])
 	}
 
 	public withName(name: string): DependOnFileCondition {
-		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [...this.subjectPatterns, RegexFactory.fileNameMatcher(name)])
+		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [
+			...this.subjectPatterns,
+			RegexFactory.fileNameMatcher(name)
+		])
 	}
 
 	public inFolder(folder: string): DependOnFileCondition {
-		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [...this.subjectPatterns, RegexFactory.folderMatcher(folder)])
+		return new DependOnFileCondition(this.dependOnFileConditionBuilder, [
+			...this.subjectPatterns,
+			RegexFactory.folderMatcher(folder)
+		])
 	}
 
 	public async check(): Promise<Violation[]> {
 		const graph = await extractGraph(
-			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition.fileCondition.tsConfigFilePath
+			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition
+				.fileCondition.tsConfigFilePath
 		)
 
 		const projectedEdges = projectEdges(graph, perEdge())
 
-		return gatherDependOnFileViolations(projectedEdges,
-			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition.patterns,
+		return gatherDependOnFileViolations(
+			projectedEdges,
+			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.filesShouldCondition
+				.patterns,
 			this.subjectPatterns,
-			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.isNegated)
+			this.dependOnFileConditionBuilder.matchPatternFileConditionBuilder.isNegated
+		)
 	}
-
 }
 
 export class CycleFreeFileCondition implements Checkable {
-	constructor(
-		readonly matchPatternFileConditionBuilder: NegatedMatchPatternFileConditionBuilder
-	) {}
+	constructor(readonly matchPatternFileConditionBuilder: NegatedMatchPatternFileConditionBuilder) {}
 
 	public async check(): Promise<Violation[]> {
 		const graph = await extractGraph(
@@ -151,8 +163,10 @@ export class CycleFreeFileCondition implements Checkable {
 
 		const projectedEdges = projectEdges(graph, perInternalEdge())
 
-		return gatherCycleViolations(projectedEdges,
-			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns)
+		return gatherCycleViolations(
+			projectedEdges,
+			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns
+		)
 	}
 }
 
@@ -169,9 +183,11 @@ export class MatchPatternFileCondition implements Checkable {
 
 		const projectedNodes = projectToNodes(graph)
 
-		return gatherRegexMatchingViolations(projectedNodes,
+		return gatherRegexMatchingViolations(
+			projectedNodes,
 			this.pattern,
 			this.matchPatternFileConditionBuilder.filesShouldCondition.patterns,
-			this.matchPatternFileConditionBuilder.isNegated)
+			this.matchPatternFileConditionBuilder.isNegated
+		)
 	}
 }
