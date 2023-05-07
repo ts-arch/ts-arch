@@ -5,7 +5,8 @@ describe("slicingProjections", () => {
 		const edge = {
 			source: "src/service/blub/Service.ts",
 			target: "src/facade/bla/Facade.ts",
-			external: false
+			external: false,
+			typeOnly: false
 		}
 		expect(sliceByPattern("src/(**)/")(edge)?.sourceLabel).toEqual("service")
 		expect(sliceByPattern("src/(**)/")(edge)?.targetLabel).toEqual("facade")
@@ -15,7 +16,8 @@ describe("slicingProjections", () => {
 		const edge = {
 			source: "src/service/Service.ts",
 			target: "src/facade/Facade.ts",
-			external: false
+			external: false,
+			typeOnly: false
 		}
 		expect(sliceByPattern("src/(**)")(edge)?.sourceLabel).toEqual("service")
 		expect(sliceByPattern("src/(**)")(edge)?.targetLabel).toEqual("facade")
