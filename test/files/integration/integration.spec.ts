@@ -1,4 +1,5 @@
 import { FileConditionBuilder, filesOfProject } from "../../../src/files/fluentapi/files"
+import { extractGraph } from "../../../src/common/extraction/extractGraph"
 import path from "path"
 describe("Integration test", () => {
 	let files: FileConditionBuilder
@@ -56,6 +57,7 @@ describe("Integration test", () => {
 				dependency: {
 					cumulatedEdges: [
 						{
+							typeOnly: false,
 							external: false,
 							source: "src/components/ATest/ATest.ts",
 							target: "src/components/BTest/BTest.ts"
@@ -99,6 +101,7 @@ describe("Integration test", () => {
 						cumulatedEdges: [
 							{
 								external: false,
+								typeOnly: false,
 								source: "src/services/Service.ts",
 								target: "src/controllers/Controller.ts"
 							}
@@ -110,6 +113,7 @@ describe("Integration test", () => {
 						cumulatedEdges: [
 							{
 								external: false,
+								typeOnly: false,
 								source: "src/controllers/Controller.ts",
 								target: "src/services/Service.ts"
 							}
@@ -134,4 +138,18 @@ describe("Integration test", () => {
 
 		expect(violations).toEqual([])
 	})
+	
+
+	it("does mark type only imports", async () => {
+		const graph = await extractGraph(path.resolve(__dirname, "samples", "typeimports", "tsconfig.json"));
+
+		const typeOnly = graph.find(e => e.source.endsWith('typeOnly.ts'));
+		const valueImport = graph.find(e => e.source.endsWith('valueImport.ts'));
+
+		expect(typeOnly).toBeDefined();
+		expect(valueImport).toBeDefined();
+		expect(typeOnly).toEqual(expect.objectContaining({ typeOnly: true }));
+		expect(valueImport).toEqual(expect.objectContaining({ typeOnly: false }));
+	})
+
 })

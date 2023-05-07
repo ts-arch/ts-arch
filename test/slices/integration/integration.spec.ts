@@ -27,6 +27,7 @@ describe("Integration test", () => {
 					{
 						source: "src/services/util/Service.ts",
 						target: "src/controllers/Controller.ts",
+						typeOnly: false,
 						external: false
 					}
 				]
@@ -48,6 +49,7 @@ describe("Integration test", () => {
 					cumulatedEdges: [
 						{
 							external: false,
+							typeOnly: false,
 							source: "src/facades/another/AnotherFacade.ts",
 							target: "src/facades/one/OneFacade.ts"
 						}
@@ -83,6 +85,7 @@ describe("Integration test", () => {
 					{
 						source: "src/services/util/Service.ts",
 						target: "src/controllers/Controller.ts",
+						typeOnly: false,
 						external: false
 					}
 				]
@@ -110,6 +113,7 @@ describe("Integration test", () => {
 					{
 						source: "src/services/util/Service.ts",
 						target: "src/controllers/Controller.ts",
+							typeOnly: false,
 						external: false
 					}
 				]
