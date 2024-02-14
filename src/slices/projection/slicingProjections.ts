@@ -2,6 +2,14 @@ import { Edge } from "../../common/extraction/graph"
 import { safeArrayGet } from "../../common/util/arrayUtils"
 import { MapFunction, MappedEdge } from "../../common/projection/projectEdges"
 
+export function identity(): MapFunction {
+	return function id(edge) {
+		return {
+			sourceLabel: edge.source,
+			targetLabel: edge.target
+		}
+	}
+}
 export function sliceByPattern(pattern: string): MapFunction {
 	const index = pattern.indexOf("(**)")
 	if (index === -1) {

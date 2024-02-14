@@ -92,3 +92,33 @@ The path of the project is always relative to a given `tsconfig.json`.
 If no `tsconfig.json` is given `ts-arch` tries to find one in a parent
 folder, e.g. if your `tsconfig.json` is in the same folder as your `src` folder, then all the paths 
 begin with `src/...`
+
+## Dependency checks on nx monorepositories
+
+`ts-arch` supports dependency checks on nx monorepositories. It reads the project graph
+and makes it accessible for the slices api.
+
+The following example illustrates this:
+
+```typescript
+import "tsarch/dist/jest"
+import {slicesOfProject} from "tsarch" 
+import * as path from "path"
+
+describe("architecture", ()=> {
+    jest.setTimeout(60000);
+
+    it('the architecture adheres to the diagram', async () => {
+    	const diagramLocation = path.resolve('docs', 'components.puml');
+    
+    	const rule = await slicesOfNxProject()
+			.ignoringExternalDependencies()
+    		.should()
+    		.adhereToDiagramInFile(diagramLocation)
+			.check()
+    
+    	await expect(rule).toPassAsync()
+    });
+})
+
+```

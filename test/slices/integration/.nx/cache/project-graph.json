@@ -1,0 +1,32 @@
+{
+	"nodes": {},
+	"externalNodes": {},
+	"dependencies": {
+		"is-super-odd": [
+			{
+				"source": "is-super-odd",
+				"target": "npm:tslib",
+				"type": "static"
+			}
+		],
+		"is-even": [
+			{
+				"source": "is-even",
+				"target": "npm:tslib",
+				"type": "static"
+			},
+			{
+				"source": "is-even",
+				"target": "is-odd",
+				"type": "static"
+			}
+		],
+		"is-odd": [
+			{
+				"source": "is-odd",
+				"target": "npm:tslib",
+				"type": "static"
+			}
+		]
+	}
+}

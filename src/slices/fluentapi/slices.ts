@@ -1,27 +1,30 @@
 import { generateRule } from "../uml/generateRules"
 import { extractGraph } from "../../common/extraction/extractGraph"
-import fs from "fs"
+import { extractNxGraph } from "../../common/extraction/extractNxGraph"
+import * as fs from "fs"
 import { TechnicalError } from "../../common/error/errors"
 import { Checkable } from "../../common/fluentapi/checkable"
 import { gatherPositiveViolations, gatherViolations, Rule } from "../assertion/admissibleEdges"
 import { Violation } from "../../common/assertion/violation"
-import { sliceByPattern } from "../projection/slicingProjections"
-import { projectEdges } from "../../common/projection/projectEdges"
+import { identity, sliceByPattern } from "../projection/slicingProjections"
+import { MapFunction, projectEdges } from "../../common/projection/projectEdges"
+import { Graph } from "../../common/extraction/graph"
 
 export function slicesOfProject(filename?: string): SliceConditionBuilder {
-	return new SliceConditionBuilder(filename)
+	const graphProvider = () => extractGraph(filename)
+	return new SliceConditionBuilder(graphProvider)
 }
 
 export class SliceConditionBuilder {
-	constructor(readonly filename?: string) {}
+	mapFunction: MapFunction = identity()
 
-	public definedBy(pattern: string): SlicesShouldCondition {
-		return new SlicesShouldCondition(this, pattern)
+	constructor(readonly graphProvider: GraphProvider) {}
+
+	public definedBy(pattern: string): SliceConditionBuilder {
+		this.mapFunction = sliceByPattern(pattern)
+
+		return this
 	}
-}
-
-export class SlicesShouldCondition {
-	constructor(readonly sliceCondition: SliceConditionBuilder, readonly pattern: string) {}
 	public should(): PositiveConditionBuilder {
 		return new PositiveConditionBuilder(this)
 	}
@@ -33,27 +36,29 @@ export class SlicesShouldCondition {
 
 export class NegativeSliceCondition implements Checkable {
 	constructor(
-		readonly slicesShouldcondition: SlicesShouldCondition,
+		readonly sliceConditionBuilder: SliceConditionBuilder,
 		private readonly forbiddenEdges: Rule[]
 	) {}
 
 	public containDependency(from: string, to: string): NegativeSliceCondition {
-		return new NegativeSliceCondition(this.slicesShouldcondition, [
+		return new NegativeSliceCondition(this.sliceConditionBuilder, [
 			...this.forbiddenEdges,
 			{ source: from, target: to }
 		])
 	}
 
 	public async check(): Promise<Violation[]> {
-		const graph = await extractGraph(this.slicesShouldcondition.sliceCondition.filename)
-		const mapFunction = sliceByPattern(this.slicesShouldcondition.pattern)
-		const mapped = projectEdges(graph, mapFunction)
+		const graph = await this.sliceConditionBuilder.graphProvider()
+		const mapped = projectEdges(graph, this.sliceConditionBuilder.mapFunction)
 		return gatherViolations(mapped, this.forbiddenEdges)
 	}
 }
 
 export class PositiveConditionBuilder {
-	constructor(readonly slicesShouldCondition: SlicesShouldCondition) {}
+	ignoreUnknownNodes = false
+	ignoreExternals = false
+
+	constructor(readonly sliceConditionBuilder: SliceConditionBuilder) {}
 
 	public adhereToDiagram(diagram: string): PositiveSliceCondition {
 		return new PositiveSliceCondition(this, { diagram })
@@ -61,6 +66,16 @@ export class PositiveConditionBuilder {
 
 	public adhereToDiagramInFile(filename: string): PositiveSliceCondition {
 		return new PositiveSliceCondition(this, { filename })
+	}
+
+	public ignoringUnknownNodes(): PositiveConditionBuilder {
+		this.ignoreUnknownNodes = true
+		return this
+	}
+
+	public ignoringExternalDependencies() {
+		this.ignoreExternals = true
+		return this
 	}
 }
 
@@ -71,9 +86,11 @@ export class PositiveSliceCondition implements Checkable {
 	) {}
 
 	public async check(): Promise<Violation[]> {
-		const graph = await extractGraph(
-			this.positiveConditionBuilder.slicesShouldCondition.sliceCondition.filename
-		)
+		const graph = await this.positiveConditionBuilder.sliceConditionBuilder.graphProvider()
+		const filtered = this.positiveConditionBuilder.ignoreExternals
+			? graph.filter((edge) => !edge.external)
+			: graph
+
 		let diagram = this.diagram.diagram
 		const filename = this.diagram.filename
 
@@ -84,11 +101,27 @@ export class PositiveSliceCondition implements Checkable {
 				throw new TechnicalError("No diagram provided")
 			}
 		}
-		const rules = generateRule(diagram)
+		const { rules, containedNodes } = generateRule(diagram)
 
-		const mapFunction = sliceByPattern(this.positiveConditionBuilder.slicesShouldCondition.pattern)
+		const mapped = projectEdges(
+			filtered,
+			this.positiveConditionBuilder.sliceConditionBuilder.mapFunction
+		)
 
-		const mapped = projectEdges(graph, mapFunction)
-		return gatherPositiveViolations(mapped, rules)
+		return gatherPositiveViolations(
+			mapped,
+			rules,
+			containedNodes,
+			this.positiveConditionBuilder.ignoreUnknownNodes
+		)
 	}
+}
+
+type GraphProvider = () => Promise<Graph>
+
+export function slicesOfNxProject(rootFolder?: string): SliceConditionBuilder {
+	const graphProvider = () => {
+		return Promise.resolve(extractNxGraph(rootFolder))
+	}
+	return new SliceConditionBuilder(graphProvider)
 }

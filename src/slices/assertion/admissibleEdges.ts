@@ -28,9 +28,21 @@ export function gatherViolations(graph: ProjectedEdge[], forbidden: Rule[]): Vio
 	return violatingEdges
 }
 
-export function gatherPositiveViolations(graph: ProjectedGraph, allowed: Rule[]): ViolatingEdge[] {
+export function gatherPositiveViolations(
+	graph: ProjectedGraph,
+	allowed: Rule[],
+	nodesOfInterest: string[],
+	ignoreNonListed: boolean
+): ViolatingEdge[] {
 	const violatingEdges: ViolatingEdge[] = []
 	for (const edge of graph) {
+		if (
+			ignoreNonListed &&
+			!(nodesOfInterest.includes(edge.sourceLabel) && nodesOfInterest.includes(edge.targetLabel))
+		) {
+			continue
+		}
+
 		const match = allowed.find((allowedRule) => {
 			return edge.sourceLabel === allowedRule.source && edge.targetLabel === allowedRule.target
 		})

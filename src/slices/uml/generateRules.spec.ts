@@ -11,7 +11,10 @@ describe("generateRules", () => {
     `
 		const rules = generateRule(data)
 
-		expect(rules).toContainEqual({ source: "controllers", target: "services" })
+		expect(rules).toEqual({
+			rules: [{ source: "controllers", target: "services" }],
+			containedNodes: ["controllers", "services"]
+		})
 	})
 
 	it("generates more complex rules", () => {
@@ -26,7 +29,7 @@ describe("generateRules", () => {
     `
 		const rules = generateRule(data)
 
-		expect(rules).toContainEqual({ source: "controllers", target: "services" })
-		expect(rules).toContainEqual({ source: "services", target: "facades" })
+		expect(rules.rules).toContainEqual({ source: "controllers", target: "services" })
+		expect(rules.rules).toContainEqual({ source: "services", target: "facades" })
 	})
 })

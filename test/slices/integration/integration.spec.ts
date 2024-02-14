@@ -1,6 +1,6 @@
 import { parse } from "plantuml-parser"
 
-import { slicesOfProject } from "../../../src/slices/fluentapi/slices"
+import { slicesOfNxProject, slicesOfProject } from "../../../src/slices/fluentapi/slices"
 import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
 import path from "path"
 import { extractGraph } from "../../../src/common/extraction/extractGraph"
@@ -42,7 +42,7 @@ describe("Integration test", () => {
 
 		const sliced = projectEdges(graph, mapFunction)
 
-		expect(gatherPositiveViolations(sliced, [])).toEqual([
+		expect(gatherPositiveViolations(sliced, [], ["another", "one"], false)).toEqual([
 			{
 				projectedEdge: {
 					cumulatedEdges: [
@@ -165,5 +165,50 @@ describe("Integration test", () => {
 
 		const parsedExpected = parse(expectedDiagram)
 		expect(parsedActual).toEqual(parsedExpected)
+	})
+
+	it("finds not adherent parts in nx projects", async () => {
+		const diagram = `
+@startuml
+  component [is-even]
+  component [is-odd]
+@enduml
+        `
+		const violations = await slicesOfNxProject(__dirname)
+			.should()
+			.ignoringExternalDependencies()
+			.adhereToDiagram(diagram)
+			.check()
+
+		expect(violations).toContainEqual({
+			rule: null,
+			projectedEdge: {
+				sourceLabel: "is-even",
+				targetLabel: "is-odd",
+				cumulatedEdges: [
+					{
+						source: "is-even",
+						target: "is-odd",
+						external: false
+					}
+				]
+			}
+		})
+	})
+
+	it("ignores parts not listed in architecture diagram", async () => {
+		const diagram = `
+@startuml
+  component [is-even]
+@enduml
+        `
+		const violations = await slicesOfNxProject(__dirname)
+			.should()
+			.ignoringUnknownNodes()
+			.ignoringExternalDependencies()
+			.adhereToDiagram(diagram)
+			.check()
+
+		expect(violations).toEqual([])
 	})
 })

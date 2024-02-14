@@ -1,10 +1,10 @@
-import { parse, Relationship } from "plantuml-parser"
+import { Component, parse, Relationship } from "plantuml-parser"
 import { Rule } from "../assertion/admissibleEdges"
 
-export function generateRule(data: string): Rule[] {
+export function generateRule(data: string): { rules: Rule[]; containedNodes: string[] } {
 	const parsed = parse(data)
 	const diagram = parsed[0]
-	return diagram.elements
+	const rules = diagram.elements
 		.map((element) => {
 			if (element instanceof Relationship) {
 				return [{ source: element.left, target: element.right }]
@@ -13,4 +13,12 @@ export function generateRule(data: string): Rule[] {
 			}
 		})
 		.flat()
+	const containedNodes = diagram.elements.flatMap((element) => {
+		if (element instanceof Component) {
+			return [element.name]
+		} else {
+			return []
+		}
+	})
+	return { rules, containedNodes }
 }
