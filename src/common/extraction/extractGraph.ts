@@ -20,7 +20,7 @@ function guessLocationOfTsconfigRecursively(pathName: string): string | undefine
 		}
 	}
 	const levelUp = path.resolve(pathName, "..")
-	if (path.relative(levelUp, pathName) === pathName) {
+	if (path.relative(levelUp, pathName) === "") {
 		return undefined
 	} else {
 		return guessLocationOfTsconfigRecursively(levelUp)
