@@ -2729,10 +2729,19 @@ img {
 					<a href="sliceconditionbuilder.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class">
-					<a href="sliceconditionbuilder.html#filename" class="tsd-kind-icon">filename</a>
+					<a href="sliceconditionbuilder.html#graphprovider" class="tsd-kind-icon">graph<wbr>Provider</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-class">
+					<a href="sliceconditionbuilder.html#mapfunction" class="tsd-kind-icon">map<wbr>Function</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class">
 					<a href="sliceconditionbuilder.html#definedby" class="tsd-kind-icon">defined<wbr>By</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="sliceconditionbuilder.html#should" class="tsd-kind-icon">should</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="sliceconditionbuilder.html#shouldnot" class="tsd-kind-icon">should<wbr>Not</a>
 				</li>
 			</ul>
 		</li>
@@ -2761,13 +2770,16 @@ img {
 					<section class="tsd-index-section ">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class"><a href="sliceconditionbuilder.html#filename" class="tsd-kind-icon">filename</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="sliceconditionbuilder.html#graphprovider" class="tsd-kind-icon">graph<wbr>Provider</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class"><a href="sliceconditionbuilder.html#mapfunction" class="tsd-kind-icon">map<wbr>Function</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-method tsd-parent-kind-class"><a href="sliceconditionbuilder.html#definedby" class="tsd-kind-icon">defined<wbr>By</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="sliceconditionbuilder.html#should" class="tsd-kind-icon">should</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="sliceconditionbuilder.html#shouldnot" class="tsd-kind-icon">should<wbr>Not</a></li>
 						</ul>
 					</section>
 				</div>
@@ -2779,19 +2791,19 @@ img {
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Slice<wbr>Condition<wbr>Builder<span class="tsd-signature-symbol">(</span>filename<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sliceconditionbuilder.html" class="tsd-signature-type">SliceConditionBuilder</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Slice<wbr>Condition<wbr>Builder<span class="tsd-signature-symbol">(</span>graphProvider<span class="tsd-signature-symbol">: </span><a href="../globals.html#graphprovider" class="tsd-signature-type">GraphProvider</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sliceconditionbuilder.html" class="tsd-signature-type">SliceConditionBuilder</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/fluentapi/slices.ts#L15">src/slices/fluentapi/slices.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L19">src/slices/fluentapi/slices.ts:19</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
 						<ul class="tsd-parameters">
 							<li>
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> filename: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+								<h5>graphProvider: <a href="../globals.html#graphprovider" class="tsd-signature-type">GraphProvider</a></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="sliceconditionbuilder.html" class="tsd-signature-type">SliceConditionBuilder</a></h4>
@@ -2802,12 +2814,22 @@ img {
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Properties</h2>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-				<a name="filename" class="tsd-anchor"></a>
-				<h3><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> filename</h3>
-				<div class="tsd-signature tsd-kind-icon">filename<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+				<a name="graphprovider" class="tsd-anchor"></a>
+				<h3><span class="tsd-flag ts-flagReadonly">Readonly</span> graph<wbr>Provider</h3>
+				<div class="tsd-signature tsd-kind-icon">graph<wbr>Provider<span class="tsd-signature-symbol">:</span> <a href="../globals.html#graphprovider" class="tsd-signature-type">GraphProvider</a></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/fluentapi/slices.ts#L16">src/slices/fluentapi/slices.ts:16</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L21">src/slices/fluentapi/slices.ts:21</a></li>
+					</ul>
+				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+				<a name="mapfunction" class="tsd-anchor"></a>
+				<h3>map<wbr>Function</h3>
+				<div class="tsd-signature tsd-kind-icon">map<wbr>Function<span class="tsd-signature-symbol">:</span> <a href="../globals.html#mapfunction" class="tsd-signature-type">MapFunction</a><span class="tsd-signature-symbol"> = identity()</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L19">src/slices/fluentapi/slices.ts:19</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -2818,13 +2840,13 @@ img {
 				<a name="definedby" class="tsd-anchor"></a>
 				<h3>defined<wbr>By</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">defined<wbr>By<span class="tsd-signature-symbol">(</span>pattern<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="slicesshouldcondition.html" class="tsd-signature-type">SlicesShouldCondition</a></li>
+					<li class="tsd-signature tsd-kind-icon">defined<wbr>By<span class="tsd-signature-symbol">(</span>pattern<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="sliceconditionbuilder.html" class="tsd-signature-type">SliceConditionBuilder</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/fluentapi/slices.ts#L18">src/slices/fluentapi/slices.ts:18</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L23">src/slices/fluentapi/slices.ts:23</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2833,7 +2855,41 @@ img {
 								<h5>pattern: <span class="tsd-signature-type">string</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="slicesshouldcondition.html" class="tsd-signature-type">SlicesShouldCondition</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="sliceconditionbuilder.html" class="tsd-signature-type">SliceConditionBuilder</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="should" class="tsd-anchor"></a>
+				<h3>should</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">should<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="positiveconditionbuilder.html" class="tsd-signature-type">PositiveConditionBuilder</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L28">src/slices/fluentapi/slices.ts:28</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="positiveconditionbuilder.html" class="tsd-signature-type">PositiveConditionBuilder</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="shouldnot" class="tsd-anchor"></a>
+				<h3>should<wbr>Not</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">should<wbr>Not<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="negativeslicecondition.html" class="tsd-signature-type">NegativeSliceCondition</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L32">src/slices/fluentapi/slices.ts:32</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="negativeslicecondition.html" class="tsd-signature-type">NegativeSliceCondition</a></h4>
 					</li>
 				</ul>
 			</section>

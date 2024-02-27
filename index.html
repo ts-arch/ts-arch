@@ -2777,9 +2777,6 @@ img {
 			<a href="classes/sliceconditionbuilder.html" class="tsd-kind-icon">Slice<wbr>Condition<wbr>Builder</a>
 		</li>
 		<li class=" tsd-kind-class">
-			<a href="classes/slicesshouldcondition.html" class="tsd-kind-icon">Slices<wbr>Should<wbr>Condition</a>
-		</li>
-		<li class=" tsd-kind-class">
 			<a href="classes/technicalerror.html" class="tsd-kind-icon">Technical<wbr>Error</a>
 		</li>
 		<li class=" tsd-kind-class">
@@ -2837,10 +2834,19 @@ img {
 			<a href="globals.html#graph" class="tsd-kind-icon">Graph</a>
 		</li>
 		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#graphprovider" class="tsd-kind-icon">Graph<wbr>Provider</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
 			<a href="globals.html#mapfunction" class="tsd-kind-icon">Map<wbr>Function</a>
 		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="globals.html#mappededge" class="tsd-kind-icon">Mapped<wbr>Edge</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#nodes" class="tsd-kind-icon">Nodes</a>
+		</li>
+		<li class=" tsd-kind-type-alias">
+			<a href="globals.html#outgoing" class="tsd-kind-icon">Outgoing</a>
 		</li>
 		<li class=" tsd-kind-type-alias">
 			<a href="globals.html#projectedcycles" class="tsd-kind-icon">Projected<wbr>Cycles</a>
@@ -2861,6 +2867,9 @@ img {
 			<a href="globals.html#graphcache" class="tsd-kind-icon">graph<wbr>Cache</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="globals.html#absolutepath" class="tsd-kind-icon">absolute<wbr>Path</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="globals.html#calculatecycles" class="tsd-kind-icon">calculate<wbr>Cycles</a>
 		</li>
 		<li class=" tsd-kind-function">
@@ -2868,6 +2877,9 @@ img {
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#checkpositiveviolation" class="tsd-kind-icon">check<wbr>Positive<wbr>Violation</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#defaultcachedirectory" class="tsd-kind-icon">default<wbr>Cache<wbr>Directory</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#escapeforregexp" class="tsd-kind-icon">escape<wbr>For<wbr>Regexp</a>
@@ -2883,6 +2895,9 @@ img {
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#extractgraphuncached" class="tsd-kind-icon">extract<wbr>Graph<wbr>Uncached</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#extractnxgraph" class="tsd-kind-icon">extract<wbr>NxGraph</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#filesofproject" class="tsd-kind-icon">files<wbr>OfProject</a>
@@ -2909,10 +2924,22 @@ img {
 			<a href="globals.html#getprojectfiles" class="tsd-kind-icon">get<wbr>Project<wbr>Files</a>
 		</li>
 		<li class=" tsd-kind-function">
+			<a href="globals.html#guesslocationofnxconfigrecursively" class="tsd-kind-icon">guess<wbr>Location<wbr>OfNx<wbr>Config<wbr>Recursively</a>
+		</li>
+		<li class=" tsd-kind-function">
 			<a href="globals.html#guesslocationoftsconfig" class="tsd-kind-icon">guess<wbr>Location<wbr>OfTsconfig</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#guesslocationoftsconfigrecursively" class="tsd-kind-icon">guess<wbr>Location<wbr>OfTsconfig<wbr>Recursively</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#guessnxworkspaceroot" class="tsd-kind-icon">guess<wbr>NxWorkspace<wbr>Root</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#identity" class="tsd-kind-icon">identity</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#maptograph" class="tsd-kind-icon">map<wbr>ToGraph</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#matchingallpatterns" class="tsd-kind-icon">matching<wbr>All<wbr>Patterns</a>
@@ -2949,6 +2976,9 @@ img {
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#slicebyregex" class="tsd-kind-icon">slice<wbr>ByRegex</a>
+		</li>
+		<li class=" tsd-kind-function">
+			<a href="globals.html#slicesofnxproject" class="tsd-kind-icon">slices<wbr>OfNx<wbr>Project</a>
 		</li>
 		<li class=" tsd-kind-function">
 			<a href="globals.html#slicesofproject" class="tsd-kind-icon">slices<wbr>OfProject</a>
@@ -3047,6 +3077,32 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				If no <code>tsconfig.json</code> is given <code>ts-arch</code> tries to find one in a parent
 				folder, e.g. if your <code>tsconfig.json</code> is in the same folder as your <code>src</code> folder, then all the paths
 			begin with <code>src/...</code></p>
+			<a href="#dependency-checks-on-nx-monorepositories" id="dependency-checks-on-nx-monorepositories" style="color: inherit; text-decoration: none;">
+				<h2>Dependency checks on nx monorepositories</h2>
+			</a>
+			<p><code>ts-arch</code> supports dependency checks on nx monorepositories. It reads the project graph
+			and makes it accessible for the slices api.</p>
+			<p>The following example illustrates this:</p>
+			<pre><code class="language-typescript"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;tsarch/dist/jest&quot;</span>
+<span class="hljs-keyword">import</span> {slicesOfProject} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;tsarch&quot;</span> 
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;path&quot;</span>
+
+describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class="hljs-function">()=&gt;</span> {
+    jest.setTimeout(<span class="hljs-number">60000</span>);
+
+    it(<span class="hljs-string">&#x27;the architecture adheres to the diagram&#x27;</span>, <span class="hljs-keyword">async</span> () =&gt; {
+        <span class="hljs-keyword">const</span> diagramLocation = path.resolve(<span class="hljs-string">&#x27;docs&#x27;</span>, <span class="hljs-string">&#x27;components.puml&#x27;</span>);
+
+        <span class="hljs-keyword">const</span> rule = <span class="hljs-keyword">await</span> slicesOfNxProject()
+            .ignoringExternalDependencies()
+            .should()
+            .adhereToDiagramInFile(diagramLocation)
+            .check()
+
+        <span class="hljs-keyword">await</span> expect(rule).toPassAsync()
+    });
+})
+</code></pre>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
 		<section class="tsd-panel-group tsd-index-group">
@@ -3080,7 +3136,6 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 							<li class="tsd-kind-class"><a href="classes/positiveslicecondition.html" class="tsd-kind-icon">Positive<wbr>Slice<wbr>Condition</a></li>
 							<li class="tsd-kind-class"><a href="classes/regexfactory.html" class="tsd-kind-icon">Regex<wbr>Factory</a></li>
 							<li class="tsd-kind-class"><a href="classes/sliceconditionbuilder.html" class="tsd-kind-icon">Slice<wbr>Condition<wbr>Builder</a></li>
-							<li class="tsd-kind-class"><a href="classes/slicesshouldcondition.html" class="tsd-kind-icon">Slices<wbr>Should<wbr>Condition</a></li>
 							<li class="tsd-kind-class"><a href="classes/technicalerror.html" class="tsd-kind-icon">Technical<wbr>Error</a></li>
 							<li class="tsd-kind-class"><a href="classes/trajanscc.html" class="tsd-kind-icon">TrajanSCC</a></li>
 							<li class="tsd-kind-class"><a href="classes/unknownjestviolation.html" class="tsd-kind-icon">Unknown<wbr>Jest<wbr>Violation</a></li>
@@ -3110,8 +3165,11 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 						<ul class="tsd-index-list">
 							<li class="tsd-kind-type-alias"><a href="globals.html#edge" class="tsd-kind-icon">Edge</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#graph" class="tsd-kind-icon">Graph</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#graphprovider" class="tsd-kind-icon">Graph<wbr>Provider</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#mapfunction" class="tsd-kind-icon">Map<wbr>Function</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#mappededge" class="tsd-kind-icon">Mapped<wbr>Edge</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#nodes" class="tsd-kind-icon">Nodes</a></li>
+							<li class="tsd-kind-type-alias"><a href="globals.html#outgoing" class="tsd-kind-icon">Outgoing</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#projectedcycles" class="tsd-kind-icon">Projected<wbr>Cycles</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#projectededge" class="tsd-kind-icon">Projected<wbr>Edge</a></li>
 							<li class="tsd-kind-type-alias"><a href="globals.html#projectedgraph" class="tsd-kind-icon">Projected<wbr>Graph</a></li>
@@ -3128,14 +3186,17 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<section class="tsd-index-section ">
 						<h3>Functions</h3>
 						<ul class="tsd-index-list">
+							<li class="tsd-kind-function"><a href="globals.html#absolutepath" class="tsd-kind-icon">absolute<wbr>Path</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#calculatecycles" class="tsd-kind-icon">calculate<wbr>Cycles</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#checknegativeviolation" class="tsd-kind-icon">check<wbr>Negative<wbr>Violation</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#checkpositiveviolation" class="tsd-kind-icon">check<wbr>Positive<wbr>Violation</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#defaultcachedirectory" class="tsd-kind-icon">default<wbr>Cache<wbr>Directory</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#escapeforregexp" class="tsd-kind-icon">escape<wbr>For<wbr>Regexp</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#exportdiagram" class="tsd-kind-icon">export<wbr>Diagram</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#extendjestmatchers" class="tsd-kind-icon">extend<wbr>Jest<wbr>Matchers</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#extractgraph" class="tsd-kind-icon">extract<wbr>Graph</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#extractgraphuncached" class="tsd-kind-icon">extract<wbr>Graph<wbr>Uncached</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#extractnxgraph" class="tsd-kind-icon">extract<wbr>NxGraph</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#filesofproject" class="tsd-kind-icon">files<wbr>OfProject</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#gathercycleviolations" class="tsd-kind-icon">gather<wbr>Cycle<wbr>Violations</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#gatherdependonfileviolations" class="tsd-kind-icon">gather<wbr>Depend<wbr>OnFile<wbr>Violations</a></li>
@@ -3144,8 +3205,12 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 							<li class="tsd-kind-function"><a href="globals.html#gatherviolations" class="tsd-kind-icon">gather<wbr>Violations</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#generaterule" class="tsd-kind-icon">generate<wbr>Rule</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#getprojectfiles" class="tsd-kind-icon">get<wbr>Project<wbr>Files</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#guesslocationofnxconfigrecursively" class="tsd-kind-icon">guess<wbr>Location<wbr>OfNx<wbr>Config<wbr>Recursively</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#guesslocationoftsconfig" class="tsd-kind-icon">guess<wbr>Location<wbr>OfTsconfig</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#guesslocationoftsconfigrecursively" class="tsd-kind-icon">guess<wbr>Location<wbr>OfTsconfig<wbr>Recursively</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#guessnxworkspaceroot" class="tsd-kind-icon">guess<wbr>NxWorkspace<wbr>Root</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#identity" class="tsd-kind-icon">identity</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#maptograph" class="tsd-kind-icon">map<wbr>ToGraph</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#matchingallpatterns" class="tsd-kind-icon">matching<wbr>All<wbr>Patterns</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#normalizewindowspaths" class="tsd-kind-icon">normalize<wbr>Windows<wbr>Paths</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#peredge" class="tsd-kind-icon">per<wbr>Edge</a></li>
@@ -3158,6 +3223,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 							<li class="tsd-kind-function"><a href="globals.html#slicebyfilesuffix" class="tsd-kind-icon">slice<wbr>ByFile<wbr>Suffix</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#slicebypattern" class="tsd-kind-icon">slice<wbr>ByPattern</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#slicebyregex" class="tsd-kind-icon">slice<wbr>ByRegex</a></li>
+							<li class="tsd-kind-function"><a href="globals.html#slicesofnxproject" class="tsd-kind-icon">slices<wbr>OfNx<wbr>Project</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#slicesofproject" class="tsd-kind-icon">slices<wbr>OfProject</a></li>
 							<li class="tsd-kind-function"><a href="globals.html#stripslice" class="tsd-kind-icon">strip<wbr>Slice</a></li>
 						</ul>
@@ -3173,7 +3239,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Edge<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>external<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/graph.ts#L1">src/common/extraction/graph.ts:1</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/graph.ts#L1">src/common/extraction/graph.ts:1</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -3197,9 +3263,34 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Graph<span class="tsd-signature-symbol">:</span> <a href="globals.html#edge" class="tsd-signature-type">Edge</a><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/graph.ts#L7">src/common/extraction/graph.ts:7</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/graph.ts#L7">src/common/extraction/graph.ts:7</a></li>
 					</ul>
 				</aside>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="graphprovider" class="tsd-anchor"></a>
+				<h3>Graph<wbr>Provider</h3>
+				<div class="tsd-signature tsd-kind-icon">Graph<wbr>Provider<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#graph" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&gt;</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L120">src/slices/fluentapi/slices.ts:120</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-signature">
+							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#graph" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&gt;</span></li>
+							</ul>
+							<ul class="tsd-descriptions">
+								<li class="tsd-description">
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#graph" class="tsd-signature-type">Graph</a><span class="tsd-signature-symbol">&gt;</span></h4>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-type-alias">
 				<a name="mapfunction" class="tsd-anchor"></a>
@@ -3207,7 +3298,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Map<wbr>Function<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>edge<span class="tsd-signature-symbol">: </span><a href="globals.html#edge" class="tsd-signature-type">Edge</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="globals.html#mappededge" class="tsd-signature-type">MappedEdge</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectEdges.ts#L13">src/common/projection/projectEdges.ts:13</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectEdges.ts#L13">src/common/projection/projectEdges.ts:13</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -3238,7 +3329,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Mapped<wbr>Edge<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>sourceLabel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>targetLabel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectEdges.ts#L11">src/common/projection/projectEdges.ts:11</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectEdges.ts#L11">src/common/projection/projectEdges.ts:11</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -3254,12 +3345,51 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				</div>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="nodes" class="tsd-anchor"></a>
+				<h3>Nodes</h3>
+				<div class="tsd-signature tsd-kind-icon">Nodes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L6">src/common/extraction/extractNxGraph.ts:6</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter-index-signature">
+							<h5><span class="tsd-signature-symbol">[</span>index: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="globals.html#outgoing" class="tsd-signature-type">Outgoing</a><span class="tsd-signature-symbol">[]</span></h5>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
+				<a name="outgoing" class="tsd-anchor"></a>
+				<h3>Outgoing</h3>
+				<div class="tsd-signature tsd-kind-icon">Outgoing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L10">src/common/extraction/extractNxGraph.ts:10</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-type-declaration">
+					<h4>Type declaration</h4>
+					<ul class="tsd-parameters">
+						<li class="tsd-parameter">
+							<h5>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+						</li>
+						<li class="tsd-parameter">
+							<h5>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-type-alias">
 				<a name="projectedcycles" class="tsd-anchor"></a>
 				<h3>Projected<wbr>Cycles</h3>
 				<div class="tsd-signature tsd-kind-icon">Projected<wbr>Cycles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#projectededge" class="tsd-signature-type">ProjectedEdge</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectCycles.ts#L7">src/common/projection/projectCycles.ts:7</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectCycles.ts#L7">src/common/projection/projectCycles.ts:7</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3269,7 +3399,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Projected<wbr>Edge<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>cumulatedEdges<span class="tsd-signature-symbol">: </span><a href="globals.html#edge" class="tsd-signature-type">Edge</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>sourceLabel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>targetLabel<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectEdges.ts#L3">src/common/projection/projectEdges.ts:3</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectEdges.ts#L3">src/common/projection/projectEdges.ts:3</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -3293,7 +3423,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Projected<wbr>Graph<span class="tsd-signature-symbol">:</span> <a href="globals.html#projectededge" class="tsd-signature-type">ProjectedEdge</a><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectEdges.ts#L9">src/common/projection/projectEdges.ts:9</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectEdges.ts#L9">src/common/projection/projectEdges.ts:9</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -3303,7 +3433,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Projected<wbr>Node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>label<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectNodes.ts#L3">src/common/projection/projectNodes.ts:3</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectNodes.ts#L3">src/common/projection/projectNodes.ts:3</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -3321,7 +3451,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">Rule<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>target<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/assertion/admissibleEdges.ts#L4">src/slices/assertion/admissibleEdges.ts:4</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/assertion/admissibleEdges.ts#L4">src/slices/assertion/admissibleEdges.ts:4</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-type-declaration">
@@ -3345,13 +3475,39 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<div class="tsd-signature tsd-kind-icon">graph<wbr>Cache<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="globals.html#edge" class="tsd-signature-type">Edge</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Map()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/extractGraph.ts#L45">src/common/extraction/extractGraph.ts:45</a></li>
+						<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractGraph.ts#L45">src/common/extraction/extractGraph.ts:45</a></li>
 					</ul>
 				</aside>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group ">
 			<h2>Functions</h2>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="absolutepath" class="tsd-anchor"></a>
+				<h3>absolute<wbr>Path</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">absolute<wbr>Path<span class="tsd-signature-symbol">(</span>root<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, pathName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L40">src/common/extraction/extractNxGraph.ts:40</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>root: <span class="tsd-signature-type">string</span></h5>
+							</li>
+							<li>
+								<h5>pathName: <span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="calculatecycles" class="tsd-anchor"></a>
 				<h3>calculate<wbr>Cycles</h3>
@@ -3362,7 +3518,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/cycles/cycles.ts#L5">src/common/projection/cycles/cycles.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/cycles/cycles.ts#L5">src/common/projection/cycles/cycles.ts:5</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3385,7 +3541,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/files/assertion/matchingFiles.ts#L45">src/files/assertion/matchingFiles.ts:45</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/files/assertion/matchingFiles.ts#L45">src/files/assertion/matchingFiles.ts:45</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3414,7 +3570,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/files/assertion/matchingFiles.ts#L55">src/files/assertion/matchingFiles.ts:55</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/files/assertion/matchingFiles.ts#L55">src/files/assertion/matchingFiles.ts:55</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3434,6 +3590,29 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="defaultcachedirectory" class="tsd-anchor"></a>
+				<h3>default<wbr>Cache<wbr>Directory</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">default<wbr>Cache<wbr>Directory<span class="tsd-signature-symbol">(</span>root<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L48">src/common/extraction/extractNxGraph.ts:48</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>root: <span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="escapeforregexp" class="tsd-anchor"></a>
 				<h3>escape<wbr>For<wbr>Regexp</h3>
 				<ul class="tsd-signatures tsd-kind-function">
@@ -3443,7 +3622,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/projection/slicingProjections.ts#L25">src/slices/projection/slicingProjections.ts:25</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/projection/slicingProjections.ts#L33">src/slices/projection/slicingProjections.ts:33</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3466,7 +3645,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/uml/exportDiagram.ts#L3">src/slices/uml/exportDiagram.ts:3</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/uml/exportDiagram.ts#L3">src/slices/uml/exportDiagram.ts:3</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3489,7 +3668,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/jest/ArchMatchers.ts#L109">src/jest/ArchMatchers.ts:109</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/jest/ArchMatchers.ts#L109">src/jest/ArchMatchers.ts:109</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -3506,7 +3685,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/extractGraph.ts#L47">src/common/extraction/extractGraph.ts:47</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractGraph.ts#L47">src/common/extraction/extractGraph.ts:47</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3529,7 +3708,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/extractGraph.ts#L59">src/common/extraction/extractGraph.ts:59</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractGraph.ts#L59">src/common/extraction/extractGraph.ts:59</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3543,6 +3722,29 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="extractnxgraph" class="tsd-anchor"></a>
+				<h3>extract<wbr>NxGraph</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">extract<wbr>NxGraph<span class="tsd-signature-symbol">(</span>rootFolder<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#graph" class="tsd-signature-type">Graph</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L15">src/common/extraction/extractNxGraph.ts:15</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> rootFolder: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="globals.html#graph" class="tsd-signature-type">Graph</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="filesofproject" class="tsd-anchor"></a>
 				<h3>files<wbr>OfProject</h3>
 				<ul class="tsd-signatures tsd-kind-function">
@@ -3552,7 +3754,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/files/fluentapi/files.ts#L12">src/files/fluentapi/files.ts:12</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/files/fluentapi/files.ts#L12">src/files/fluentapi/files.ts:12</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3575,7 +3777,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/files/assertion/freeOfCycles.ts#L14">src/files/assertion/freeOfCycles.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/files/assertion/freeOfCycles.ts#L14">src/files/assertion/freeOfCycles.ts:14</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3601,7 +3803,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/files/assertion/dependOnFiles.ts#L14">src/files/assertion/dependOnFiles.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/files/assertion/dependOnFiles.ts#L14">src/files/assertion/dependOnFiles.ts:14</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3627,13 +3829,13 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<a name="gatherpositiveviolations" class="tsd-anchor"></a>
 				<h3>gather<wbr>Positive<wbr>Violations</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">gather<wbr>Positive<wbr>Violations<span class="tsd-signature-symbol">(</span>graph<span class="tsd-signature-symbol">: </span><a href="globals.html#projectedgraph" class="tsd-signature-type">ProjectedGraph</a>, allowed<span class="tsd-signature-symbol">: </span><a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/violatingedge.html" class="tsd-signature-type">ViolatingEdge</a><span class="tsd-signature-symbol">[]</span></li>
+					<li class="tsd-signature tsd-kind-icon">gather<wbr>Positive<wbr>Violations<span class="tsd-signature-symbol">(</span>graph<span class="tsd-signature-symbol">: </span><a href="globals.html#projectedgraph" class="tsd-signature-type">ProjectedGraph</a>, allowed<span class="tsd-signature-symbol">: </span><a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span>, nodesOfInterest<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, ignoreNonListed<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/violatingedge.html" class="tsd-signature-type">ViolatingEdge</a><span class="tsd-signature-symbol">[]</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/assertion/admissibleEdges.ts#L31">src/slices/assertion/admissibleEdges.ts:31</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/assertion/admissibleEdges.ts#L31">src/slices/assertion/admissibleEdges.ts:31</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3643,6 +3845,12 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 							</li>
 							<li>
 								<h5>allowed: <a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+							<li>
+								<h5>nodesOfInterest: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+							<li>
+								<h5>ignoreNonListed: <span class="tsd-signature-type">boolean</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <a href="classes/violatingedge.html" class="tsd-signature-type">ViolatingEdge</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -3659,7 +3867,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/files/assertion/matchingFiles.ts#L15">src/files/assertion/matchingFiles.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/files/assertion/matchingFiles.ts#L15">src/files/assertion/matchingFiles.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3691,7 +3899,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/assertion/admissibleEdges.ts#L19">src/slices/assertion/admissibleEdges.ts:19</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/assertion/admissibleEdges.ts#L19">src/slices/assertion/admissibleEdges.ts:19</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3711,13 +3919,13 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				<a name="generaterule" class="tsd-anchor"></a>
 				<h3>generate<wbr>Rule</h3>
 				<ul class="tsd-signatures tsd-kind-function">
-					<li class="tsd-signature tsd-kind-icon">generate<wbr>Rule<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span></li>
+					<li class="tsd-signature tsd-kind-icon">generate<wbr>Rule<span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>containedNodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>rules<span class="tsd-signature-symbol">: </span><a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/uml/generateRules.ts#L4">src/slices/uml/generateRules.ts:4</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/uml/generateRules.ts#L4">src/slices/uml/generateRules.ts:4</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3726,7 +3934,15 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 								<h5>data: <span class="tsd-signature-type">string</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span></h4>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>containedNodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>rules<span class="tsd-signature-symbol">: </span><a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span></h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>contained<wbr>Nodes<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+							<li class="tsd-parameter">
+								<h5>rules<span class="tsd-signature-symbol">: </span><a href="globals.html#rule" class="tsd-signature-type">Rule</a><span class="tsd-signature-symbol">[]</span></h5>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -3740,7 +3956,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/extractGraph.ts#L30">src/common/extraction/extractGraph.ts:30</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractGraph.ts#L30">src/common/extraction/extractGraph.ts:30</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3760,6 +3976,29 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="guesslocationofnxconfigrecursively" class="tsd-anchor"></a>
+				<h3>guess<wbr>Location<wbr>OfNx<wbr>Config<wbr>Recursively</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">guess<wbr>Location<wbr>OfNx<wbr>Config<wbr>Recursively<span class="tsd-signature-symbol">(</span>pathName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L65">src/common/extraction/extractNxGraph.ts:65</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>pathName: <span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="guesslocationoftsconfig" class="tsd-anchor"></a>
 				<h3>guess<wbr>Location<wbr>OfTsconfig</h3>
 				<ul class="tsd-signatures tsd-kind-function">
@@ -3769,7 +4008,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/extractGraph.ts#L11">src/common/extraction/extractGraph.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractGraph.ts#L11">src/common/extraction/extractGraph.ts:11</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
@@ -3786,7 +4025,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/extraction/extractGraph.ts#L15">src/common/extraction/extractGraph.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractGraph.ts#L15">src/common/extraction/extractGraph.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3800,6 +4039,63 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="guessnxworkspaceroot" class="tsd-anchor"></a>
+				<h3>guess<wbr>NxWorkspace<wbr>Root</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">guess<wbr>NxWorkspace<wbr>Root<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L55">src/common/extraction/extractNxGraph.ts:55</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="identity" class="tsd-anchor"></a>
+				<h3>identity</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">identity<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#mapfunction" class="tsd-signature-type">MapFunction</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/projection/slicingProjections.ts#L5">src/slices/projection/slicingProjections.ts:5</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-returns-title">Returns <a href="globals.html#mapfunction" class="tsd-signature-type">MapFunction</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="maptograph" class="tsd-anchor"></a>
+				<h3>map<wbr>ToGraph</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">map<wbr>ToGraph<span class="tsd-signature-symbol">(</span>nodes<span class="tsd-signature-symbol">: </span><a href="globals.html#nodes" class="tsd-signature-type">Nodes</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#graph" class="tsd-signature-type">Graph</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/extraction/extractNxGraph.ts#L27">src/common/extraction/extractNxGraph.ts:27</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5>nodes: <a href="globals.html#nodes" class="tsd-signature-type">Nodes</a></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="globals.html#graph" class="tsd-signature-type">Graph</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="matchingallpatterns" class="tsd-anchor"></a>
 				<h3>matching<wbr>All<wbr>Patterns</h3>
 				<ul class="tsd-signatures tsd-kind-function">
@@ -3809,7 +4105,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/util/regexUtils.ts#L1">src/common/util/regexUtils.ts:1</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/util/regexUtils.ts#L1">src/common/util/regexUtils.ts:1</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3835,7 +4131,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/util/pathUtils.ts#L1">src/common/util/pathUtils.ts:1</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/util/pathUtils.ts#L1">src/common/util/pathUtils.ts:1</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3858,7 +4154,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/edgeProjections.ts#L11">src/common/projection/edgeProjections.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/edgeProjections.ts#L11">src/common/projection/edgeProjections.ts:11</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="globals.html#mapfunction" class="tsd-signature-type">MapFunction</a></h4>
@@ -3875,7 +4171,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/edgeProjections.ts#L3">src/common/projection/edgeProjections.ts:3</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/edgeProjections.ts#L3">src/common/projection/edgeProjections.ts:3</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-returns-title">Returns <a href="globals.html#mapfunction" class="tsd-signature-type">MapFunction</a></h4>
@@ -3892,7 +4188,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectCycles.ts#L14">src/common/projection/projectCycles.ts:14</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectCycles.ts#L14">src/common/projection/projectCycles.ts:14</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3915,7 +4211,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectEdges.ts#L15">src/common/projection/projectEdges.ts:15</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectEdges.ts#L15">src/common/projection/projectEdges.ts:15</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3941,7 +4237,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectCycles.ts#L9">src/common/projection/projectCycles.ts:9</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectCycles.ts#L9">src/common/projection/projectCycles.ts:9</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3964,7 +4260,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/projection/projectNodes.ts#L8">src/common/projection/projectNodes.ts:8</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/projection/projectNodes.ts#L8">src/common/projection/projectNodes.ts:8</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -3987,7 +4283,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/common/util/arrayUtils.ts#L1">src/common/util/arrayUtils.ts:1</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/common/util/arrayUtils.ts#L1">src/common/util/arrayUtils.ts:1</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -4019,7 +4315,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/projection/slicingProjections.ts#L70">src/slices/projection/slicingProjections.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/projection/slicingProjections.ts#L78">src/slices/projection/slicingProjections.ts:78</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4042,7 +4338,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/projection/slicingProjections.ts#L5">src/slices/projection/slicingProjections.ts:5</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/projection/slicingProjections.ts#L13">src/slices/projection/slicingProjections.ts:13</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4065,7 +4361,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/projection/slicingProjections.ts#L29">src/slices/projection/slicingProjections.ts:29</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/projection/slicingProjections.ts#L37">src/slices/projection/slicingProjections.ts:37</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4079,6 +4375,29 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 				</ul>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-function">
+				<a name="slicesofnxproject" class="tsd-anchor"></a>
+				<h3>slices<wbr>OfNx<wbr>Project</h3>
+				<ul class="tsd-signatures tsd-kind-function">
+					<li class="tsd-signature tsd-kind-icon">slices<wbr>OfNx<wbr>Project<span class="tsd-signature-symbol">(</span>rootFolder<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="classes/sliceconditionbuilder.html" class="tsd-signature-type">SliceConditionBuilder</a></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L122">src/slices/fluentapi/slices.ts:122</a></li>
+							</ul>
+						</aside>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagOptional">Optional</span> rootFolder: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+						<h4 class="tsd-returns-title">Returns <a href="classes/sliceconditionbuilder.html" class="tsd-signature-type">SliceConditionBuilder</a></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-function">
 				<a name="slicesofproject" class="tsd-anchor"></a>
 				<h3>slices<wbr>OfProject</h3>
 				<ul class="tsd-signatures tsd-kind-function">
@@ -4088,7 +4407,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/fluentapi/slices.ts#L11">src/slices/fluentapi/slices.ts:11</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/fluentapi/slices.ts#L13">src/slices/fluentapi/slices.ts:13</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -4111,7 +4430,7 @@ describe(<span class="hljs-string">&quot;architecture&quot;</span>, <span class=
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/72a15eb/src/slices/projection/slicingProjections.ts#L58">src/slices/projection/slicingProjections.ts:58</a></li>
+								<li>Defined in <a href="https://github.com/ts-arch/ts-arch/blob/71eb2f2/src/slices/projection/slicingProjections.ts#L66">src/slices/projection/slicingProjections.ts:66</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
