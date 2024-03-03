@@ -123,10 +123,13 @@ export async function extractGraphUncached(configFileName?: string): Promise<Edg
 				const { resolvedFileName, isExternalLibraryImport } = resolvedModule
 				const normalizedTargetFileName = path.relative(rootDir, resolvedFileName)
 
+				const typeOnly = x.importClause?.isTypeOnly ?? false;
+
 				imports.push({
 					source: normalizeWindowsPaths(normalizedSourceFileName),
 					target: normalizeWindowsPaths(normalizedTargetFileName),
-					external: isExternalLibraryImport ?? false
+					external: isExternalLibraryImport ?? false,
+					typeOnly
 				})
 			}
 		})
