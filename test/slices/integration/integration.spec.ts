@@ -173,6 +173,8 @@ describe("Integration test", () => {
 	})
 
 	it("finds not adherent parts in nx projects", async () => {
+		jest.spyOn(fs, "readFileSync").mockReturnValue(getExampleNxProjectGraphJsonFileContent())
+
 		const diagram = `
 @startuml
   component [is-even]
@@ -202,6 +204,8 @@ describe("Integration test", () => {
 	})
 
 	it("ignores parts not listed in architecture diagram", async () => {
+		jest.spyOn(fs, "readFileSync").mockReturnValue(getExampleNxProjectGraphJsonFileContent())
+
 		const diagram = `
 @startuml
   component [is-even]
