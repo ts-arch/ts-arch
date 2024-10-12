@@ -1,17 +1,22 @@
-import { parse } from "plantuml-parser"
-
-import { slicesOfNxProject, slicesOfProject } from "../../../src/slices/fluentapi/slices"
-import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
+import fs from "fs"
 import path from "path"
+import { parse } from "plantuml-parser"
 import { extractGraph } from "../../../src/common/extraction/extractGraph"
+import { extractNxGraph } from "../../../src/common/extraction/extractNxGraph"
+import { Graph } from "../../../src/common/extraction/graph"
+import { projectEdges } from "../../../src/common/projection/projectEdges"
+import { gatherPositiveViolations } from "../../../src/slices/assertion/admissibleEdges"
+import { slicesOfNxProject, slicesOfProject } from "../../../src/slices/fluentapi/slices"
 import {
 	sliceByFileSuffix,
 	sliceByPattern
 } from "../../../src/slices/projection/slicingProjections"
-import { projectEdges } from "../../../src/common/projection/projectEdges"
-import { gatherPositiveViolations } from "../../../src/slices/assertion/admissibleEdges"
+import { exportDiagram } from "../../../src/slices/uml/exportDiagram"
 
 describe("Integration test", () => {
+	afterEach(() => {
+		jest.restoreAllMocks()
+	})
 	it("finds simple violations", async () => {
 		const violations = await slicesOfProject(__dirname + "/samples/foldersample/tsconfig.json")
 			.definedBy("src/(**)/")
@@ -211,4 +216,83 @@ describe("Integration test", () => {
 
 		expect(violations).toEqual([])
 	})
+
+	it("when project graph cache is located in .nx/workspace-data directory then extracts nx graph", () => {
+		const projectGraphFilePath = path.join(__dirname, ".nx", "workspace-data", "project-graph.json")
+
+		jest.spyOn(fs, "existsSync").mockImplementation((filePath) => filePath === projectGraphFilePath)
+		jest.spyOn(fs, "readFileSync").mockImplementation((filePath) => {
+			if (filePath === projectGraphFilePath) {
+				return getExampleNxProjectGraphJsonFileContent()
+			}
+			throw new Error(`Project graph not located in ${projectGraphFilePath}`)
+		})
+
+		expect(extractNxGraph(__dirname)).toEqual(getExampleProjectGraph())
+	})
+
+	it("when project graph cache is located in .nx/cache directory then extracts nx graph", () => {
+		const projectGraphFilePath = path.join(__dirname, ".nx", "cache", "project-graph.json")
+
+		jest.spyOn(fs, "existsSync").mockImplementation((filePath) => filePath === projectGraphFilePath)
+		jest.spyOn(fs, "readFileSync").mockImplementation((filePath) => {
+			if (filePath === projectGraphFilePath) {
+				return getExampleNxProjectGraphJsonFileContent()
+			}
+			throw new Error(`Project graph not located in ${projectGraphFilePath}`)
+		})
+
+		expect(extractNxGraph(__dirname)).toEqual(getExampleProjectGraph())
+	})
+
+	it("when project graph cache is located in neither .nx/workspace-data nor .nx/cache directory then throw file not found error", () => {
+		jest.spyOn(fs, "readFileSync").mockImplementation(() => {
+			throw new Error("Project graph not found")
+		})
+
+		expect(() => extractNxGraph(__dirname)).toThrow()
+	})
 })
+
+const getExampleNxProjectGraphJsonFileContent = (): Buffer => {
+	const exampleProjectGraph = JSON.stringify({
+		nodes: {},
+		externalNodes: {},
+		dependencies: {
+			"is-super-odd": [
+				{
+					source: "is-super-odd",
+					target: "npm:tslib",
+					type: "static"
+				}
+			],
+			"is-even": [
+				{
+					source: "is-even",
+					target: "npm:tslib",
+					type: "static"
+				},
+				{
+					source: "is-even",
+					target: "is-odd",
+					type: "static"
+				}
+			],
+			"is-odd": [
+				{
+					source: "is-odd",
+					target: "npm:tslib",
+					type: "static"
+				}
+			]
+		}
+	})
+	return Buffer.from(exampleProjectGraph)
+}
+
+const getExampleProjectGraph = (): Graph => [
+	{ source: "is-super-odd", target: "npm:tslib", external: true },
+	{ source: "is-even", target: "npm:tslib", external: true },
+	{ source: "is-even", target: "is-odd", external: false },
+	{ source: "is-odd", target: "npm:tslib", external: true }
+]
