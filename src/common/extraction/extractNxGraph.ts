@@ -15,10 +15,16 @@ type Outgoing = {
 export function extractNxGraph(rootFolder?: string): Graph {
 	const workspaceRoot = rootFolder ?? guessNxWorkspaceRoot()
 
-	const projectGraphCacheDirectory = absolutePath(
+	// The location of the project graph was moved from .nx/cache to .nx/workspace-data in Nx v19.2.0
+	// If using Nx 19.2.0+ us the new location
+	let projectGraphCacheDirectory = absolutePath(
 		workspaceRoot,
-		process.env["NX_PROJECT_GRAPH_CACHE_DIRECTORY"] ?? defaultCacheDirectory(workspaceRoot)
+		process.env["NX_PROJECT_GRAPH_CACHE_DIRECTORY"] ?? defaultWorkspaceDataDirectory(workspaceRoot)
 	)
+	// If using Nx <19.2.0 use the old location
+	if (!fs.existsSync(path.join(projectGraphCacheDirectory, "project-graph.json"))) {
+		projectGraphCacheDirectory = absolutePath(workspaceRoot, defaultCacheDirectory(workspaceRoot))
+	}
 	const depGraph = fs.readFileSync(path.join(projectGraphCacheDirectory, "project-graph.json"))
 	const deps: Nodes = JSON.parse(depGraph.toString("utf-8")).dependencies
 	return mapToGraph(deps)
@@ -50,6 +56,10 @@ function defaultCacheDirectory(root: string) {
 		return path.join(root, "node_modules", ".cache", "nx")
 	}
 	return path.join(root, ".nx", "cache")
+}
+
+function defaultWorkspaceDataDirectory(root: string) {
+	return path.join(root, ".nx", "workspace-data")
 }
 
 export function guessNxWorkspaceRoot(): string {
