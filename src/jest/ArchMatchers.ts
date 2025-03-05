@@ -12,14 +12,9 @@ declare global {
 	namespace jest {
 		// tslint:disable-next-line:interface-name
 		interface Matchers<R> {
-			toPassAsync(): R
+			toPassAsync(): Promise<jest.CustomMatcherResult>
 		}
 	}
-}
-
-interface JestResult {
-	pass: boolean
-	message: () => string
 }
 
 /*
@@ -90,7 +85,7 @@ export class JestViolationFactory {
 }
 
 export class JestResultFactory {
-	public static result(shouldNotPass: boolean, violations: JestViolation[]): JestResult {
+	public static result(shouldNotPass: boolean, violations: JestViolation[]): jest.CustomMatcherResult {
 		let info = shouldNotPass ? "expected to not pass\n" : "expected to pass\n"
 		if (violations.length > 0) {
 			violations.forEach((e) => {
@@ -101,7 +96,7 @@ export class JestResultFactory {
 		return { pass: true, message: () => info }
 	}
 
-	public static error(message): JestResult {
+	public static error(message): jest.CustomMatcherResult {
 		return { pass: false, message: () => message }
 	}
 }
