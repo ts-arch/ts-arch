@@ -79,7 +79,7 @@
 		"@types/jest": "^23.0.0",
 		"@types/node": "^10.17.28",
 		"colors": "^1.1.2",
-		"commitizen": "^2.9.6",
+		"commitizen": "^4.3.0",
 		"cross-env": "^5.2.0",
 		"cz-conventional-changelog": "^2.0.0",
 		"jest": "^23.0.0",
