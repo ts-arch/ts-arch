@@ -82,7 +82,7 @@
 		"commitizen": "^2.9.6",
 		"cross-env": "^5.2.0",
 		"cz-conventional-changelog": "^2.0.0",
-		"jest": "^23.0.0",
+		"jest": "^29.4.2",
 		"lint-staged": "^7.2.0",
 		"lodash.camelcase": "^4.3.0",
 		"prettier": "^2.0.5",
@@ -92,7 +92,7 @@
 		"rimraf": "^2.6.1",
 		"semantic-release": "^19.0.3",
 		"travis-deploy-once": "^5.0.1",
-		"ts-jest": "^23.10.5",
+		"ts-jest": "^29.0.5",
 		"ts-node": "^8.10.1",
 		"tslib": "^1.9.3",
 		"tslint": "^5.11.0",
@@ -106,7 +106,7 @@
 		"fs": "0.0.1-security",
 		"path": "^0.12.7",
 		"plantuml-parser": "0.0.16",
-		"typescript": "^3.8.3",
+		"typescript": "^4.9.5",
 		"walk-sync": "^2.2.0"
 	}
 }
