@@ -173,7 +173,9 @@ describe("Integration test", () => {
 	})
 
 	it("finds not adherent parts in nx projects", async () => {
-		jest.spyOn(fs, "readFileSync").mockReturnValue(getExampleNxProjectGraphJsonFileContent())
+		jest
+			.spyOn(fs, "readFileSync")
+			.mockReturnValue((getExampleNxProjectGraphJsonFileContent() as unknown) as string)
 
 		const diagram = `
 @startuml
@@ -204,7 +206,9 @@ describe("Integration test", () => {
 	})
 
 	it("ignores parts not listed in architecture diagram", async () => {
-		jest.spyOn(fs, "readFileSync").mockReturnValue(getExampleNxProjectGraphJsonFileContent())
+		jest
+			.spyOn(fs, "readFileSync")
+			.mockReturnValue((getExampleNxProjectGraphJsonFileContent() as unknown) as string)
 
 		const diagram = `
 @startuml
@@ -225,12 +229,12 @@ describe("Integration test", () => {
 		const projectGraphFilePath = path.join(__dirname, ".nx", "workspace-data", "project-graph.json")
 
 		jest.spyOn(fs, "existsSync").mockImplementation((filePath) => filePath === projectGraphFilePath)
-		jest.spyOn(fs, "readFileSync").mockImplementation((filePath) => {
+		jest.spyOn(fs, "readFileSync").mockImplementation(((filePath: unknown) => {
 			if (filePath === projectGraphFilePath) {
 				return getExampleNxProjectGraphJsonFileContent()
 			}
 			throw new Error(`Project graph not located in ${projectGraphFilePath}`)
-		})
+		}) as typeof fs.readFileSync)
 
 		expect(extractNxGraph(__dirname)).toEqual(getExampleProjectGraph())
 	})
@@ -239,12 +243,12 @@ describe("Integration test", () => {
 		const projectGraphFilePath = path.join(__dirname, ".nx", "cache", "project-graph.json")
 
 		jest.spyOn(fs, "existsSync").mockImplementation((filePath) => filePath === projectGraphFilePath)
-		jest.spyOn(fs, "readFileSync").mockImplementation((filePath) => {
+		jest.spyOn(fs, "readFileSync").mockImplementation(((filePath: unknown) => {
 			if (filePath === projectGraphFilePath) {
 				return getExampleNxProjectGraphJsonFileContent()
 			}
 			throw new Error(`Project graph not located in ${projectGraphFilePath}`)
-		})
+		}) as typeof fs.readFileSync)
 
 		expect(extractNxGraph(__dirname)).toEqual(getExampleProjectGraph())
 	})

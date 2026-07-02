@@ -1,11 +1,9 @@
-import ts, { CompilerHost, TypeAcquisition } from "typescript"
+import ts from "typescript"
 import fs from "fs"
-import { CompilerOptions } from "typescript"
 import path from "path"
 import { Edge } from "./graph"
 import { TechnicalError } from "../error/errors"
 import { normalizeWindowsPaths } from "../util/pathUtils"
-import { ImportPathsResolver } from "@zerollup/ts-helpers"
 
 // TODO write exception code free everywhere
 export function guessLocationOfTsconfig(): string | undefined {
@@ -25,21 +23,6 @@ function guessLocationOfTsconfigRecursively(pathName: string): string | undefine
 	} else {
 		return guessLocationOfTsconfigRecursively(levelUp)
 	}
-}
-
-function getProjectFiles(
-	rootDir: string,
-	compilerHost: CompilerHost,
-	config: CompilerOptions & TypeAcquisition
-): string[] {
-	const files = compilerHost.readDirectory
-		? compilerHost.readDirectory(rootDir, ["ts", "tsx"], config.exclude ?? [], config.include ?? [])
-		: undefined
-
-	if (files === undefined) {
-		throw new TechnicalError("compiler could not resolve project files")
-	}
-	return files
 }
 
 const graphCache: Map<string | undefined, Promise<Edge[]>> = new Map()
@@ -64,25 +47,51 @@ export async function extractGraphUncached(configFileName?: string): Promise<Edg
 	if (configFile === undefined) {
 		throw new TechnicalError("Could not find configuration path")
 	}
-	const config = ts.readConfigFile(configFile, (path: string) => {
-		return fs.readFileSync(path).toString()
+
+	const configFileContent = ts.readConfigFile(configFile, (filePath: string) => {
+		return fs.readFileSync(filePath).toString()
 	})
 
-	if (config.error !== undefined) {
+	if (configFileContent.error !== undefined) {
 		throw new TechnicalError("invalid config path")
 	}
 
-	const parsedConfig: CompilerOptions = config.config
-
 	const rootDir = path.dirname(path.resolve(configFile))
 
-	const compilerHost = ts.createCompilerHost(parsedConfig)
+	// Properly parse the tsconfig JSON into CompilerOptions + file list
+	const parsedCommandLine = ts.parseJsonConfigFileContent(
+		configFileContent.config,
+		ts.sys,
+		rootDir,
+		undefined,
+		configFile
+	)
 
-	const files = getProjectFiles(rootDir, compilerHost, config?.config)
+	if (parsedCommandLine.errors.length > 0) {
+		// Log but don't throw — some errors may be non-fatal deprecation warnings in TS6
+		const fatalErrors = parsedCommandLine.errors.filter(
+			(e) => e.category === ts.DiagnosticCategory.Error
+		)
+		if (fatalErrors.length > 0) {
+			throw new TechnicalError(
+				"tsconfig parse errors: " +
+					fatalErrors.map((e) => ts.flattenDiagnosticMessageText(e.messageText, "\n")).join("; ")
+			)
+		}
+	}
+
+	const compilerHost = ts.createCompilerHost(parsedCommandLine.options)
+
+	// Use the file list from parseJsonConfigFileContent (respects include/exclude)
+	const files = parsedCommandLine.fileNames
+
+	if (files.length === 0) {
+		throw new TechnicalError("compiler could not resolve project files")
+	}
 
 	const program = ts.createProgram({
-		rootNames: files ?? [],
-		options: parsedConfig,
+		rootNames: files,
+		options: parsedCommandLine.options,
 		host: compilerHost
 	})
 
@@ -99,20 +108,13 @@ export async function extractGraphUncached(configFileName?: string): Promise<Edg
 				if (module === undefined) {
 					return
 				}
-				const resolver = new ImportPathsResolver((parsedConfig as any).compilerOptions)
 
-				const suggestion = resolver.getImportSuggestions(
-					module,
-					path.dirname(normalizedSourceFileName)
-				)
-
-				const bestGuess = suggestion !== undefined ? suggestion[0] : undefined
-
-				// TODO use module resolution cache
+				// ts.resolveModuleName handles path mappings natively when given
+				// properly parsed CompilerOptions (including paths, baseUrl, etc.)
 				const resolvedModule = ts.resolveModuleName(
-					bestGuess ?? module,
+					module,
 					sourceFile.fileName,
-					parsedConfig,
+					parsedCommandLine.options,
 					compilerHost
 				).resolvedModule
 

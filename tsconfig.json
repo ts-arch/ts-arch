@@ -1,21 +1,19 @@
 {
 	"compilerOptions": {
-		"moduleResolution": "node",
-		"target": "es5",
+		"moduleResolution": "bundler",
+		"target": "es2020",
 		"module": "commonjs",
-		"lib": ["es2019"],
-		"jsx": "preserve",
+		"lib": ["es2020"],
 		"strict": true,
 		"sourceMap": true,
 		"declaration": true,
-		"allowSyntheticDefaultImports": true,
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
 		"declarationDir": "dist",
 		"outDir": "dist",
-		"downlevelIteration": true,
 		"noImplicitAny": false,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"rootDir": ".",
+		"types": ["node", "jest"]
 	},
-	"include": ["src", "index.ts", "jest.ts", "test"]
+	"include": ["src", "index.ts", "jest.ts", "test"],
+	"exclude": ["test/**/samples/**"]
 }
